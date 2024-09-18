@@ -43,7 +43,7 @@
             @endif
         </ul>
     </nav>
-    
+
     @yield('content')
 
 </body>
