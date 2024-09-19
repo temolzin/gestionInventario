@@ -16,8 +16,8 @@ class CreateLoansTable extends Migration
         Schema::create('loans', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('student_id');
-            $table->datetime('loan_datetime');
-            $table->datetime('return_datetime');
+            $table->timestamp('loan_datetime');
+            $table->timestamp('return_datetime');
             $table->string('status');
             $table->timestamps();
 

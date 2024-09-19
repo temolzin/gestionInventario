@@ -18,7 +18,7 @@ class CreateInventoriesTable extends Migration
             $table->unsignedBigInteger('material_id');
             $table->integer('total_quantity');
             $table->integer('loaned_quantity');
-            $table->dateTime('registration_datetime');
+            $table->timestamp('registration_datetime');
             $table->string('status');
             $table->timestamps();
 
