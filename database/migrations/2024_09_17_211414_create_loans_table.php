@@ -19,6 +19,7 @@ class CreateLoansTable extends Migration
             $table->timestamp('loan_datetime');
             $table->timestamp('return_datetime');
             $table->string('status');
+            $table->text('detail');
             $table->timestamps();
 
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');

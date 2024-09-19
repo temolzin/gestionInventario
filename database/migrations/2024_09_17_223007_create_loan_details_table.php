@@ -17,8 +17,7 @@ class CreateLoanDetailsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('loan_id');
             $table->unsignedBigInteger('material_id');
-            $table->integer('loaned_quantity');
-            $table->text('loan_reason');
+            $table->integer('amount');
             $table->timestamps();
             
             $table->foreign('loan_id')->references('id')->on('loans')->onDelete('cascade');           
