@@ -17,7 +17,6 @@ class CreateMaterialReturnsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('student_id');
             $table->unsignedBigInteger('loan_id');
-            $table->timestamp('delivery_datetime');
             $table->string('status');
             $table->timestamps();
 

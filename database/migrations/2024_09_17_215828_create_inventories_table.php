@@ -15,15 +15,10 @@ class CreateInventoriesTable extends Migration
     {
         Schema::create('inventories', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('material_id');
-            $table->integer('total');
-            $table->integer('amount');
-            $table->timestamp('registration_datetime');
+            $table->integer('quantity');
             $table->string('status');
             $table->timestamps();
-
-            $table->foreign('material_id')->references('id')->on('materials')->onDelete('cascade');
-        });
+            });
     }
 
     /**
