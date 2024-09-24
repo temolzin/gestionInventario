@@ -57,24 +57,6 @@ class LoanDetailsTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            [
-                'loan_id' => 8,
-                'material_id' => 8,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'loan_id' => 9,
-                'material_id' => 9,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'loan_id' => 10,
-                'material_id' => 10,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
         ]);
     }
 }
