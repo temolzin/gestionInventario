@@ -16,3 +16,5 @@ yarn-error.log
 /public/vendor
 /resources/sass
 /lang
+composer.lock
+package-lock.json

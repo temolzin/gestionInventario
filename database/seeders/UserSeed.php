@@ -22,8 +22,7 @@ class UserSeed extends Seeder
             'password' => bcrypt('12345678'),
             'remember_token' => Str::random(10),
 
-        ])->assignRole('admin');
-        
+        ])->assignRole('admin');        
 
         User::create([
 
