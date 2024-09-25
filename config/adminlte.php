@@ -317,7 +317,7 @@ return [
         ],
         [
             'text' => 'pages',
-            'url' => 'admin/pages',
+            'route' => 'categories.index',
             'icon' => 'far fa-fw fa-file',
             'label' => 4,
             'label_color' => 'success',
@@ -327,6 +327,11 @@ return [
             'text' => 'profile',
             'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'Categorias',
+            'route' => 'categories.index',
+            'icon' => 'fas fa-fw fa-list',
         ],
         [
             'text' => 'change_password',
