@@ -41,9 +41,9 @@ class StudentController extends Controller
     {
         $student = Student::find($id);
         if ($student) {
-            $student->enrollment = $request->input('enrollmentUpdate');
-            $student->name = $request->input('nameUpdate');
-            $student->last_name = $request->input('lastNameUpdate');
+            $student->enrollment = $request->input('enrollment');
+            $student->name = $request->input('name');
+            $student->last_name = $request->input('last_name');
 
             $student->save();
 

@@ -1,5 +1,4 @@
-<div class="modal fade" id="delete{{ $student->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="delete{{ $student->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header bg-danger">
@@ -12,7 +11,7 @@
                 @csrf
                 @method('DELETE')
                 <div class="modal-body text-center text-danger">
-                    ¿Estás seguro de eliminar al estudiante <strong>{{ $student->name }}</strong>?
+                    ¿Estás seguro de eliminar al estudiante <strong>{{ $student->name }}</strong>? 
                     Esta acción no se puede deshacer.
                 </div>
                 <div class="modal-footer">

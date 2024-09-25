@@ -15,9 +15,6 @@
                                 <button class="btn btn-success mr-2" data-toggle='modal' data-target="#createStudent">
                                     <i class="fa fa-plus"></i> Registrar estudiante
                                 </button>
-                                <a type="button" class="btn btn-secondary" target="_blank" title="Generar Lista" href="#">
-                                    <i class="fas fa-list"></i> Generar Lista
-                                </a>
                             </div>
                         </div>
                     </div>                    
@@ -65,8 +62,8 @@
                                                 <img src="{{ asset('img/userDefault.png') }}" style="width: 50px; height: 50px; border-radius: 50%;">
                                             @endif
                                             </td>
-                                            <td>{{$student->name}}</td>
-                                            <td>{{$student->last_name}}</td>
+                                                <td>{{$student->name}}</td>
+                                                <td>{{$student->last_name}}</td>
                                             <td>
                                                 <div class="btn-group" role="group" aria-label="Opciones">
                                                     <button type="button" class="btn btn-info mr-2" data-toggle="modal" title="Ver Detalles" data-target="#view{{$student->id}}">
@@ -75,7 +72,7 @@
                                                     <button type="button" class="btn btn-warning mr-2" data-toggle="modal" title="Editar Datos" data-target="#edit{{$student->id}}">
                                                         <i class="fas fa-edit"></i>
                                                     </button>
-                                                    <button type="button" class="btn btn-primary mr-2" data-toggle="modal" title="Actualizar Imagen" data-target="#editLogo{{$student->id}}">
+                                                    <button type="button" class="btn btn-primary mr-2" data-toggle="modal" title="Actualizar Imagen" data-target="#editPhoto{{$student->id}}">
                                                         <i class="fas fa-image"></i>
                                                     </button>
                                                     <button type="button" class="btn btn-danger mr-2" data-toggle="modal" title="Eliminar Registro" data-target="#delete{{$student->id}}">

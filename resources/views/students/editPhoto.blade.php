@@ -1,10 +1,12 @@
-<div class="modal fade" id="editLogo{{ $student->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="editPhoto{{ $student->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="card-warning">
                 <div class="card-header">
                     <div class="d-sm-flex align-items-center justify-content-between">
-                        <h4 class="card-title">Editar Foto del Estudiante <small> &nbsp;(*) Campos requeridos</small></h4>
+                        <h4 class="card-title">Editar Foto del Estudiante 
+                            <small>&nbsp;(*) Campos requeridos</small>
+                        </h4>
                         <button type="button" class="close d-sm-inline-block text-white" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>

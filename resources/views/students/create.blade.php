@@ -4,7 +4,9 @@
             <div class="card-success">
                 <div class="card-header">
                     <div class="d-sm-flex align-items-center justify-content-between">
-                        <h4 class="card-title">Agregar Estudiante <small> &nbsp;(*) Campos requeridos</small></h4>
+                        <h4 class="card-title">Agregar Estudiante 
+                            <small>&nbsp;(*) Campos requeridos</small>
+                        </h4>
                         <button type="button" class="close d-sm-inline-block text-white" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
