@@ -18,3 +18,4 @@ yarn-error.log
 /lang
 composer.lock
 package-lock.json
+/resources/views/vendor

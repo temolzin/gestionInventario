@@ -15,23 +15,21 @@ class UserSeed extends Seeder
     public function run(): void
     {
         User::create([
-
             'name' => 'admin',
+            'last_name' => 'Perez Garcia',
             'email' => 'admin@gmail.com',
             'email_verified_at' => now(),
             'password' => bcrypt('12345678'),
             'remember_token' => Str::random(10),
-
         ])->assignRole('admin');        
-
+        
         User::create([
-
             'name' => 'leo',
+            'last_name' => 'Lopez Perez',
             'email' => 'leo@gmail.com',
             'email_verified_at' => now(),
             'password' => bcrypt('12345678'),
             'remember_token' => Str::random(10),
-
         ])->assignRole('lender');
     }
 }
