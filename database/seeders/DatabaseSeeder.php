@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
             InventoriesTableSeeder::class,
             MaterialsTableSeeder::class,
             LoanDetailsTableSeeder::class,
+            RoleSeeder::class,
+            UserSeed::class,
         ]);
     }
 }
