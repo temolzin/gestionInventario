@@ -33,7 +33,6 @@
                                             <input type="text" class="form-control" id="category_name" name="name"
                                                 placeholder="Ingresa nombre de la categoría" value="{{ old('name') }}"
                                                 required />
-                                                
                                         </div>
                                     </div>
                                 </div>

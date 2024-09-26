@@ -15,4 +15,3 @@ class Categories extends Model
 
     public $timestamps = true;
 }
-
