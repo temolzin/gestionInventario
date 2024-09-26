@@ -334,7 +334,7 @@ return [
             'icon' => 'fa fa-users',
         ],
         [
-            'text' => 'Categorias',
+            'text' => 'Categorías',
             'route' => 'category.index',
             'icon' => 'fas fa-fw fa-list',
         ],
