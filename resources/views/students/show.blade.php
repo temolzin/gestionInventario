@@ -12,6 +12,14 @@
                 </div>
                 <div class="modal-body">
                     <div class="card">
+                        <div class="card-header py-2 bg-secondary">
+                            <h3 class="card-title">Datos del Estudiante</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-12 text-center">
@@ -23,10 +31,10 @@
                                         style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 5px;">
                                     @endif
                                 </div>
-                                <div class="col-lg-12 mt-3">
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>ID</label>
-                                        <input type="text" disabled class="form-control form-control-lg" value="{{ $student->id }}" />
+                                        <input type="text" disabled class="form-control " value="{{ $student->id }}" />
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
