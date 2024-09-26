@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
             StudentsTableSeeder::class,
             LoansTableSeeder::class,
             MaterialReturnsTableSeeder::class,
-            CategoriesTableSeeder::class,
+            CategoryTableSeeder::class,
             InventoriesTableSeeder::class,
             MaterialsTableSeeder::class,
             LoanDetailsTableSeeder::class,
