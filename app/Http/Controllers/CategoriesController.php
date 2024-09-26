@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category; 
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Category::query(); 
+        $query = Category::query();
 
         if ($request->has('search')) {
             $search = $request->input('search');
-            $query->where('name', 'LIKE', "%{$search}%");
+            $query->where('name', 'LIKE', "%{$search}%")
+                  ->orWhere('description', 'LIKE', "%{$search}%"); 
         }
 
         $categories = $query->paginate(10);
@@ -29,9 +30,10 @@ class CategoriesController extends Controller
     {
         $request->validate([
             'name' => 'required|unique:categories|max:255',
+            'description' => 'nullable|string', 
         ]);
 
-        Category::create($request->only('name')); 
+        Category::create($request->only('name', 'description')); 
 
         return redirect()->route('categories.index')->with('success', 'Categoría registrada correctamente.');
     }
@@ -54,9 +56,10 @@ class CategoriesController extends Controller
 
         $request->validate([
             'name' => 'required|max:255|unique:categories,name,' . $category->id,
+            'description' => 'nullable|string', 
         ]);
 
-        $category->update($request->only('name')); 
+        $category->update($request->only('name', 'description')); 
 
         return redirect()->route('categories.index')->with('success', 'Categoría actualizada correctamente.');
     }

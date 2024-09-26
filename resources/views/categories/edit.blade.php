@@ -32,6 +32,11 @@
                                             <input type="text" class="form-control" name="name"
                                                 id="categoryNameUpdate" value="{{ $category->name }}" required>
                                         </div>
+                                        <div class="form-group">
+                                            <label for="categoryDescriptionUpdate" class="form-label">Descripción de la Categoría</label>
+                                            <textarea class="form-control" name="description" id="categoryDescriptionUpdate"
+                                                placeholder="Ingresa una descripción">{{ $category->description }}</textarea>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

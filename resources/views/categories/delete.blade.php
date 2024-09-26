@@ -12,7 +12,10 @@
                 @csrf
                 @method('DELETE')
                 <div class="modal-body text-center text-danger">
-                    ¿Estás seguro de eliminar la categoría <strong>{{ $category->name }}?</strong>
+                    <p>¿Estás seguro de eliminar la categoría <strong>{{ $category->name }}</strong>?</p>
+                    @if($category->description)
+                        <p><em>{{ $category->description }}</em></p>
+                    @endif
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

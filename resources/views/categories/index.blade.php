@@ -41,19 +41,21 @@
                                             <tr>
                                                 <th>ID</th>
                                                 <th>NOMBRE</th>
+                                                <th>DESCRIPCIÓN</th> 
                                                 <th>OPCIONES</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @if (count($categories) <= 0)
                                                 <tr>
-                                                    <td colspan="3">No hay resultados</td>
+                                                    <td colspan="4">No hay resultados</td> 
                                                 </tr>
                                             @else
                                                 @foreach ($categories as $category)
                                                     <tr>
                                                         <td scope="row">{{ $category->id }}</td>
                                                         <td>{{ $category->name }}</td>
+                                                        <td>{{ $category->description }}</td> 
                                                         <td>
                                                             <div class="btn-group" role="group" aria-label="Opciones">
                                                                 <button type="button" class="btn btn-info mr-2"

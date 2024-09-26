@@ -34,6 +34,12 @@
                                                 placeholder="Ingresa nombre de la categoría" value="{{ old('name') }}"
                                                 required />
                                         </div>
+
+                                        <div class="form-group">
+                                            <label for="category_description" class="form-label">Descripción de la categoría</label>
+                                            <textarea class="form-control" id="category_description" name="description"
+                                                placeholder="Ingresa una descripción de la categoría">{{ old('description') }}</textarea>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
