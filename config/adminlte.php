@@ -329,6 +329,11 @@ return [
             'icon' => 'fas fa-fw fa-user',
         ],
         [
+            'text' => 'Estudiantes',
+            'url' => '/students',
+            'icon' => 'fa fa-users',
+        ],
+        [
             'text' => 'Categorias',
             'route' => 'categories.index',
             'icon' => 'fas fa-fw fa-list',
