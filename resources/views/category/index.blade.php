@@ -21,7 +21,7 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="col-lg-4">
-                        <form method="GET" action="{{ route('categories.index') }}" class="my-3">
+                        <form method="GET" action="{{ route('category.index') }}" class="my-3">
                             <div class="input-group">
                                 <input type="text" name="search" class="form-control"
                                     placeholder="Buscar por nombre de categoría" value="{{ request('search') }}">
@@ -41,21 +41,21 @@
                                             <tr>
                                                 <th>ID</th>
                                                 <th>NOMBRE</th>
-                                                <th>DESCRIPCIÓN</th> 
+                                                <th>DESCRIPCIÓN</th>
                                                 <th>OPCIONES</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @if (count($categories) <= 0)
                                                 <tr>
-                                                    <td colspan="4">No hay resultados</td> 
+                                                    <td colspan="4">No hay resultados</td>
                                                 </tr>
                                             @else
                                                 @foreach ($categories as $category)
                                                     <tr>
                                                         <td scope="row">{{ $category->id }}</td>
                                                         <td>{{ $category->name }}</td>
-                                                        <td>{{ $category->description }}</td> 
+                                                        <td>{{ $category->description }}</td>
                                                         <td>
                                                             <div class="btn-group" role="group" aria-label="Opciones">
                                                                 <button type="button" class="btn btn-info mr-2"
@@ -75,15 +75,15 @@
                                                                 </button>
                                                             </div>
                                                         </td>
-                                                        @include('categories.edit')
-                                                        @include('categories.delete')
-                                                        @include('categories.show')
+                                                        @include('category.edit')
+                                                        @include('category.delete')
+                                                        @include('category.show')
                                                     </tr>
                                                 @endforeach
                                             @endif
                                         </tbody>
                                     </table>
-                                    @include('categories.create')
+                                    @include('category.create')
                                     <div class="d-flex justify-content-center">
                                         {!! $categories->links('pagination::bootstrap-4') !!}
                                     </div>
@@ -115,7 +115,7 @@
                     text: successMessage,
                     confirmButtonText: 'Aceptar'
                 }).then((result) => {
-                    window.location.href = "{{ route('categories.index') }}";
+                    window.location.href = "{{ route('category.index') }}";
                 });
             }
             if (errorMessage) {
@@ -125,7 +125,7 @@
                     text: errorMessage,
                     confirmButtonText: 'Aceptar'
                 }).then((result) => {
-                    window.location.href = "{{ route('categories.index') }}";
+                    window.location.href = "{{ route('category.index') }}";
                 });
             }
         });

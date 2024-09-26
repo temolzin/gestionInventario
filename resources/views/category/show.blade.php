@@ -32,8 +32,8 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <label>Descripción</label> 
-                                        <textarea disabled class="form-control" rows="4">{{ $category->description }}</textarea> 
+                                        <label>Descripción</label>
+                                        <textarea disabled class="form-control" rows="4">{{ $category->description }}</textarea>
                                     </div>
                                 </div>
                             </div>

@@ -335,7 +335,7 @@ return [
         ],
         [
             'text' => 'Categorias',
-            'route' => 'categories.index',
+            'route' => 'category.index',
             'icon' => 'fas fa-fw fa-list',
         ],
         [

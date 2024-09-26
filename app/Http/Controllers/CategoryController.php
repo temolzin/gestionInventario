@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
-class CategoriesController extends Controller
+class CategoryController extends Controller
 {
     public function index(Request $request)
     {
@@ -14,40 +14,40 @@ class CategoriesController extends Controller
         if ($request->has('search')) {
             $search = $request->input('search');
             $query->where('name', 'LIKE', "%{$search}%")
-                  ->orWhere('description', 'LIKE', "%{$search}%"); 
+                ->orWhere('description', 'LIKE', "%{$search}%");
         }
 
         $categories = $query->paginate(10);
-        return view('categories.index', compact('categories'));
+        return view('category.index', compact('categories'));
     }
 
     public function create()
     {
-        return view('categories.create');
+        return view('category.create');
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|unique:categories|max:255',
-            'description' => 'nullable|string', 
+            'description' => 'nullable|string',
         ]);
 
-        Category::create($request->only('name', 'description')); 
+        Category::create($request->only('name', 'description'));
 
-        return redirect()->route('categories.index')->with('success', 'Categoría registrada correctamente.');
+        return redirect()->route('category.index')->with('success', 'Categoría registrada correctamente.');
     }
 
     public function show($id)
     {
         $category = Category::findOrFail($id);
-        return view('categories.show', compact('category'));
+        return view('category.show', compact('category'));
     }
 
     public function edit($id)
     {
         $category = Category::findOrFail($id);
-        return view('categories.edit', compact('category'));
+        return view('category.edit', compact('category'));
     }
 
     public function update(Request $request, $id)
@@ -56,17 +56,17 @@ class CategoriesController extends Controller
 
         $request->validate([
             'name' => 'required|max:255|unique:categories,name,' . $category->id,
-            'description' => 'nullable|string', 
+            'description' => 'nullable|string',
         ]);
 
-        $category->update($request->only('name', 'description')); 
+        $category->update($request->only('name', 'description'));
 
-        return redirect()->route('categories.index')->with('success', 'Categoría actualizada correctamente.');
+        return redirect()->route('category.index')->with('success', 'Categoría actualizada correctamente.');
     }
 
     public function destroy(Category $category)
     {
         $category->delete();
-        return redirect()->route('categories.index')->with('success', 'Categoría eliminada correctamente.');
+        return redirect()->route('category.index')->with('success', 'Categoría eliminada correctamente.');
     }
 }

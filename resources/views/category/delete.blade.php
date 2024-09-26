@@ -8,12 +8,12 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('categories.destroy', $category->id) }}" method="post">
+            <form action="{{ route('category.destroy', $category->id) }}" method="post">
                 @csrf
                 @method('DELETE')
                 <div class="modal-body text-center text-danger">
                     <p>¿Estás seguro de eliminar la categoría <strong>{{ $category->name }}</strong>?</p>
-                    @if($category->description)
+                    @if ($category->description)
                         <p><em>{{ $category->description }}</em></p>
                     @endif
                 </div>
