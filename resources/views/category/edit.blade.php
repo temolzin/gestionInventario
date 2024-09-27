@@ -25,7 +25,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-lg-8 offset-lg-2">
+                                    <div class="col-lg-12 ">
                                         <div class="form-group">
                                             <label for="categoryNameUpdate" class="form-label">Nombre de la
                                                 categoría(*)</label>

@@ -98,7 +98,7 @@
 @endsection
 
 @section('js')
-    <script>
+    <script> 
         $(document).ready(function() {
             $('#categories').DataTable({
                 responsive: true,
@@ -110,9 +110,9 @@
             var errorMessage = "{{ session('error') }}";
             if (successMessage) {
                 Swal.fire({
-                    icon: 'success',
                     title: 'Éxito',
                     text: successMessage,
+                    icon: 'success',
                     confirmButtonText: 'Aceptar'
                 }).then((result) => {
                     window.location.href = "{{ route('category.index') }}";
@@ -120,9 +120,9 @@
             }
             if (errorMessage) {
                 Swal.fire({
-                    icon: 'error',
                     title: 'Error',
                     text: errorMessage,
+                    icon: 'error',
                     confirmButtonText: 'Aceptar'
                 }).then((result) => {
                     window.location.href = "{{ route('category.index') }}";
