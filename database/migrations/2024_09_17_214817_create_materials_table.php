@@ -16,15 +16,15 @@ class CreateMaterialsTable extends Migration
         Schema::create('materials', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('category_id');
-            $table->unsignedBigInteger('inventory_id');
+            $table->unsignedBigInteger('created_by');
             $table->string('name');
-            $table->string('description');
+            $table->text('description');
             $table->string('status');
             $table->integer('amount');
             $table->timestamps();
 
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-            $table->foreign('inventory_id')->references('id')->on('inventories')->onDelete('cascade');
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

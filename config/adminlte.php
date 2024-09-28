@@ -339,6 +339,11 @@ return [
             'icon' => 'fas fa-fw fa-list',
         ],
         [
+            'text' => 'Materiales',
+            'route' => 'materials.index',
+            'icon' => 'fa fa-cube',
+        ],
+        [
             'text' => 'change_password',
             'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',

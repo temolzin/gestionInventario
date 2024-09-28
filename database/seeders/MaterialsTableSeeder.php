@@ -17,7 +17,7 @@ class MaterialsTableSeeder extends Seeder
         DB::table('materials')->insert([
             [
                 'category_id' => 1,
-                'inventory_id' => 1,
+                'created_by' => 1,
                 'name' => 'Router Cisco 2901',
                 'description' => 'Router para prácticas de redes avanzadas',
                 'status' => 'disponible',
@@ -27,7 +27,7 @@ class MaterialsTableSeeder extends Seeder
             ],
             [
                 'category_id' => 1,
-                'inventory_id' => 1,
+                'created_by' => 1,
                 'name' => 'Router Cisco 2901 (Redundante)',
                 'description' => 'Router de respaldo para prácticas de redes',
                 'status' => 'disponible',
@@ -37,7 +37,7 @@ class MaterialsTableSeeder extends Seeder
             ],
             [
                 'category_id' => 1,
-                'inventory_id' => 2,
+                'created_by' => 1,
                 'name' => 'Switch HP 2530-24G',
                 'description' => 'Switch gestionable para configuración de redes',
                 'status' => 'disponible',
@@ -47,7 +47,7 @@ class MaterialsTableSeeder extends Seeder
             ],
             [
                 'category_id' => 2,
-                'inventory_id' => 3,
+                'created_by' => 1,
                 'name' => 'Modem LTE Huawei',
                 'description' => 'Modem para prácticas de conectividad LTE',
                 'status' => 'prestado',
@@ -57,7 +57,7 @@ class MaterialsTableSeeder extends Seeder
             ],
             [
                 'category_id' => 2,
-                'inventory_id' => 3,
+                'created_by' => 1,
                 'name' => 'Modem LTE Huawei (Alternativo)',
                 'description' => 'Modem secundario para conectividad LTE',
                 'status' => 'prestado',
@@ -67,7 +67,7 @@ class MaterialsTableSeeder extends Seeder
             ],
             [
                 'category_id' => 2,
-                'inventory_id' => 4,
+                'created_by' => 1,
                 'name' => 'Antena WiFi TP-Link',
                 'description' => 'Antena para extender redes inalámbricas',
                 'status' => 'disponible',
@@ -77,7 +77,7 @@ class MaterialsTableSeeder extends Seeder
             ],
             [
                 'category_id' => 3,
-                'inventory_id' => 5,
+                'created_by' => 1,
                 'name' => 'ESP32 Dev Kit',
                 'description' => 'Placa de desarrollo para proyectos IoT y mecatrónica',
                 'status' => 'en reparación',
@@ -87,7 +87,7 @@ class MaterialsTableSeeder extends Seeder
             ],
             [
                 'category_id' => 3,
-                'inventory_id' => 5,
+                'created_by' => 1,
                 'name' => 'Arduino Uno',
                 'description' => 'Placa de desarrollo para prácticas de control y automatización',
                 'status' => 'disponible',
@@ -97,7 +97,7 @@ class MaterialsTableSeeder extends Seeder
             ],
             [
                 'category_id' => 1,
-                'inventory_id' => 1,
+                'created_by' => 1,
                 'name' => 'Cámara IP Hikvision',
                 'description' => 'Cámara de seguridad para monitoreo de redes',
                 'status' => 'disponible',
@@ -107,7 +107,7 @@ class MaterialsTableSeeder extends Seeder
             ],
             [
                 'category_id' => 2,
-                'inventory_id' => 3,
+                'created_by' => 1,
                 'name' => 'Sensor de Temperatura DHT11',
                 'description' => 'Sensor para monitoreo de temperatura en proyectos de IoT',
                 'status' => 'disponible',
@@ -117,7 +117,7 @@ class MaterialsTableSeeder extends Seeder
             ],
             [
                 'category_id' => 2,
-                'inventory_id' => 4,
+                'created_by' => 1,
                 'name' => 'Sensor Ultrasonico HC-SR04',
                 'description' => 'Sensor de distancia para proyectos de robótica',
                 'status' => 'en reparación',
@@ -127,7 +127,7 @@ class MaterialsTableSeeder extends Seeder
             ],
             [
                 'category_id' => 3,
-                'inventory_id' => 5,
+                'created_by' => 1,
                 'name' => 'Raspberry Pi 4',
                 'description' => 'Microcomputadora para proyectos de computación y redes',
                 'status' => 'prestado',
@@ -137,7 +137,7 @@ class MaterialsTableSeeder extends Seeder
             ],
             [
                 'category_id' => 1,
-                'inventory_id' => 2,
+                'created_by' => 1,
                 'name' => 'Multímetro Digital Fluke',
                 'description' => 'Multímetro para medición de circuitos eléctricos',
                 'status' => 'disponible',
