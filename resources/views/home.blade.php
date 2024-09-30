@@ -8,7 +8,6 @@
 
 @section('content')
     <div class="row">
-        <!-- Tarjeta de Bienvenida -->
         <div class="col-lg-12 col-md-12">
             <div class="card bg-info">
                 <div class="card-body">
@@ -20,9 +19,7 @@
             </div>
         </div>
 
-        <!-- Tarjetas de resumen de inventario -->
         <div class="col-lg-3 col-6">
-            <!-- small box -->
             <div class="small-box bg-success">
                 <div class="inner">
                     <h3>150</h3>
@@ -38,7 +35,6 @@
         </div>
 
         <div class="col-lg-3 col-6">
-            <!-- small box -->
             <div class="small-box bg-warning">
                 <div class="inner">
                     <h3>53</h3>
@@ -54,7 +50,6 @@
         </div>
 
         <div class="col-lg-3 col-6">
-            <!-- small box -->
             <div class="small-box bg-danger">
                 <div class="inner">
                     <h3>20</h3>
@@ -70,7 +65,6 @@
         </div>
 
         <div class="col-lg-3 col-6">
-            <!-- small box -->
             <div class="small-box bg-primary">
                 <div class="inner">
                     <h3>10</h3>
@@ -85,7 +79,6 @@
             </div>
         </div>
 
-        <!-- Gráfico de ejemplo (puedes agregar un gráfico real con ChartJS o cualquier otra librería) -->
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
@@ -93,7 +86,7 @@
                 </div>
                 <div class="card-body">
                     <div class="chart">
-                        <!-- Aquí puedes agregar un gráfico de barras, líneas, etc. -->
+                        
                         <canvas id="inventoryChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                     </div>
                 </div>
@@ -115,13 +108,11 @@
 
 @section('js')
     <script>
-        // Aquí puedes agregar scripts de gráficos o cualquier otra funcionalidad
         console.log("Hi, I'm using the Laravel-AdminLTE package!");
 
-        // Ejemplo de un gráfico usando Chart.js
         var ctx = document.getElementById('inventoryChart').getContext('2d');
         var inventoryChart = new Chart(ctx, {
-            type: 'bar', // Puedes cambiarlo a 'line', 'pie', etc.
+            type: 'bar', 
             data: {
                 labels: ['Artículos en Stock', 'Artículos Prestados', 'En Mantenimiento', 'Nuevas Solicitudes'],
                 datasets: [{

@@ -331,6 +331,11 @@ return [
             'route' => 'category.index',
             'icon' => 'fas fa-fw fa-list',
         ],
+        [
+            'text' => 'Materiales',
+            'route' => 'materials.index',
+            'icon' => 'fa fa-cube',
+        ],
     ],
 
     /*
@@ -419,7 +424,7 @@ return [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
+                    'location' => 'https://cdn.jsdelivr.net/npm/sweetalert2@11',
                 ],
             ],
         ],

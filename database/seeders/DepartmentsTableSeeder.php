@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class InventoriesTableSeeder extends Seeder
+class DepartmentsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,39 +14,34 @@ class InventoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('inventories')->insert([
+        DB::table('departments')->insert([
             [
-                'material_id' => 1,
-                'quantity' => 10,
-                'status' => 'disponible',
+                'name' => 'Computadoras y Tablets',
+                'description' => 'Departamento de Computadoras y Tablets',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'material_id' => 2,
-                'quantity' => 5,
-                'status' => 'prestado',
+                'name' => 'Dispositivos Móviles',
+                'description' => 'Departamento de Dispositivos Móviles',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'material_id' => 3,
-                'quantity' => 8,
-                'status' => 'en reparación',
+                'name' => 'Equipos de Red',
+                'description' => 'Departamento de Equipos de Red',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'material_id' => 4,
-                'quantity' => 3,
-                'status' => 'disponible',
+                'name' => 'Software y Licencias',
+                'description' => 'Departamento de Software y Licencias',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'material_id' => 5,
-                'quantity' => 12,
-                'status' => 'disponible',
+                'name' => 'Periféricos y Accesorios',
+                'description' => 'Departamento de Periféricos y Accesorios',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
