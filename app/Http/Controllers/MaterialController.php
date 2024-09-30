@@ -10,27 +10,26 @@ use App\Models\User;
 class MaterialController extends Controller
 {
     public function index(Request $request)
-{
-    $query = Material::query();
+    {
+        $query = Material::query();
 
-    if ($request->has('search')) {
-        $search = $request->input('search');
-        $query->where(function($q) use ($search) {
-            $q->where('name', 'like', "%{$search}%")
-              ->orWhere('status', 'like', "%{$search}%");
-        });
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('status', 'like', "%{$search}%");
+            });
+        }
+
+        if ($request->has('category_id') && $request->input('category_id') != '') {
+            $query->where('category_id', $request->input('category_id'));
+        }
+
+        $categories = Category::all();
+        $users = User::all();
+        $materials = $query->paginate(10);
+        return view('materials.index', compact('materials', 'categories'));
     }
-
-    if ($request->has('category_id') && $request->input('category_id') != '') {
-        $query->where('category_id', $request->input('category_id'));
-    }
-
-    $categories = Category::all();
-    $users = User::all();
-    $materials = $query->paginate(10);
-    return view('materials.index', compact('materials', 'categories'));
-}
-
 
     public function store(Request $request)
     {
