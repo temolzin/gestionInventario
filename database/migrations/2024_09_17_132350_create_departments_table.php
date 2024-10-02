@@ -15,9 +15,12 @@ class CreateDepartmentsTable extends Migration
     {
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('lender_id');
             $table->string('name');
             $table->text('description');
             $table->timestamps();
+
+            $table->foreign('lender_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

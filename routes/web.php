@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\MaterialController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -32,3 +33,6 @@ Route::post('/students/{student}/update-photo', [StudentController::class, 'upda
 Route::get('/materials', [MaterialController::class, 'index'])->name('materials.index');
 Route::resource('materials', MaterialController::class);
 Route::post('/materials/{material}/update-photo', [MaterialController::class, 'updatePhoto'])->name('materials.updatePhoto');
+Route::get('/departments', [DepartmentController::class, 'index'])->name('departments.index');
+Route::resource('departments', DepartmentController::class);
+Route::post('/departments/{departamento}/update-photo', [DepartmentController::class, 'updatePhoto'])->name('departments.updatePhoto');

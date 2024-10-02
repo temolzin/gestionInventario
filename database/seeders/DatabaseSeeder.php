@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RoleSeeder::class,
             UserSeed::class,
+            DepartmentsTableSeeder::class,
             StudentsTableSeeder::class,
             CategoryTableSeeder::class,
             MaterialsTableSeeder::class,
@@ -23,7 +24,6 @@ class DatabaseSeeder extends Seeder
             MaterialReturnsTableSeeder::class,
             InventoriesTableSeeder::class,
             LoanDetailsTableSeeder::class,
-            DepartmentsTableSeeder::class,
         ]);
     }
 }

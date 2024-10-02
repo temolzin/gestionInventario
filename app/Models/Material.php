@@ -27,6 +27,11 @@ class Material extends Model implements HasMedia
         return $this->belongsTo(Category::class);
     }
 
+    public function departament()
+    {
+        return $this->belongsTo(Department::class);
+    }
+
     public function creator()
     {
         return $this->belongsTo(User::class, 'created_by');

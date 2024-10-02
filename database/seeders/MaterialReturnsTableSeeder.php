@@ -18,6 +18,8 @@ class MaterialReturnsTableSeeder extends Seeder
             [
                 'student_id' => 1,
                 'loan_id' => 1,
+                'department_id' => 1,
+                'created_by' => 2,
                 'status' => 'buenas condiciones',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -25,6 +27,8 @@ class MaterialReturnsTableSeeder extends Seeder
             [
                 'student_id' => 2,
                 'loan_id' => 2,
+                'department_id' => 1,
+                'created_by' => 2,
                 'status' => 'pendiente de revisión',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -32,6 +36,8 @@ class MaterialReturnsTableSeeder extends Seeder
             [
                 'student_id' => 3,
                 'loan_id' => 3,
+                'department_id' => 1,
+                'created_by' => 2,
                 'status' => 'dañado',
                 'created_at' => now(),
                 'updated_at' => now(),

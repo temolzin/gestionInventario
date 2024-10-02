@@ -15,4 +15,14 @@ class Category extends Model
     ];
     
     public $timestamps = true;
+
+    public function departament()
+    {
+        return $this->belongsTo(Department::class);
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
 }
