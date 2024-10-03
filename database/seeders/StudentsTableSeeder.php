@@ -16,6 +16,8 @@ class StudentsTableSeeder extends Seeder
     {
         DB::table('students')->insert([
             [
+                'department_id' => 1,
+                'created_by' => 2,
                 'enrollment' => 2523260001,
                 'name' => 'Juan',
                 'last_name' => 'Pérez',
@@ -23,6 +25,8 @@ class StudentsTableSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'department_id' => 1,
+                'created_by' => 2,
                 'enrollment' => 2523260002,
                 'name' => 'María',
                 'last_name' => 'García',
@@ -30,6 +34,8 @@ class StudentsTableSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'department_id' => 1,
+                'created_by' => 2,
                 'enrollment' => 2523260003,
                 'name' => 'Carlos',
                 'last_name' => 'López',
@@ -37,6 +43,8 @@ class StudentsTableSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'department_id' => 1,
+                'created_by' => 2,
                 'enrollment' => 2523260004,
                 'name' => 'Ana',
                 'last_name' => 'Fernández',
@@ -44,6 +52,8 @@ class StudentsTableSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'department_id' => 1,
+                'created_by' => 2,
                 'enrollment' => 2523260005,
                 'name' => 'Luis',
                 'last_name' => 'Martínez',
@@ -51,6 +61,8 @@ class StudentsTableSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'department_id' => 1,
+                'created_by' => 2,
                 'enrollment' => 2523260006,
                 'name' => 'Laura',
                 'last_name' => 'Gómez',
@@ -58,6 +70,8 @@ class StudentsTableSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'department_id' => 1,
+                'created_by' => 2,
                 'enrollment' => 2523260007,
                 'name' => 'Miguel',
                 'last_name' => 'Hernández',
@@ -65,6 +79,8 @@ class StudentsTableSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'department_id' => 1,
+                'created_by' => 2,
                 'enrollment' => 2523260008,
                 'name' => 'Sofía',
                 'last_name' => 'Ruiz',
@@ -72,6 +88,8 @@ class StudentsTableSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'department_id' => 1,
+                'created_by' => 2,
                 'enrollment' => 2523260009,
                 'name' => 'David',
                 'last_name' => 'Torres',
@@ -79,6 +97,8 @@ class StudentsTableSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'department_id' => 1,
+                'created_by' => 2,
                 'enrollment' => 2523260010,
                 'name' => 'Elena',
                 'last_name' => 'Mendoza',

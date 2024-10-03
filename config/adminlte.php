@@ -340,6 +340,11 @@ return [
             'can' => 'materials',
         ],
         [
+            'text' => 'Departamentos',
+            'route' => 'departments.index',
+            'icon' => 'fa fa-university',
+        ],
+        [
             'text' => 'Usuarios',
             'route' => 'users.index',
             'icon' => 'fa fa-user',

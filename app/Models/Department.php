@@ -9,25 +9,13 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Student extends Model implements HasMedia
+class Department extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
 
     protected $fillable = [
-        'enrollment',
         'name',
-        'last_name'
+        'description',
     ];
 
-    public $timestamps = false;
-
-    public function departament()
-    {
-        return $this->belongsTo(Department::class);
-    }
-
-    public function creator()
-    {
-        return $this->belongsTo(User::class, 'created_by');
-    }
 }

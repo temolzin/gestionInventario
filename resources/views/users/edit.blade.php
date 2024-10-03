@@ -1,4 +1,3 @@
-<!-- Modal para Editar Usuario -->
 @foreach ($users as $user)
     <div class="modal fade" id="edit{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel"
         aria-hidden="true">
