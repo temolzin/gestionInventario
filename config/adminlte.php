@@ -64,7 +64,7 @@ return [
     */
 
     'logo' => '<b>Inven</b>tio',
-    'logo_img' => '/img/inventio.png',
+    'logo_img' => '/img/logo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3 h-auto',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -84,13 +84,13 @@ return [
     */
 
     'auth_logo' => [
-        'enabled' => false,
+        'enabled' => true,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/inventio.png',
+            'path' => '/img/inventiologin.png',
             'alt' => 'Auth Logo',
             'class' => '',
-            'width' => 50,
-            'height' => 50,
+            'width' => 65,
+            'height' => 80,
         ],
     ],
 
@@ -113,11 +113,11 @@ return [
         'enabled' => true,
         'mode' => 'fullscreen',
         'img' => [
-            'path' => '/img/inventio.png',
+            'path' => '/img/inventiopreloader.png',
             'alt' => 'AdminLTE Preloader Image',
             'effect' => 'animation__shake',
-            'width' => 60,
-            'height' => 60,
+            'width' => 80,
+            'height' => 80,
         ],
     ],
 

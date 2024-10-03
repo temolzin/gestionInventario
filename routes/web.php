@@ -37,4 +37,5 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/students/{student}/update-photo', [StudentController::class, 'updatePhoto'])->name('students.updatePhoto');
     Route::post('/materials/{material}/update-photo', [MaterialController::class, 'updatePhoto'])->name('materials.updatePhoto');
     Route::post('/users/{user}/update-photo', [UserController::class, 'updatePhoto'])->name('users.updatePhoto');
+    Route::put('/users/{user}/update-password', [UserController::class, 'updatePassword'])->name('users.updatePassword');
 });

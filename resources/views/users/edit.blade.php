@@ -49,20 +49,6 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <label for="password">Contraseña(*)</label>
-                                                <input type="password" class="form-control" name="password"
-                                                    placeholder="Ingrese nueva contraseña">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <label for="confirm_password">Confirmar Contraseña(*)</label>
-                                                <input type="password" class="form-control" name="confirm_password"
-                                                    placeholder="Confirme la contraseña">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
                                                 <label for="role">Rol(*)</label>
                                                 <select name="role" class="form-control" required>
                                                     @foreach ($roles as $role)

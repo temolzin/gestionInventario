@@ -58,6 +58,20 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('success', 'Foto de usuario actualizada correctamente.');
     }
+    public function updatePassword(Request $request, $id)
+    {
+        $user = User::find($id);
+        $newPassword = trim($request->input('updatePassword'));
+        $confirmPassword = trim($request->input('passwordConfirmation'));
+
+        if ($newPassword !== $confirmPassword) {
+            return redirect()->back()->withInput()->withErrors(['passwordConfirmation' => 'Las contraseñas no coinciden.']);
+        } else {
+            $user->password = bcrypt($newPassword);
+            $user->save();
+            return redirect()->route('users.index')->with('success', 'Contraseña actualizada correctamente.');
+        }
+    }
 
     public function store(Request $request)
     {

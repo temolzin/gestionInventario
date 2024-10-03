@@ -88,6 +88,11 @@
                                                                     data-target="#editPhoto{{ $user->id }}">
                                                                     <i class="fas fa-image"></i>
                                                                 </button>
+                                                                <button type="button" class="btn btn-primary mr-2"
+                                                                    data-toggle="modal" title="Editar Contraseña"
+                                                                    data-target="#editPassword{{ $user->id }}">
+                                                                    <i class="fas fa-lock"></i>
+                                                                </button>
                                                                 <button type="button" class="btn btn-danger mr-2"
                                                                     data-toggle="modal" title="Eliminar Registro"
                                                                     data-target="#delete{{ $user->id }}">
@@ -99,6 +104,7 @@
                                                         @include('users.delete')
                                                         @include('users.show')
                                                         @include('users.editPhoto')
+                                                        @include('users.editPassword')
                                                     </tr>
                                                 @endforeach
                                             @endif
