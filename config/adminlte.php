@@ -344,6 +344,11 @@ return [
             'icon' => 'fa fa-cube',
         ],
         [
+            'text' => 'Departamentos',
+            'route' => 'departments.index',
+            'icon' => 'fa fa-university',
+        ],
+        [
             'text' => 'change_password',
             'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
