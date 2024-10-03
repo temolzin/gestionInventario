@@ -21,8 +21,8 @@ class UserSeed extends Seeder
             'email_verified_at' => now(),
             'password' => bcrypt('12345678'),
             'remember_token' => Str::random(10),
-        ])->assignRole('admin');        
-        
+        ])->assignRole('admin');
+
         User::create([
             'name' => 'leo',
             'last_name' => 'Lopez Perez',
@@ -30,6 +30,6 @@ class UserSeed extends Seeder
             'email_verified_at' => now(),
             'password' => bcrypt('12345678'),
             'remember_token' => Str::random(10),
-        ])->assignRole('lender');
+        ])->assignRole('supervisor');
     }
 }

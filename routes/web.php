@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,12 +25,16 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
-Route::resource('category', CategoryController::class);
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/students', [StudentController::class, 'index'])->name('students.index');
-Route::resource('students', StudentController::class);
-Route::post('/students/{student}/update-photo', [StudentController::class, 'updatePhoto'])->name('students.updatePhoto');
-Route::get('/materials', [MaterialController::class, 'index'])->name('materials.index');
-Route::resource('materials', MaterialController::class);
-Route::post('/materials/{material}/update-photo', [MaterialController::class, 'updatePhoto'])->name('materials.updatePhoto');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+    Route::resource('category', CategoryController::class);
+    Route::resource('students', StudentController::class);
+    Route::resource('materials', MaterialController::class);
+    Route::resource('users', UserController::class);
+    Route::resource('roles', RoleController::class);
+
+    Route::post('/students/{student}/update-photo', [StudentController::class, 'updatePhoto'])->name('students.updatePhoto');
+    Route::post('/materials/{material}/update-photo', [MaterialController::class, 'updatePhoto'])->name('materials.updatePhoto');
+    Route::post('/users/{user}/update-photo', [UserController::class, 'updatePhoto'])->name('users.updatePhoto');
+});

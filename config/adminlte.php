@@ -325,16 +325,31 @@ return [
             'text' => 'Estudiantes',
             'url' => '/students',
             'icon' => 'fa fa-users',
+            'can' => 'students',
         ],
         [
             'text' => 'Categorías',
             'route' => 'category.index',
             'icon' => 'fas fa-fw fa-list',
+            'can' => 'category',
         ],
         [
             'text' => 'Materiales',
             'route' => 'materials.index',
             'icon' => 'fa fa-cube',
+            'can' => 'materials',
+        ],
+        [
+            'text' => 'Usuarios',
+            'route' => 'users.index',
+            'icon' => 'fa fa-user',
+            'can' => 'users',
+        ],
+        [
+            'text' => 'Roles',
+            'route' => 'roles.index',
+            'icon' => 'fa fa-cogs',
+            'can' => 'roles',
         ],
     ],
 
