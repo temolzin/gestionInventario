@@ -13,7 +13,9 @@
                 <div class="card-body">
                     <h5 class="card-title">¡Bienvenido a Inventio! 🌟</h5>
                     <p class="card-text">
-                        Tu plataforma de gestión y control de inventario. Simplifica el manejo de materiales y recursos en un solo lugar, de forma eficiente y organizada. ¡Explora todas las funciones que hemos diseñado para facilitar tus tareas diarias!
+                        Tu plataforma de gestión y control de inventario. Simplifica el manejo de materiales y recursos en
+                        un solo lugar, de forma eficiente y organizada. ¡Explora todas las funciones que hemos diseñado para
+                        facilitar tus tareas diarias!
                     </p>
                 </div>
             </div>
@@ -86,8 +88,9 @@
                 </div>
                 <div class="card-body">
                     <div class="chart">
-                        
-                        <canvas id="inventoryChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+
+                        <canvas id="inventoryChart"
+                            style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                     </div>
                 </div>
             </div>
@@ -100,6 +103,7 @@
         .small-box h3 {
             font-size: 2.2rem;
         }
+
         .card-title {
             font-size: 1.5rem;
         }
@@ -108,11 +112,9 @@
 
 @section('js')
     <script>
-        console.log("Hi, I'm using the Laravel-AdminLTE package!");
-
         var ctx = document.getElementById('inventoryChart').getContext('2d');
         var inventoryChart = new Chart(ctx, {
-            type: 'bar', 
+            type: 'bar',
             data: {
                 labels: ['Artículos en Stock', 'Artículos Prestados', 'En Mantenimiento', 'Nuevas Solicitudes'],
                 datasets: [{

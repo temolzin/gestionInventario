@@ -86,11 +86,11 @@ return [
     'auth_logo' => [
         'enabled' => true,
         'img' => [
-            'path' => '/img/inventiologin.png',
+            'path' => '/img/logo.png',
             'alt' => 'Auth Logo',
             'class' => '',
             'width' => 65,
-            'height' => 80,
+            'height' => 65,
         ],
     ],
 
@@ -113,7 +113,7 @@ return [
         'enabled' => true,
         'mode' => 'fullscreen',
         'img' => [
-            'path' => '/img/inventiopreloader.png',
+            'path' => '/img/logo.png',
             'alt' => 'AdminLTE Preloader Image',
             'effect' => 'animation__shake',
             'width' => 80,
