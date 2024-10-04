@@ -39,4 +39,3 @@ Route::resource('departments', DepartmentController::class);
 Route::post('/departments/{departamento}/update-photo', [DepartmentController::class, 'updatePhoto'])->name('departments.updatePhoto');
 Route::get('/inventories', [InventoryController::class, 'index'])->name('inventories.index');
 Route::resource('inventories', InventoryController::class);
-Route::post('/inventories/{inventory}/update-photo', [InventoryController::class, 'updatePhoto'])->name('inventories.updatePhoto');
