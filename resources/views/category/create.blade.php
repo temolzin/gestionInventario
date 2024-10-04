@@ -26,7 +26,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-lg-8 offset-lg-2">
+                                    <div class="col-lg-12">
                                         <div class="form-group">
                                             <label for="category_name" class="form-label">Nombre de la
                                                 categoría(*)</label>
