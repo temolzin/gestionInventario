@@ -54,8 +54,8 @@
                                     <tr>
                                         <td>
                                             <div class="form-check">
-                                                <input type="checkbox" name="permissions[]" value="{{ $permission->id }}"
-                                                    {{ in_array($permission->id, $rolePermissions) ? 'checked' : '' }}
+                                                <input type="checkbox" name="permissions[]" value="{{ $permission->name }}"
+                                                    {{ in_array($permission->name, $rolePermissions) ? 'checked' : '' }}
                                                     class="form-check-input" id="permission{{ $permission->id }}">
                                                 <label class="form-check-label"
                                                     for="permission{{ $permission->id }}"></label>
@@ -70,7 +70,6 @@
                 </div>
 
                 <div class="button-group">
-                    <button type="button" class="btn btn-secondary" id="close-form-button">Cerrar</button>
                     <button type="submit" class="btn btn-warning">Actualizar</button>
                 </div>
             </form>
@@ -88,10 +87,6 @@
             document.getElementById('close-button').addEventListener('click', function() {
                 window.location.href = "{{ route('roles.index') }}";
             });
-            document.getElementById('close-form-button').addEventListener('click', function() {
-                window.location.href = "{{ route('roles.index') }}";
-            });
-
             document.getElementById('toggle-permissions').addEventListener('click', function() {
                 var permissionsSection = document.getElementById('permissions-section');
                 permissionsSection.style.display = (permissionsSection.style.display === 'none') ? 'block' :

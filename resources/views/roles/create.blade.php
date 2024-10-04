@@ -40,7 +40,7 @@
                                                     <td>
                                                         <div class="custom-control custom-checkbox">
                                                             <input type="checkbox" name="permissions[]"
-                                                                value="{{ $permission->id }}"
+                                                                value="{{ $permission->name }}"
                                                                 class="custom-control-input"
                                                                 id="permission{{ $permission->id }}">
                                                             <label class="custom-control-label"
