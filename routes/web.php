@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\InventoryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
@@ -36,3 +37,5 @@ Route::post('/materials/{material}/update-photo', [MaterialController::class, 'u
 Route::get('/departments', [DepartmentController::class, 'index'])->name('departments.index');
 Route::resource('departments', DepartmentController::class);
 Route::post('/departments/{departamento}/update-photo', [DepartmentController::class, 'updatePhoto'])->name('departments.updatePhoto');
+Route::get('/inventories', [InventoryController::class, 'index'])->name('inventories.index');
+Route::resource('inventories', InventoryController::class);
