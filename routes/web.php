@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Auth;
@@ -35,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('users', UserController::class);
     Route::resource('roles', RoleController::class);
     Route::resource('departments', DepartmentController::class);
+    Route::resource('inventories', InventoryController::class);
 
     Route::post('/students/{student}/update-photo', [StudentController::class, 'updatePhoto'])->name('students.updatePhoto');
     Route::post('/materials/{material}/update-photo', [MaterialController::class, 'updatePhoto'])->name('materials.updatePhoto');

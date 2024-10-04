@@ -345,6 +345,11 @@ return [
             'icon' => 'fa fa-university',
         ],
         [
+            'text' => 'Inventarios',
+            'route' => 'inventories.index',
+            'icon' => 'fa fa-book',
+        ],
+        [
             'text' => 'Usuarios',
             'route' => 'users.index',
             'icon' => 'fa fa-user',
