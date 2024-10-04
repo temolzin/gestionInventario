@@ -349,6 +349,11 @@ return [
             'icon' => 'fa fa-university',
         ],
         [
+            'text' => 'Inventarios',
+            'route' => 'inventories.index',
+            'icon' => 'fa fa-book',
+        ],
+        [
             'text' => 'change_password',
             'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
