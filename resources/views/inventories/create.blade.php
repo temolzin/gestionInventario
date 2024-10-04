@@ -26,7 +26,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-12">
                                         <div class="form-group">
                                             <label for="material_id" class="form-label">Material(*)</label>
                                             <select class="form-control" id="material_id" name="material_id" required>
