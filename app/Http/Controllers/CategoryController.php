@@ -10,6 +10,8 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $query = Category::query();
+        $departmentId = auth()->user()->department_id; 
+        $query->where('department_id', $departmentId); 
 
         if ($request->has('search')) {
             $search = $request->input('search');
@@ -33,7 +35,12 @@ class CategoryController extends Controller
             'description' => 'nullable|string',
         ]);
 
-        Category::create($request->only('name', 'description'));
+        Category::create([
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'department_id' => auth()->user()->department_id,
+            'created_by' => auth()->user()->id,
+        ]);
 
         return redirect()->route('category.index')->with('success', 'Categoría registrada correctamente.');
     }
@@ -59,7 +66,10 @@ class CategoryController extends Controller
             'description' => 'nullable|string',
         ]);
 
-        $category->update($request->only('name', 'description'));
+        $category->update([
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+        ]);
 
         return redirect()->route('category.index')->with('success', 'Categoría actualizada correctamente.');
     }

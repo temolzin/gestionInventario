@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Inventory;
 use App\Models\Material;
 use Illuminate\Http\Request;
-use App\Models\Department;
 
 class InventoryController extends Controller
 {
     public function index(Request $request)
     {
         $query = Inventory::query();
+        $departmentId = auth()->user()->department_id; 
+        $query->where('department_id', $departmentId); 
 
         if ($request->has('search')) {
             $search = $request->input('search');
@@ -32,6 +33,7 @@ class InventoryController extends Controller
             'material_id' => $request->material_id,
             'quantity' => $request->quantity,
             'status' => $request->status,
+            'department_id' => auth()->user()->department_id,
             'created_by' => auth()->user()->id,
         ]);
 

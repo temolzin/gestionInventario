@@ -10,6 +10,8 @@ class StudentController extends Controller
     public function index(Request $request)
     {
         $query = Student::query();
+        $departmentId = auth()->user()->department_id; 
+        $query->where('department_id', $departmentId); 
 
         if ($request->has('search')) {
             $search = $request->input('search');
@@ -22,7 +24,13 @@ class StudentController extends Controller
 
     public function store(Request $request)
     {
-        $student = Student::create($request->all());
+        $student = Student::create([
+            'name' => $request->input('name'),
+            'last_name' => $request->input('last_name'),
+            'enrollment' => $request->input('enrollment'),
+            'department_id' => auth()->user()->department_id,
+            'created_by' => auth()->user()->id,
+        ]);
 
         if ($request->hasFile('photo')) {
             $student->addMediaFromRequest('photo')->toMediaCollection('studentGallery');

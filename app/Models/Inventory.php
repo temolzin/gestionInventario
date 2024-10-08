@@ -15,6 +15,7 @@ class Inventory extends Model implements HasMedia
 
     protected $fillable = [
         'material_id',
+        'department_id',
         'created_by',
         'quantity',
         'status',
