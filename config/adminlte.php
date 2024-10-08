@@ -343,11 +343,13 @@ return [
             'text' => 'Departamentos',
             'route' => 'departments.index',
             'icon' => 'fa fa-university',
+            'can' => 'departments',
         ],
         [
             'text' => 'Inventarios',
             'route' => 'inventories.index',
             'icon' => 'fa fa-book',
+            'can' => 'inventories',
         ],
         [
             'text' => 'Usuarios',
@@ -360,6 +362,12 @@ return [
             'route' => 'roles.index',
             'icon' => 'fa fa-cogs',
             'can' => 'roles',
+        ],
+        [
+            'text' => 'Préstamos',
+            'route' => 'loans.index',
+            'icon' => 'fa fa-retweet',
+            'can' => 'loans',
         ],
     ],
 
