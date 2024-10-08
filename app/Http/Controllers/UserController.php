@@ -94,16 +94,18 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'role' => 'required',
-            'department_id' => 'required|exists:departments,id',
+            'department_id' => 'nullable',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        $departmentId = $validated['department_id'] ?? null;
 
         $user = User::create([
             'name' => $validated['name'],
             'last_name' => $validated['last_name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
-            'department_id' => $validated['department_id'],
+            'department_id' => $departmentId,
         ]);
 
         if ($request->hasFile('photo')) {

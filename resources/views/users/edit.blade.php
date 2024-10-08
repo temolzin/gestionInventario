@@ -59,7 +59,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6" id="departmentField{{ $user->id }}" style="display: none;">
+                                        <div class="col-lg-12" id="departmentField{{ $user->id }}" style="display: none;">
                                             <div class="form-group">
                                                 <label for="department_id">Departamento(*)</label>
                                                 <select name="department_id" class="form-control" required>
