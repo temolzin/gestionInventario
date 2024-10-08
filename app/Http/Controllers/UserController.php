@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
@@ -12,14 +13,16 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $roles = Role::all();
+        $departments = Department::all();
 
         $users = User::where('name', 'like', "%{$request->search}%")
             ->orWhere('last_name', 'like', "%{$request->search}%")
             ->orWhere('email', 'like', "%{$request->search}%")
             ->paginate(10);
 
-        return view('users.index', compact('users', 'roles'));
+        return view('users.index', compact('users', 'roles', 'departments'));
     }
+
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -27,6 +30,7 @@ class UserController extends Controller
             'last_name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email,' . $id,
             'role' => 'required|string|max:255',
+            'department_id' => 'required|exists:departments,id',
         ]);
 
         $user = User::findOrFail($id);
@@ -34,6 +38,7 @@ class UserController extends Controller
         $user->name = $request->input('name');
         $user->last_name = $request->input('last_name');
         $user->email = $request->input('email');
+        $user->department_id = $request->input('department_id');
 
         $user->syncRoles($request->input('role'));
 
@@ -41,6 +46,7 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('success', 'Usuario actualizado correctamente.');
     }
+
     public function updatePhoto(Request $request, $id)
     {
         $request->validate([
@@ -58,6 +64,7 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('success', 'Foto de usuario actualizada correctamente.');
     }
+
     public function updatePassword(Request $request, $id)
     {
         $user = User::find($id);
@@ -73,6 +80,12 @@ class UserController extends Controller
         }
     }
 
+    public function destroy(User $user)
+    {
+        $user->delete();
+        return redirect()->route('users.index')->with('success', 'Usuario eliminado correctamente.');
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -81,6 +94,7 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'role' => 'required',
+            'department_id' => 'required|exists:departments,id',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -89,6 +103,7 @@ class UserController extends Controller
             'last_name' => $validated['last_name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
+            'department_id' => $validated['department_id'],
         ]);
 
         if ($request->hasFile('photo')) {

@@ -15,6 +15,7 @@ class Material extends Model implements HasMedia
 
     protected $fillable = [
         'category_id',
+        'department_id',
         'created_by',
         'name',
         'description',

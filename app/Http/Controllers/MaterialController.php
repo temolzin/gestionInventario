@@ -12,6 +12,8 @@ class MaterialController extends Controller
     public function index(Request $request)
     {
         $query = Material::query();
+        $departmentId = auth()->user()->department_id; 
+        $query->where('department_id', $departmentId); 
 
         if ($request->has('search')) {
             $search = $request->input('search');
@@ -39,6 +41,7 @@ class MaterialController extends Controller
             'description' => $request->description,
             'status' => $request->status,
             'amount' => $request->amount,
+            'department_id' => auth()->user()->department_id,
             'created_by' => auth()->user()->id,
         ]);
 

@@ -27,37 +27,31 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="name">Nombre(*)</label>
-                                            <input type="text" class="form-control" id="name" name="name"
-                                                required placeholder="Ingrese su nombre">
+                                            <input type="text" class="form-control" id="name" name="name" required placeholder="Ingrese su nombre">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="last_name">Apellido(*)</label>
-                                            <input type="text" class="form-control" id="last_name" name="last_name"
-                                                required placeholder="Ingrese su apellido">
+                                            <input type="text" class="form-control" id="last_name" name="last_name" required placeholder="Ingrese su apellido">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="email">Correo Electrónico(*)</label>
-                                            <input type="email" class="form-control" id="email" name="email"
-                                                required placeholder="Ingrese su correo electrónico">
+                                            <input type="email" class="form-control" id="email" name="email" required placeholder="Ingrese su correo electrónico">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="password">Contraseña(*)</label>
-                                            <input type="password" class="form-control" id="password" name="password"
-                                                required placeholder="Ingrese su contraseña">
+                                            <input type="password" class="form-control" id="password" name="password" required placeholder="Ingrese su contraseña">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="password_confirmation">Confirmar Contraseña(*)</label>
-                                            <input type="password" class="form-control" id="password_confirmation"
-                                                name="password_confirmation" required
-                                                placeholder="Confirme su contraseña">
+                                            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required placeholder="Confirme su contraseña">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -69,6 +63,23 @@
                                                     <option value="{{ $role->name }}">{{ $role->name }}</option>
                                                 @endforeach
                                             </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6" id="department-field" style="display:none;">
+                                        <div class="form-group">
+                                            <label for="department_id">Departamento(*)</label>
+                                            <select class="form-control" id="department_id" name="department_id">
+                                                <option value="" disabled selected>Seleccione un departamento</option>
+                                                @foreach ($departments as $department)
+                                                    <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="photo">Foto (opcional)</label>
+                                            <input type="file" class="form-control" id="photo" name="photo" accept="image/*">
                                         </div>
                                     </div>
                                 </div>
@@ -84,3 +95,18 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const roleField = document.getElementById('role');
+        const departmentField = document.getElementById('department-field');
+
+        roleField.addEventListener('change', function () {
+            if (roleField.value === 'supervisor') {
+                departmentField.style.display = 'block'; // Mostrar campo de departamento
+            } else {
+                departmentField.style.display = 'none'; // Ocultar campo de departamento
+            }
+        });
+    });
+</script>

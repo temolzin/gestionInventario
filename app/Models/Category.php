@@ -12,6 +12,8 @@ class Category extends Model
     protected $fillable = [
         'name',
         'description',
+        'department_id',
+        'created_by',
     ];
     
     public $timestamps = true;

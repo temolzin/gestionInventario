@@ -49,11 +49,25 @@
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label for="role">Rol(*)</label>
-                                                <select name="role" class="form-control" required>
+                                                <select name="role" id="roleSelect{{ $user->id }}" class="form-control" required>
                                                     @foreach ($roles as $role)
                                                         <option value="{{ $role->name }}"
                                                             {{ $user->hasRole($role->name) ? 'selected' : '' }}>
                                                             {{ $role->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6" id="departmentField{{ $user->id }}" style="display: none;">
+                                            <div class="form-group">
+                                                <label for="department_id">Departamento(*)</label>
+                                                <select name="department_id" class="form-control" required>
+                                                    <option value="" disabled selected>Seleccione un departamento</option>
+                                                    @foreach ($departments as $department)
+                                                        <option value="{{ $department->id }}"
+                                                            {{ $user->department_id == $department->id ? 'selected' : '' }}>
+                                                            {{ $department->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -72,4 +86,20 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var roleSelect = document.getElementById('roleSelect{{ $user->id }}');
+            var departmentField = document.getElementById('departmentField{{ $user->id }}');
+
+            function toggleDepartmentField() {
+                if (roleSelect.value === 'supervisor') {
+                    departmentField.style.display = 'block';
+                } else {
+                    departmentField.style.display = 'none';
+                }
+            }
+            toggleDepartmentField();
+            roleSelect.addEventListener('change', toggleDepartmentField);
+        });
+    </script>
 @endforeach

@@ -14,9 +14,11 @@ class Student extends Model implements HasMedia
     use HasFactory, InteractsWithMedia;
 
     protected $fillable = [
+        'department_id',
+        'created_by',
         'enrollment',
         'name',
-        'last_name'
+        'last_name',
     ];
 
     public $timestamps = false;

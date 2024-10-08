@@ -20,6 +20,7 @@ class UserSeed extends Seeder
             'email' => 'admin@gmail.com',
             'email_verified_at' => now(),
             'password' => bcrypt('12345678'),
+            'department_id' => null,
             'remember_token' => Str::random(10),
         ])->assignRole('admin');
 
@@ -29,6 +30,7 @@ class UserSeed extends Seeder
             'email' => 'leo@gmail.com',
             'email_verified_at' => now(),
             'password' => bcrypt('12345678'),
+            'department_id' => 1,
             'remember_token' => Str::random(10),
         ])->assignRole('supervisor');
     }

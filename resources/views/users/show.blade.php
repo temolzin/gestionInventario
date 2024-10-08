@@ -53,7 +53,7 @@
                                         <input type="text" disabled class="form-control" value="{{ $user->name }}" />
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Roles</label>
                                         <ul>
@@ -63,6 +63,12 @@
                                         </ul>
                                     </div>
                                 </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Departamento</label>
+                                        <input type="text" disabled class="form-control" value="{{ $user->department ? $user->department->name : 'No asignado' }}" />
+                                    </div>
+                                </div> 
                             </div>
                         </div>
                     </div>
