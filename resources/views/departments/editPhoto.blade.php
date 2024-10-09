@@ -31,7 +31,7 @@
                                             <label for="photo-{{ $department->id }}" class="form-label"></label>
                                             <div class="image-preview-container" style="display: flex; justify-content: center; margin-bottom: 10px;">
                                                 <img id="photo-preview-edit-{{ $department->id }}" 
-                                                    src="{{ $department->photo ? asset('storage/' . $department->photo) : asset('img/logo.png') }}" 
+                                                    src="{{ $department->getFirstMediaUrl('departmentGallery') ? $department->getFirstMediaUrl('departmentGallery') . '?t=' . time() : asset('img/logo.png') }}" 
                                                     alt="Foto Actual" 
                                                     style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 5px;">
                                             </div>

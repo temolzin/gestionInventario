@@ -22,7 +22,15 @@ class DepartmentController extends Controller
 
     public function store(Request $request)
     {
-        $department = Department::create($request->all());
+        $department = Department::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'created_by' => auth()->user()->id,
+        ]);
+
+        if ($request->hasFile('photo')) {
+            $department->addMediaFromRequest('photo')->toMediaCollection('departmentGallery');
+        }
 
         return redirect()->route('departments.index')->with('success', 'Departamento registrado correctamente.');
     }

@@ -27,7 +27,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-12">
                                         <div class="form-group">
                                             <label for="name" class="form-label">Nombre del Departamento(*)</label>
                                             <input type="text" class="form-control" name="name" id="name" value="{{ $department->name }}" required>
