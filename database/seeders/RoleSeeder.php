@@ -26,7 +26,7 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'category', 'description' => 'Visualizar Categorias'])->assignRole($role2);
         Permission::create(['name' => 'students', 'description' => 'Visualizar Estudiantes'])->assignRole($role2);
         Permission::create(['name' => 'materials', 'description' => 'Visualizar Materiales'])->assignRole($role2);
-        Permission::create(['name' => 'departments', 'description' => 'Visualizar Departamentos'])->assignRole($role2);
+        Permission::create(['name' => 'departments', 'description' => 'Visualizar Departamentos'])->assignRole($role1);
         Permission::create(['name' => 'inventories', 'description' => 'Visualizar Inventario'])->assignRole($role2);
         Permission::create(['name' => 'loans', 'description' => 'Visualizar Prestamos'])->assignRole($role2);
     }
