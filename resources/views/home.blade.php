@@ -8,6 +8,24 @@
 
 @section('content')
     <div class="row">
+        <div class="container-fluid">
+            <div class="card-box head">
+                <div class="row align-items-center">
+                    <div class="col-md-2 text-center">
+                        @if ($user->getFirstMediaUrl('userGallery'))
+                            <img src="{{ $user->getFirstMediaUrl('userGallery') }}"
+                                alt="Foto de {{ $user->name }}">
+                        @else
+                            <img src="{{ asset('img/userDefault.png') }}">
+                        @endif
+                    </div>
+                    <div class="col-md-8">
+                        <h4 class="font-weight-bold text-capitalize welcome">Bienvenid@</h4>
+                        <h1 class="font-weight-bold text-blue">{{ $user->name }} {{ $user->last_name }}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>                
         <div class="col-lg-12 col-md-12">
             <div class="card bg-info">
                 <div class="card-body">
@@ -99,15 +117,7 @@
 @stop
 
 @section('css')
-    <style>
-        .small-box h3 {
-            font-size: 2.2rem;
-        }
-
-        .card-title {
-            font-size: 1.5rem;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/profiles/profile.css') }}">
 @stop
 
 @section('js')

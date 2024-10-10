@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,11 @@ Auth::routes();
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+    Route::get('/profiles', [ProfileController::class, 'index'])->name('profiles.index');
+    Route::put('/profiles/update', [ProfileController::class, 'profileUpdate'])->name('profiles.update');
+    Route::post('/profiles/updateImage', [ProfileController::class, 'updateImage'])->name('profiles.updateImage');
+    Route::post('/profiles/updatePicture', [ProfileController::class, 'updatePicture'])->name('profiles.updatePicture');
+    Route::put('/profiles/editPassword', [ProfileController::class, 'updatePassword'])->name('profiles.updatePassword');
     Route::resource('category', CategoryController::class);
     Route::resource('students', StudentController::class);
     Route::resource('materials', MaterialController::class);
