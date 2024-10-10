@@ -54,7 +54,7 @@ class LoanController extends Controller
             'return_at' => $request->return_at
         ]);
 
-        return redirect()->route('loans.index')->with('success', 'Loan created successfully.');
+        return redirect()->route('loans.index')->with('success', 'El préstamo se ha registrado correctamente.');
     }
 
     public function show($id)
@@ -90,7 +90,7 @@ class LoanController extends Controller
             'return_at' => $request->return_at
         ]);
 
-        return redirect()->route('loans.index')->with('success', 'Loan updated successfully.');
+        return redirect()->route('loans.index')->with('success', 'El préstamo se ha actualizado correctamente.');
     }
 
     public function destroy($id)
@@ -98,6 +98,6 @@ class LoanController extends Controller
         $loan = Loan::findOrFail($id);
         $loan->delete();
 
-        return redirect()->route('loans.index')->with('success', 'Loan deleted successfully.');
+        return redirect()->route('loans.index')->with('success', 'El préstamo se ha eliminado correctamente.');
     }
 }
