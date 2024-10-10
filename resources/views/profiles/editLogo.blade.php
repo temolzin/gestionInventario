@@ -1,4 +1,4 @@
-<div class="modal fade" id="editLogo{{ $authUser->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="editLogo{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="card-warning">
@@ -27,15 +27,15 @@
                                 <div class="row">
                                     <div class="col-lg-8 offset-lg-2">
                                         <div class="form-group text-center">
-                                            <label for="photo-{{ $authUser->id }}" class="form-label"></label>
+                                            <label for="photo-{{ $user->id }}" class="form-label"></label>
                                             <div class="image-preview-container" style="display: flex; justify-content: center; margin-bottom: 10px;">
-                                                <img id="photo-preview-edit-{{ $authUser->id }}" 
-                                                     src="{{ ($authUser->getFirstMediaUrl('departmentGallery')) ? $authUser->getFirstMediaUrl('departmentGallery') : asset('img/logo.png') }}" 
+                                                <img id="photo-preview-edit-{{ $user->id }}" 
+                                                     src="{{ ($user->getFirstMediaUrl('departmentGallery')) ? $user->getFirstMediaUrl('departmentGallery') : asset('img/logo.png') }}" 
                                                      alt="Foto Actual" 
                                                      style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 5px;">
                                             </div>
-                                            <input type="hidden" name="user_id" value="{{ $authUser->id }}">
-                                            <input type="file" class="form-control" name="photo" id="photo-{{ $authUser->id }}" onchange="previewImageEdit(event, {{ $authUser->id }})">
+                                            <input type="hidden" name="user_id" value="{{ $user->id }}">
+                                            <input type="file" class="form-control" name="photo" id="photo-{{ $user->id }}" onchange="previewImageEdit(event, {{ $user->id }})">
                                         </div>
                                     </div>
                                 </div>

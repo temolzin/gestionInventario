@@ -24,8 +24,8 @@
                         <div class="card-body box-profile">
                             <div class="text-center">
                                 <div class="profile-pic-container" style="position: relative; display: inline-block;">
-                                    @if ($authUser->getFirstMediaUrl('userGallery'))
-                                        <img class="profile-user-img" style="width: 150px; height: 150px; border-radius: 50%;" src="{{$authUser->getFirstMediaUrl('userGallery') }}" alt="Foto de {{ $authUser->name }}">
+                                    @if ($user->getFirstMediaUrl('userGallery'))
+                                        <img class="profile-user-img" style="width: 150px; height: 150px; border-radius: 50%;" src="{{$user->getFirstMediaUrl('userGallery') }}" alt="Foto de {{ $user->name }}">
                                     @else
                                         <img class="profile-user-img" style="width: 150px; height: 150px; border-radius: 50%;" src="{{ asset('img/userDefault.png') }}">
                                     @endif
@@ -35,8 +35,8 @@
                                     </button>
                                 </div>
                             </div>
-                            <h3 class="profile-username text-center">{{ $authUser->name }} {{ $authUser->last_name }}</h3>
-                            <p class="text-muted text-center">{{ $authUser->roles->first()->name }}</p>
+                            <h3 class="profile-username text-center">{{ $user->name }} {{ $user->last_name }}</h3>
+                            <p class="text-muted text-center">{{ $user->roles->first()->name }}</p>
                         </div>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                                         Nombre
                                     </label>
                                     <div class="col-sm-10">
-                                        <input type="text" id="nameUpdate" name="nameUpdate" class="form-control" placeholder="Nombre" value="{{ $authUser->name }}" required>
+                                        <input type="text" id="nameUpdate" name="nameUpdate" class="form-control" placeholder="Nombre" value="{{ $user->name }}" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -62,7 +62,7 @@
                                         Apellidos
                                     </label>
                                     <div class="col-sm-10">
-                                        <input type="text" id="lastNameUpdate" name="lastNameUpdate" class="form-control" placeholder="Apellidos" value="{{ $authUser->last_name }}" required>
+                                        <input type="text" id="lastNameUpdate" name="lastNameUpdate" class="form-control" placeholder="Apellidos" value="{{ $user->last_name }}" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -70,7 +70,7 @@
                                         Correo
                                     </label>
                                     <div class="col-sm-10">
-                                        <input type="email" id="emailUpdate" name="emailUpdate" class="form-control" placeholder="Correo" value="{{ $authUser->email }}" required>
+                                        <input type="email" id="emailUpdate" name="emailUpdate" class="form-control" placeholder="Correo" value="{{ $user->email }}" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -93,19 +93,19 @@
                                     Nombre
                                 </label>
                                 <div class="col-sm-10">
-                                    <p class="form-control-plaintext">{{ $authUser->name }}</p>
+                                    <p class="form-control-plaintext">{{ $user->name }}</p>
                                 </div>
                                 <label for="lastName" class="col-sm-2 col-form-label">
                                     Apellidos
                                 </label>
                                 <div class="col-sm-10">
-                                    <p class="form-control-plaintext">{{ $authUser->last_name }}</p>
+                                    <p class="form-control-plaintext">{{ $user->last_name }}</p>
                                 </div>
                                 <label for="email" class="col-sm-2 col-form-label">
                                     Correo
                                 </label>
                                 <div class="col-sm-10">
-                                    <p class="form-control-plaintext">{{ $authUser->email }}</p>
+                                    <p class="form-control-plaintext">{{ $user->email }}</p>
                                 </div>
                                 <div class="offset-sm-2 col-sm-10">
                                     <div class="text-center">
@@ -124,7 +124,7 @@
             </div>
         </div>
         <div class="col-md-12">
-            @if($authUser->hasRole('supervisor'))
+            @if($user->hasRole('supervisor'))
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-3">
@@ -135,12 +135,12 @@
                                 <div class="card-body box-profile">
                                     <div class="text-center">
                                         <div class="profile-pic-container" style="position: relative; display: inline-block;">
-                                            @if ($authUser->getFirstMediaUrl('departmentGallery'))
-                                                <img class="profile-user-img" style="width: 150px; height: 150px; border-radius: 50%;" src="{{$authUser->getFirstMediaUrl('departmentGallery')}}" alt="Foto del Departamento">
+                                            @if ($user->getFirstMediaUrl('departmentGallery'))
+                                                <img class="profile-user-img" style="width: 150px; height: 150px; border-radius: 50%;" src="{{$user->getFirstMediaUrl('departmentGallery')}}" alt="Foto del Departamento">
                                             @else
                                                 <img class="profile-user-img" style="width: 150px; height: 150px; border-radius: 50%;" src="{{ asset('img/logo.png') }}">
                                             @endif
-                                            <button href="#" class="btn btn-outline-primary btn-sm edit-profile-pic" data-toggle="modal" data-target="#editLogo{{ $authUser->id }}"
+                                            <button href="#" class="btn btn-outline-primary btn-sm edit-profile-pic" data-toggle="modal" data-target="#editLogo{{ $user->id }}"
                                                 style="position: absolute; bottom: 5px; right: 5px; background: white; border-radius: 10%; padding: 5px;">
                                                 <i class="fas fa-camera"></i>
                                             </button>

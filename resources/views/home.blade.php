@@ -19,7 +19,6 @@
                             <img src="{{ asset('img/userDefault.png') }}">
                         @endif
                     </div>
-
                     <div class="col-md-8">
                         <h4 class="font-weight-bold text-capitalize welcome">Bienvenid@</h4>
                         <h1 class="font-weight-bold text-blue">{{ $authUser->name }} {{ $authUser->last_name }}</h1>
@@ -119,15 +118,6 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/profiles/profile.css') }}">
-    <style>
-        .small-box h3 {
-            font-size: 2.2rem;
-        }
-
-        .card-title {
-            font-size: 1.5rem;
-        }
-    </style>
 @stop
 
 @section('js')

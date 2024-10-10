@@ -9,10 +9,10 @@
             </div>
             <div class="modal-body">
                 <div class="text-center mb-3">
-                    @if ($authUser->getFirstMediaUrl('userGallery'))
-                        <img id="currentProfileImage" src="{{ $authUser->getFirstMediaUrl('userGallery') }}" style="width: 150px; height: 150px; border-radius: 50%;" alt="Foto actual de {{ $authUser->name }}">
+                    @if ($user->getFirstMediaUrl('userGallery'))
+                        <img id="currentProfileImage" src="{{ $user->getFirstMediaUrl('userGallery') }}" style="width: 150px; height: 150px; border-radius: 50%;" alt="Foto actual de {{ $user->name }}">
                     @else
-                        <img id="currentProfileImage" src="{{ asset('img/userDefault.png') }}" style="width: 150px; height: 150px; border-radius: 50%;" alt="Foto actual de {{ $authUser->name }}">
+                        <img id="currentProfileImage" src="{{ asset('img/userDefault.png') }}" style="width: 150px; height: 150px; border-radius: 50%;" alt="Foto actual de {{ $user->name }}">
                     @endif
                 </div>
                 <form action="{{ route('profiles.updateImage') }}" method="POST" enctype="multipart/form-data">

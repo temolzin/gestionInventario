@@ -71,7 +71,6 @@ class User extends Authenticatable implements HasMedia
     {
         $role = $this->getRoleNames()->first();
         return $role ?? 'Unknown Role';
-
     }
 
     public function adminlte_profile_url()

@@ -11,20 +11,20 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        $authUser = Auth::user();
-        $department = $authUser->department;
+        $user = Auth::user();
+        $department = $user->department;
 
-        return view('profiles.index', compact('authUser','department'));
+        return view('profiles.index', compact('user','department'));
     }
 
     public function profileUpdate(Request $request)
     {
-        $authUser = User::find(Auth::id());
-        $authUser->name = $request->input('nameUpdate');
-        $authUser->last_name = $request->input('lastNameUpdate');
-        $authUser->email = $request->input('emailUpdate');
+        $user = User::find(Auth::id());
+        $user->name = $request->input('nameUpdate');
+        $user->last_name = $request->input('lastNameUpdate');
+        $user->email = $request->input('emailUpdate');
 
-        $authUser->save();
+        $user->save();
 
         return redirect()->route('profiles.index')->with('success', 'Perfil actualizado correctamente.');
     }
@@ -66,6 +66,7 @@ class ProfileController extends Controller
 
         return redirect()->route('profiles.index')->with('success', 'Contraseña actualizada correctamente.');
     }
+    
     public function updatePicture(Request $request)
     {
         $userId = $request->input('user_id'); 

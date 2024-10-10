@@ -37,7 +37,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/profiles/updateImage', [ProfileController::class, 'updateImage'])->name('profiles.updateImage');
     Route::post('/profiles/updatePicture', [ProfileController::class, 'updatePicture'])->name('profiles.updatePicture');
     Route::put('/profiles/editPassword', [ProfileController::class, 'updatePassword'])->name('profiles.updatePassword');
-
     Route::resource('category', CategoryController::class);
     Route::resource('students', StudentController::class);
     Route::resource('materials', MaterialController::class);
