@@ -22,15 +22,6 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-lg-12 text-center">
-                                    @if ($inventory->material->getFirstMediaUrl('materialGallery'))
-                                        <img src="{{ $inventory->material->getFirstMediaUrl('materialGallery') }}" alt="Foto del material" class="img-fluid" 
-                                         style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 5px;">
-                                    @else
-                                        <img src="{{ asset('img/logo.png') }}" alt="Foto del material" class="img-fluid" 
-                                        style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 5px;">
-                                    @endif
-                                </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>ID</label>
@@ -39,28 +30,29 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label>Nombre del Material</label>
-                                        <input type="text" disabled class="form-control" value="{{ $inventory->material->name }}" />
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
                                         <label>Estado</label>
                                         <input type="text" disabled class="form-control" value="{{ $inventory->status }}" />
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label>Cantidad</label>
-                                        <input type="number" disabled class="form-control" value="{{ $inventory->quantity }}" />
-                                    </div>
-                                </div>
                                 <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label>Descripción</label>
-                                        <textarea type="text" disabled class="form-control">{{ $inventory->material->description }}</textarea>
-                                    </div>
-                                </div>                                           
+                                    <h5>Materiales Asociados</h5>
+                                    <table id="tableShow" class="table table-bordered table-striped">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th>Material</th>
+                                                <th>Cantidad</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($inventory->materials as $material)
+                                                <tr>
+                                                    <td>{{ $material->name }}</td>
+                                                    <td>{{ $material->pivot->quantity }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -72,3 +64,12 @@
         </div>
     </div>
 </div>
+
+<style>
+    #tableShow tbody tr:nth-child(odd) {
+        background-color: #ffffff;
+    }
+    #tableShow tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+</style>

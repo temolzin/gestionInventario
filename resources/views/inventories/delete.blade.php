@@ -11,7 +11,7 @@
                 @csrf
                 @method('DELETE')
                 <div class="modal-body text-center text-danger">
-                    ¿Estás seguro de eliminar el elemento de inventario <strong>{{ $inventory->material->name }}</strong>? 
+                    ¿Estás seguro de eliminar el elemento de inventario con ID: <strong>{{ $inventory->id}}</strong>?
                     Esta acción no se puede deshacer.
                 </div>
                 <div class="modal-footer">

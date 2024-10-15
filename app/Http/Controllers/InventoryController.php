@@ -16,12 +16,12 @@ class InventoryController extends Controller
 
         if ($request->has('search')) {
             $search = $request->input('search');
-            $query->whereHas('material', function ($q) use ($search) {
+            $query->whereHas('materials', function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%");
             })->orWhere('status', 'like', "%{$search}%");
         }
 
-        $inventories = $query->with(['material', 'creator'])->paginate(10);
+        $inventories = $query->with(['materials', 'creator'])->paginate(10);
         $materials = Material::all();
 
         return view('inventories.index', compact('inventories', 'materials'));
@@ -29,33 +29,54 @@ class InventoryController extends Controller
 
     public function store(Request $request)
     {
+        $materials = $request->input('materials');
+        $quantities = $request->input('quantities');
+
+        if (empty($materials) || empty($quantities)) {
+            return redirect()->back()->withErrors('Debe seleccionar al menos un material y su cantidad.');
+        }
+
         $inventory = Inventory::create([
-            'material_id' => $request->material_id,
-            'quantity' => $request->quantity,
-            'status' => $request->status,
+            'status' => $request->input('status'),
             'department_id' => auth()->user()->department_id,
             'created_by' => auth()->user()->id,
         ]);
+
+        foreach ($materials as $key => $material_id) {
+            $inventory->materials()->attach($material_id, ['quantity' => $quantities[$key]]);
+        }
 
         return redirect()->route('inventories.index')->with('success', 'Inventario registrado correctamente.');
     }
 
     public function show($id)
     {
-        $inventory = Inventory::with(['material', 'creator'])->findOrFail($id);
+        $inventory = Inventory::with(['materials', 'creator'])->findOrFail($id);
         return view('inventories.show', compact('inventory'));
     }
 
     public function update(Request $request, $id)
-    {
-        $inventory = Inventory::findOrFail($id);
-        $inventory->material_id = $request->input('material_id');
-        $inventory->quantity = $request->input('quantity');
-        $inventory->status = $request->input('status');
-        $inventory->save();
+{
+    $inventory = Inventory::findOrFail($id);
 
-        return redirect()->route('inventories.index')->with('success', 'Inventario actualizado correctamente.');
+    $materials = $request->input('materials');
+    $quantities = $request->input('quantities');
+
+    if (empty($materials) || empty($quantities)) {
+        return redirect()->back()->withErrors('Debe seleccionar al menos un material y su cantidad.');
     }
+
+    $inventory->status = $request->input('status');
+    $inventory->save();
+
+    $inventory->materials()->detach();
+
+    foreach ($materials as $key => $material_id) {
+        $inventory->materials()->attach($material_id, ['quantity' => $quantities[$key]]);
+    }
+
+    return redirect()->route('inventories.index')->with('success', 'Inventario actualizado correctamente.');
+}
 
     public function destroy($id)
     {

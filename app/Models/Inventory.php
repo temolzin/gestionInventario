@@ -14,16 +14,14 @@ class Inventory extends Model implements HasMedia
     use HasFactory, InteractsWithMedia;
 
     protected $fillable = [
-        'material_id',
         'department_id',
         'created_by',
-        'quantity',
         'status',
     ];
 
-    public function material()
+    public function materials()
     {
-        return $this->belongsTo(Material::class);
+        return $this->belongsToMany(Material::class)->withPivot('quantity');
     }
 
     public function department()
