@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Faker\Factory as Faker;
 
 class InventoryMaterialsTableSeeder extends Seeder
 {
@@ -14,22 +15,19 @@ class InventoryMaterialsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('inventory_material')->insert([
-            ['inventory_id' => 1, 'material_id' => 1, 'quantity' => 10],
-            ['inventory_id' => 1, 'material_id' => 2, 'quantity' => 5],
-            ['inventory_id' => 2, 'material_id' => 3, 'quantity' => 8],
-            ['inventory_id' => 2, 'material_id' => 1, 'quantity' => 12],
-            ['inventory_id' => 3, 'material_id' => 2, 'quantity' => 20],
-            ['inventory_id' => 3, 'material_id' => 4, 'quantity' => 3],
-            ['inventory_id' => 4, 'material_id' => 5, 'quantity' => 15],
-            ['inventory_id' => 4, 'material_id' => 6, 'quantity' => 7],
-            ['inventory_id' => 5, 'material_id' => 1, 'quantity' => 9],
-            ['inventory_id' => 5, 'material_id' => 7, 'quantity' => 11],
-            ['inventory_id' => 2, 'material_id' => 2, 'quantity' => 18],
-            ['inventory_id' => 2, 'material_id' => 8, 'quantity' => 4],
-            ['inventory_id' => 3, 'material_id' => 3, 'quantity' => 13],
-            ['inventory_id' => 3, 'material_id' => 9, 'quantity' => 16],
-            ['inventory_id' => 4, 'material_id' => 10, 'quantity' => 25],
-        ]);
+        $faker = Faker::create();
+
+        $inventoryIds = DB::table('inventories')->pluck('id')->toArray();
+        $materialIds = DB::table('materials')->pluck('id')->toArray();
+
+        foreach (range(1, 50) as $index) {
+            DB::table('inventory_material')->insert([
+                'inventory_id' => $faker->randomElement($inventoryIds),
+                'material_id'  => $faker->randomElement($materialIds),
+                'quantity'     => $faker->numberBetween(1, 50),
+                'created_at'    => now(),
+                'updated_at'    => now(),
+            ]);
+        }
     }
 }

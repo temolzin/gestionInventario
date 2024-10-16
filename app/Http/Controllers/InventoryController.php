@@ -11,8 +11,8 @@ class InventoryController extends Controller
     public function index(Request $request)
     {
         $query = Inventory::query();
-        $departmentId = auth()->user()->department_id; 
-        $query->where('department_id', $departmentId); 
+        $departmentId = auth()->user()->department_id;
+        $query->where('department_id', $departmentId);
 
         if ($request->has('search')) {
             $search = $request->input('search');
@@ -56,27 +56,27 @@ class InventoryController extends Controller
     }
 
     public function update(Request $request, $id)
-{
-    $inventory = Inventory::findOrFail($id);
+    {
+        $inventory = Inventory::findOrFail($id);
 
-    $materials = $request->input('materials');
-    $quantities = $request->input('quantities');
+        $materials = $request->input('materials');
+        $quantities = $request->input('quantities');
 
-    if (empty($materials) || empty($quantities)) {
-        return redirect()->back()->withErrors('Debe seleccionar al menos un material y su cantidad.');
+        if (empty($materials) || empty($quantities)) {
+            return redirect()->back()->withErrors('Debe seleccionar al menos un material y su cantidad.');
+        }
+
+        $inventory->status = $request->input('status');
+        $inventory->save();
+
+        $inventory->materials()->detach();
+
+        foreach ($materials as $key => $material_id) {
+            $inventory->materials()->attach($material_id, ['quantity' => $quantities[$key]]);
+        }
+
+        return redirect()->route('inventories.index')->with('success', 'Inventario actualizado correctamente.');
     }
-
-    $inventory->status = $request->input('status');
-    $inventory->save();
-
-    $inventory->materials()->detach();
-
-    foreach ($materials as $key => $material_id) {
-        $inventory->materials()->attach($material_id, ['quantity' => $quantities[$key]]);
-    }
-
-    return redirect()->route('inventories.index')->with('success', 'Inventario actualizado correctamente.');
-}
 
     public function destroy($id)
     {
