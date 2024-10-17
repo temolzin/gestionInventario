@@ -26,13 +26,13 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="material_id" class="form-label">Material(*)</label>
-                                            <select class="form-control" id="material_id" name="material_id" required>
+                                            <label for="labelMaterial" class="form-label">Material(*)</label>
+                                            <select class="form-control" id="material_id">
                                                 <option value="">Seleccione un material</option>
                                                 @foreach($materials as $material)
-                                                    <option value="{{ $material->id }}">{{ $material->name }}</option>
+                                                    <option value="{{ $material->id }}" data-description="{{ $material->description }}">{{ $material->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -46,12 +46,27 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-12">
                                         <div class="form-group">
-                                            <label for="quantity" class="form-label">Cantidad(*)</label>
-                                            <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Ingresa la cantidad" required />
+                                            <button type="button" id="addMaterialBtn" class="btn btn-primary">Agregar Material</button>
                                         </div>
                                     </div>                                           
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <table class="table table-bordered" id="materialTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nombre</th>
+                                                    <th>Descripción</th>
+                                                    <th>Cantidad</th>
+                                                    <th>Acción</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -65,3 +80,41 @@
         </div>
     </div>
 </div>
+
+<script>
+   document.getElementById('addMaterialBtn').addEventListener('click', function() {
+        const materialId = document.getElementById('material_id').value;
+
+        if (materialId !== "") {
+            const materialName = document.getElementById('material_id').selectedOptions[0].text;
+            const materialDescription = document.getElementById('material_id').selectedOptions[0].getAttribute('data-description');
+            const tableBody = document.querySelector('#materialTable tbody');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td>${materialName}<input type="hidden" name="materials[]" value="${materialId}"></td>
+                <td>${materialDescription}</td>
+                <td><input type="number" class="form-control" name="quantities[]" min="1" value="1"></td>
+                <td><button type="button" class="btn btn-danger btn-sm delete-row">Eliminar</button></td>
+            `;
+
+            tableBody.appendChild(newRow);
+
+            newRow.querySelector('.delete-row').addEventListener('click', function() {
+                newRow.remove();
+            });
+
+            document.getElementById('material_id').value = '';
+        } else {
+            alert('Por favor seleccione un material.');
+        }
+    });
+</script>
+
+<style>
+    #materialTable tbody tr:nth-child(odd) {
+        background-color: #f2f2f2;
+    }
+    #materialTable tbody tr:nth-child(even) {
+        background-color: #ffffff;
+    }
+</style>

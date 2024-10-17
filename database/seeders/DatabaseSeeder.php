@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             LoansTableSeeder::class,
             MaterialReturnsTableSeeder::class,
             InventoriesTableSeeder::class,
+            InventoryMaterialsTableSeeder::class,
             LoanDetailsTableSeeder::class,
         ]);
     }
