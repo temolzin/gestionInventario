@@ -16,32 +16,32 @@ class DepartmentsTableSeeder extends Seeder
     {
         DB::table('departments')->insert([
             [
-                'name' => 'Computadoras y Tablets',
-                'description' => 'Departamento de Computadoras y Tablets',
+                'name' => 'Biología Molecular',
+                'description' => 'Laboratorio dedicado a la investigación en biología molecular.',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Dispositivos Móviles',
-                'description' => 'Departamento de Dispositivos Móviles',
+                'name' => 'Química Analítica',
+                'description' => 'Laboratorio especializado en análisis químico de muestras.',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Equipos de Red',
-                'description' => 'Departamento de Equipos de Red',
+                'name' => 'Física Aplicada',
+                'description' => 'Laboratorio centrado en aplicaciones prácticas de la física.',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Software y Licencias',
-                'description' => 'Departamento de Software y Licencias',
+                'name' => 'Ingeniería Electrónica',
+                'description' => 'Laboratorio enfocado en el desarrollo de circuitos electrónicos.',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Periféricos y Accesorios',
-                'description' => 'Departamento de Periféricos y Accesorios',
+                'name' => 'Ciencias de la Computación',
+                'description' => 'Laboratorio dedicado a la investigación en ciencias de la computación.',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

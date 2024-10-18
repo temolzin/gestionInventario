@@ -87,16 +87,16 @@
         <div class="d-flex justify-content-between align-items-center py-2 px-3">
             <div class="logo ms-3">
                 @if ($authUser->department->hasMedia('departmentGallery'))
-                    <img src="{{ $authUser->department->getFirstMediaUrl('departmentGallery') }}" alt="Photo of {{ $authUser->department->name }}" class="img-fluid" style="max-width: 150px;">
+                    <img src="{{ $authUser->department->getFirstMediaUrl('departmentGallery') }}" alt="Foto de {{ $authUser->department->name }}" class="img-fluid" style="max-width: 150px;">
                 @else
-                    <img src='img/logo.png' alt="Default Photo" class="img-fluid" style="max-width: 150px;">
+                    <img src='img/logo.png' alt="Foto por defecto" class="img-fluid" style="max-width: 150px;">
                 @endif
             </div>
             <div class="header-info">
-                <h1>Inventory Report</h1>
-                <p><strong>Start Date:</strong> {{ $startDate ?? 'No especificada' }}</p>
-                <p><strong>End Date:</strong> {{ $endDate ?? 'No especificada' }}</p>
-                <p><strong>Area:</strong> {{ $authUser->department->name ?? 'No especificado' }}</p>
+                <h1>Reporte de Inventario</h1>
+                <p><strong>Fecha Inicial:</strong> {{ $startDate ?? 'No especificada' }}</p>
+                <p><strong>Fecha Final:</strong> {{ $endDate ?? 'No especificada' }}</p>
+                <p><strong>Laboratorio:</strong> {{ $authUser->department->name ?? 'No especificado' }}</p>
             </div>
         </div>
         <div class="table-container">
@@ -104,10 +104,10 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>PRODUCT</th>
-                        <th>QTY.</th>
-                        <th>DATE</th>
-                        <th>STATE</th>
+                        <th>PRODUCTO</th>
+                        <th>CANT.</th>
+                        <th>FECHA</th>
+                        <th>ESTADO</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -116,7 +116,7 @@
                             <tr>
                                 <td>{{ $inventory->id }}</td>
                                 <td>{{ $material->name }}</td>
-                                <td>x{{ $material->pivot->quantity }}</td>
+                                <td>{{ $material->pivot->quantity }}</td>
                                 <td>{{ $inventory->created_at->format('d/m/Y') }}</td>
                                 <td>{{ $inventory->status }}</td>
                             </tr>
