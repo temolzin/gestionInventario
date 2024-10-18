@@ -17,20 +17,13 @@
 
     {{-- User menu toggler --}}
     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-        @if(Auth::user()->getFirstMediaUrl("departmentGallery"))
-            <img src="{{ Auth::user()->getFirstMediaUrl('departmentGallery') }}"
-            alt="Foto de{{ Auth::user()->department->name }}" width="25px" height="20px" style="border-radius: 50%">
-        @else
-            <img src="{{ asset('img/logo.png') }}" width="25px" height="20px" style="border-radius: 50%">
+        @if(config('adminlte.usermenu_image'))
+            <img src="{{ Auth::user()->adminlte_image() }}"
+                 class="user-image img-circle elevation-2"
+                 alt="{{ Auth::user()->name }}">
         @endif
         <span @if(config('adminlte.usermenu_image')) class="d-none d-md-inline" @endif>
-            @if(Auth::user()->hasRole('admin'))
-                {{ Auth::user()->name }} {{-- Muestra el nombre del admin --}}
-            @elseif(Auth::user()->hasRole('supervisor') && Auth::user()->department)
-                {{ Auth::user()->department->name }} {{-- Muestra el nombre del departamento --}}
-            @else
-                {{ Auth::user()->name }} {{-- Fallback por si no tiene ninguno de los roles --}}
-            @endif
+            {{ Auth::user()->name }}
         </span>
     </a>
 
@@ -41,17 +34,15 @@
         @if(!View::hasSection('usermenu_header') && config('adminlte.usermenu_header'))
             <li class="user-header {{ config('adminlte.usermenu_header_class', 'bg-primary') }}
                 @if(!config('adminlte.usermenu_image')) h-auto @endif">
-                @if(Auth::user()->getFirstMediaUrl("departmentGallery"))
-                    <img src="{{ Auth::user()->getFirstMediaUrl('departmentGallery') }}"
-                    alt="Foto de {{ Auth::user()->department->name }}" width="100px" height="100px" style="border-radius: 50%; margin-top: 18px;">
-                @else
-                    <img src="{{ asset('img/logo.png') }}" width="100px" height="100px" style="border-radius: 50%; margin-top: 18px;">
+                @if(config('adminlte.usermenu_image'))
+                    <img src="{{ Auth::user()->adminlte_image() }}"
+                         class="img-circle elevation-2"
+                         alt="{{ Auth::user()->name }}">
                 @endif
-                <p class="@if(!config('adminlte.usermenu_image')) mt-0 @endif" style="margin-top: 18px;">
-                    @if(Auth::user()->hasRole('admin'))
-                        {{ Auth::user()->name }} {{-- Muestra el nombre del admin --}}
-                    @elseif(Auth::user()->hasRole('supervisor') && Auth::user()->department)
-                        {{ Auth::user()->department->name }} {{-- Muestra el nombre del departamento --}}
+                <p class="@if(!config('adminlte.usermenu_image')) mt-0 @endif">
+                    {{ Auth::user()->name }}
+                    @if(config('adminlte.usermenu_desc'))
+                        <small>{{ Auth::user()->adminlte_desc() }}</small>
                     @endif
                 </p>
             </li>

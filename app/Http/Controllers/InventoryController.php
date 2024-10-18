@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Inventory;
 use App\Models\Material;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class InventoryController extends Controller
 {
@@ -84,5 +85,25 @@ class InventoryController extends Controller
         $inventory->delete();
 
         return redirect()->route('inventories.index')->with('success', 'Inventario eliminado correctamente.');
+    }
+    public function inventoryReport(Request $request)
+    {
+        $status = $request->input('inventoryStatus');
+        $startDate = $request->input('startDate');
+        $endDate = $request->input('endDate');
+        $authUser = auth()->user();
+
+        $inventories = Inventory::where('department_id', $authUser->department_id)
+            ->where('status', $status)
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->with(['materials', 'creator'])
+            ->get();
+
+        $totalInventories = $inventories->count();
+
+        $pdf = PDF::loadView('reports.inventoryReport', compact('inventories', 'startDate', 'endDate', 'authUser', 'totalInventories'))
+            ->setPaper('A4', 'portrait');
+
+        return $pdf->stream('reporte_inventario.pdf');
     }
 }
