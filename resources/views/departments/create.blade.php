@@ -35,7 +35,10 @@
                                         <div class="form-group">
                                             <label for="photo">Foto del Departamento (opcional)</label>
                                             <input type="file" class="form-control" id="photo" name="photo"
-                                                accept="image/*" onchange="previewImage(event)">
+                                                onchange="previewImage(event)">
+                                            <small class="form-text text-muted" style="margin-top: 5px;">
+                                                📸 Puedes subir cualquier formato de imagen. ¡Elige la que más te guste!
+                                            </small>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">

@@ -31,6 +31,7 @@ class UserController extends Controller
             'email' => 'required|email|max:255|unique:users,email,' . $id,
             'role' => 'required|string|max:255',
             'department_id' => 'required|exists:departments,id',
+            'photo' => 'nullable|image|max:2048',
         ]);
 
         $user = User::findOrFail($id);
@@ -42,6 +43,13 @@ class UserController extends Controller
 
         $user->syncRoles($request->input('role'));
 
+        if ($request->hasFile('photo')) {
+            if ($user->getFirstMediaUrl('userGallery')) {
+                $user->clearMediaCollection('userGallery');
+            }
+            $user->addMedia($request->file('photo'))->toMediaCollection('userGallery');
+        }
+
         $user->save();
 
         return redirect()->route('users.index')->with('success', 'Usuario actualizado correctamente.');
@@ -50,7 +58,7 @@ class UserController extends Controller
     public function updatePhoto(Request $request, $id)
     {
         $request->validate([
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'photo' => 'nullable|image|max:2048',
         ]);
 
         $user = User::findOrFail($id);
@@ -95,7 +103,7 @@ class UserController extends Controller
             'password' => 'required|string|min:8|confirmed',
             'role' => 'required',
             'department_id' => 'nullable',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'photo' => 'nullable|image|max:2048',
         ]);
 
         $departmentId = $validated['department_id'] ?? null;

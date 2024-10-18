@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Gestión de Roles')
+@section('title', ' | Gestión de Roles')
 
 @section('content')
     <section class="content">

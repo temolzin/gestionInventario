@@ -15,7 +15,7 @@ class Loan extends Model
         'created_by',
         'status',
         'detail',
-        'return_at'
+        'return_at',
     ];
 
     public function student()
@@ -31,5 +31,12 @@ class Loan extends Model
     public function createdBy()
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function materials()
+    {
+        return $this->belongsToMany(Material::class, 'loan_details')
+            ->withPivot('quantity')
+            ->withTimestamps();
     }
 }

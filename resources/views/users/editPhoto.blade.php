@@ -42,20 +42,24 @@
                                             <input type="file" class="form-control" name="photo"
                                                 id="photo-{{ $user->id }}"
                                                 onchange="previewImageEdit(event, {{ $user->id }})">
+                                            <small class="form-text text-muted" style="margin-top: 5px;">📷 Puede
+                                                actualizar su imagen en cualquier formato. Seleccione la
+                                                fotografía que desea modificar. </small>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-warning">Actualizar</button>
-                    </div>
-                </form>
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-warning">Actualizar</button>
+            </div>
+            </form>
         </div>
     </div>
+</div>
 </div>
 
 <script>
