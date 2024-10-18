@@ -55,4 +55,30 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->hasMany(Loan::class, 'created_by');
     }
+    
+    public function adminlte_image()
+    {
+        if ($this->hasRole('admin')) 
+        {
+            $userGalleryImage = $this->getFirstMediaUrl('userGallery');
+            return $userGalleryImage ?: url('img/userDefault.png');
+        }
+
+        if ($this->hasRole('supervisor'))
+        {
+            $departmentImage = $this->getFirstMediaUrl('departmentGallery');
+            return $departmentImage ?: url('img/logo.png');
+        }
+    }
+
+    public function adminlte_desc()
+    {
+        $role = $this->getRoleNames()->first();
+        return $role ?? 'Unknown Role';
+    }
+
+    public function adminlte_profile_url()
+    {
+        return route('profiles.index');
+    }
 }

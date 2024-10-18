@@ -20,7 +20,7 @@
                     </div>                    
                     <div class="clearfix"></div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                     <form method="GET" action="{{ route('inventories.index') }}" class="my-3">
                         <div class="input-group">
                             <input type="text" name="search" class="form-control" placeholder="Buscar por material, estado" value="{{ request('search') }}">
@@ -38,8 +38,7 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Material</th>
-                                            <th>Cantidad</th>
+                                            <th>Fecha de Creación</th>
                                             <th>Estado</th>
                                             <th>Opciones</th>
                                         </tr>
@@ -53,8 +52,7 @@
                                         @foreach($inventories as $inventory)
                                         <tr>
                                             <td scope="row">{{ $inventory->id }}</td>
-                                            <td>{{ $inventory->material->name }}</td>
-                                            <td>{{ $inventory->quantity }}</td>
+                                            <td>{{ $inventory->created_at->format('d/m/Y') }}</td>
                                             <td>{{ $inventory->status }}</td>
                                             <td>
                                                 <div class="btn-group" role="group" aria-label="Opciones">
@@ -64,14 +62,14 @@
                                                     <button type="button" class="btn btn-warning mr-2" data-toggle="modal" title="Editar Datos" data-target="#edit{{ $inventory->id }}">
                                                         <i class="fas fa-edit"></i>
                                                     </button>
+                                                    @include('inventories.delete')
+                                                    @include('inventories.show')
+                                                    @include('inventories.edit')
                                                     <button type="button" class="btn btn-danger mr-2" data-toggle="modal" title="Eliminar Registro" data-target="#delete{{ $inventory->id }}">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </button>
                                                 </div>
                                             </td>
-                                            @include('inventories.edit')
-                                            @include('inventories.delete')
-                                            @include('inventories.show')
                                         </tr>
                                         @endforeach
                                         @endif
@@ -94,7 +92,7 @@
 @section('js')
 <script>
     $(document).ready(function() {
-        $('#inventories').DataTable({
+        $('#inventories','#tableShow').DataTable({
             responsive: true,
             paging: false,
             info: false,

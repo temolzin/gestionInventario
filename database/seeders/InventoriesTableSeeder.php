@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Faker\Factory as Faker;
 
 class InventoriesTableSeeder extends Seeder
 {
@@ -14,52 +15,19 @@ class InventoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('inventories')->insert([
-            [
-                'material_id' => 1,
-                'department_id' => 1,
-                'created_by' => 2,
-                'quantity' => 10,
-                'status' => 'disponible',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'material_id' => 2,
-                'department_id' => 1,
-                'created_by' => 2,
-                'quantity' => 5,
-                'status' => 'prestado',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'material_id' => 3,
-                'department_id' => 1,
-                'created_by' => 2,
-                'quantity' => 8,
-                'status' => 'en reparación',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'material_id' => 4,
-                'department_id' => 1,
-                'created_by' => 2,
-                'quantity' => 3,
-                'status' => 'disponible',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'material_id' => 5,
-                'department_id' => 1,
-                'created_by' => 2,
-                'quantity' => 12,
-                'status' => 'disponible',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-        ]);
+        $faker = Faker::create();
+
+        $departmentIds = DB::table('departments')->pluck('id')->toArray();
+        $userIds = DB::table('users')->pluck('id')->toArray();
+
+        foreach (range(1, 20) as $index) {
+            DB::table('inventories')->insert([
+                'department_id' => $faker->randomElement($departmentIds),
+                'created_by'    => $faker->randomElement($userIds),
+                'status'        => $faker->randomElement(['disponible', 'no disponible']),
+                'created_at'    => now(),
+                'updated_at'    => now(),
+            ]);
+        }
     }
 }
