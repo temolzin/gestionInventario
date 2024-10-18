@@ -41,7 +41,7 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Fecha de Creación</th>
+                                            <th>Fecha y Hora de Creación</th>
                                             <th>Estado</th>
                                             <th>Opciones</th>
                                         </tr>
@@ -55,7 +55,7 @@
                                         @foreach($inventories as $inventory)
                                         <tr>
                                             <td scope="row">{{ $inventory->id }}</td>
-                                            <td>{{ $inventory->created_at->format('d/m/Y') }}</td>
+                                            <td>{{ $inventory->created_at->format('d/m/Y H:i:s') }}</td>
                                             <td>{{ $inventory->status }}</td>
                                             <td>
                                                 <div class="btn-group" role="group" aria-label="Opciones">
