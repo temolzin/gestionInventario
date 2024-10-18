@@ -26,13 +26,9 @@
                             <div class="row">
                                 <div class="col-lg-12 text-center">
                                     @if ($department->getFirstMediaUrl('departmentGallery'))
-                                        <img src="{{ $department->getFirstMediaUrl('departmentGallery') }}"
-                                            alt="Foto del departamento" class="img-fluid"
-                                            style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 5px;">
+                                        <img src="{{ $department->getFirstMediaUrl('departmentGallery') }}" alt="Foto de {{ $department->name }}" style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 5px;">
                                     @else
-                                        <img src="{{ asset('img/logo.png') }}" alt="Foto del departamento"
-                                            class="img-fluid"
-                                            style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 5px;">
+                                        <img src="{{ asset('img/logo.png') }}" style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 5px;">
                                     @endif
                                 </div>
 

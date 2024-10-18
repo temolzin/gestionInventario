@@ -44,7 +44,7 @@
                                                 <th>ID</th>
                                                 <th>Estudiante</th>
                                                 <th>Estado</th>
-                                                <th>Fecha de Devolución</th>
+                                                <th>Fecha y Hora de Devolución</th>
                                                 <th>Opciones</th>
                                             </tr>
                                         </thead>
@@ -60,7 +60,7 @@
                                                         <td>{{ $loan->student->name }}</td>
                                                         <td>{{ $loan->status }}</td>
                                                         <td>
-                                                            {{ $loan->return_at ? \Carbon\Carbon::parse($loan->return_at)->format('d/m/Y') : 'N/A' }}
+                                                            {{ $loan->return_at ? \Carbon\Carbon::parse($loan->return_at)->format('d/m/Y H:i') : 'N/A' }}
                                                         </td>
                                                         <td>
                                                             <div class="btn-group" role="group" aria-label="Opciones">

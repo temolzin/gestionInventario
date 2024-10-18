@@ -15,6 +15,9 @@
                                 <button class="btn btn-success mr-2" data-toggle='modal' data-target="#createInventory">
                                     <i class="fa fa-plus"></i> Registrar inventario
                                 </button>
+                                <button type="button" class="btn bg-maroon" data-toggle="modal" data-target="#reportInventory">
+                                    <i class="fa fa-solid fa-clipboard"></i> Reporte inventario
+                                </button>
                             </div>
                         </div>
                     </div>                    
@@ -76,6 +79,7 @@
                                     </tbody>
                                 </table>
                                 @include('inventories.create')
+                                @include('inventories.report')
                                 <div class="d-flex justify-content-center">
                                     {!! $inventories->links('pagination::bootstrap-4') !!}
                                 </div>

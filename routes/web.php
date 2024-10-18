@@ -51,4 +51,5 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/users/{user}/update-photo', [UserController::class, 'updatePhoto'])->name('users.updatePhoto');
     Route::put('/users/{user}/update-password', [UserController::class, 'updatePassword'])->name('users.updatePassword');
     Route::post('/departments/{departamento}/update-photo', [DepartmentController::class, 'updatePhoto'])->name('departments.updatePhoto');
+    Route::get('/inventory/report', [InventoryController::class, 'inventoryReport'])->name('report.inventory');
 });
