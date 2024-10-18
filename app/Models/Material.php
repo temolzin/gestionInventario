@@ -38,4 +38,15 @@ class Material extends Model implements HasMedia
         return $this->belongsTo(User::class, 'created_by');
     }
 
+    public function loanDetails()
+    {
+        return $this->hasMany(LoanDetail::class);
+    }
+
+    public function loans()
+    {
+        return $this->belongsToMany(Loan::class, 'loan_details')
+            ->withPivot('quantity', 'created_by')
+            ->withTimestamps();
+    }
 }

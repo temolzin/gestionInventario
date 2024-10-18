@@ -10,8 +10,8 @@ class StudentController extends Controller
     public function index(Request $request)
     {
         $query = Student::query();
-        $departmentId = auth()->user()->department_id; 
-        $query->where('department_id', $departmentId); 
+        $departmentId = auth()->user()->department_id;
+        $query->where('department_id', $departmentId);
 
         if ($request->has('search')) {
             $search = $request->input('search');
@@ -19,15 +19,22 @@ class StudentController extends Controller
         }
 
         $students = $query->paginate(10);
-        return view('students.index', compact('students')); 
+        return view('students.index', compact('students'));
     }
 
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'enrollment' => 'required|string|max:20',
+            'photo' => 'nullable|image|max:2048',
+        ]);
+
         $student = Student::create([
-            'name' => $request->input('name'),
-            'last_name' => $request->input('last_name'),
-            'enrollment' => $request->input('enrollment'),
+            'name' => $validatedData['name'],
+            'last_name' => $validatedData['last_name'],
+            'enrollment' => $validatedData['enrollment'],
             'department_id' => auth()->user()->department_id,
             'created_by' => auth()->user()->id,
         ]);
@@ -69,9 +76,12 @@ class StudentController extends Controller
 
     public function updatePhoto(Request $request, $id)
     {
+        $request->validate([
+            'photo' => 'nullable|image|max:2048',
+        ]);
+
         $student = Student::find($id);
         if ($student) {
-
             if ($request->hasFile('photo')) {
                 $student->clearMediaCollection('studentGallery');
                 $student->addMediaFromRequest('photo')->toMediaCollection('studentGallery');

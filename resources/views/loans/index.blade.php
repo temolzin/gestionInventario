@@ -5,7 +5,7 @@
 @section('content')
     <section class="content">
         <div class="right_col" role="main">
-            <div class="col-md-12 col-sm-12 ">
+            <div class="col-md-12 col-sm-12">
                 <div class="x_panel">
                     <div class="x_title">
                         <h2>Préstamos</h2>
@@ -20,6 +20,7 @@
                         </div>
                         <div class="clearfix"></div>
                     </div>
+
                     <div class="col-lg-4">
                         <form method="GET" action="{{ route('loans.index') }}" class="my-3">
                             <div class="input-group">
@@ -31,6 +32,7 @@
                             </div>
                         </form>
                     </div>
+
                     <div class="x_content">
                         <div class="row">
                             <div class="col-sm-12">
@@ -41,7 +43,6 @@
                                             <tr>
                                                 <th>ID</th>
                                                 <th>Estudiante</th>
-                                                <th>Departamento</th>
                                                 <th>Estado</th>
                                                 <th>Fecha de Devolución</th>
                                                 <th>Opciones</th>
@@ -50,16 +51,17 @@
                                         <tbody>
                                             @if (count($loans) <= 0)
                                                 <tr>
-                                                    <td colspan="6">No hay resultados</td>
+                                                    <td colspan="5">No hay resultados</td>
                                                 </tr>
                                             @else
                                                 @foreach ($loans as $loan)
                                                     <tr>
                                                         <td scope="row">{{ $loan->id }}</td>
                                                         <td>{{ $loan->student->name }}</td>
-                                                        <td>{{ $loan->department->name }}</td>
                                                         <td>{{ $loan->status }}</td>
-                                                        <td>{{ $loan->return_at }}</td>
+                                                        <td>
+                                                            {{ $loan->return_at ? \Carbon\Carbon::parse($loan->return_at)->format('d/m/Y') : 'N/A' }}
+                                                        </td>
                                                         <td>
                                                             <div class="btn-group" role="group" aria-label="Opciones">
                                                                 <button type="button" class="btn btn-info mr-2"
@@ -78,10 +80,10 @@
                                                                     <i class="fas fa-trash-alt"></i>
                                                                 </button>
                                                             </div>
+                                                            @include('loans.edit')
+                                                            @include('loans.delete')
+                                                            @include('loans.show')
                                                         </td>
-                                                        @include('loans.edit')
-                                                        @include('loans.delete')
-                                                        @include('loans.show')
                                                     </tr>
                                                 @endforeach
                                             @endif
@@ -113,6 +115,7 @@
 
             var successMessage = "{{ session('success') }}";
             var errorMessage = "{{ session('error') }}";
+
             if (successMessage) {
                 Swal.fire({
                     title: 'Éxito',

@@ -22,9 +22,15 @@ class DepartmentController extends Controller
 
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:1000',
+            'photo' => 'nullable|image|max:2048',
+        ]);
+
         $department = Department::create([
-            'name' => $request->name,
-            'description' => $request->description,
+            'name' => $validatedData['name'],
+            'description' => $validatedData['description'],
             'created_by' => auth()->user()->id,
         ]);
 
@@ -34,6 +40,7 @@ class DepartmentController extends Controller
 
         return redirect()->route('departments.index')->with('success', 'Departamento registrado correctamente.');
     }
+
 
     public function show($id)
     {

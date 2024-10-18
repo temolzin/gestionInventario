@@ -1,18 +1,21 @@
-<div class="modal fade" id="editPhoto{{ $student->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="editPhoto{{ $student->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="card-warning">
                 <div class="card-header">
                     <div class="d-sm-flex align-items-center justify-content-between">
-                        <h4 class="card-title">Editar Foto del Estudiante 
+                        <h4 class="card-title">Editar Foto del Estudiante
                             <small>&nbsp;(*) Campos requeridos</small>
                         </h4>
-                        <button type="button" class="close d-sm-inline-block text-white" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close d-sm-inline-block text-white" data-dismiss="modal"
+                            aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                 </div>
-                <form action="{{ route('students.updatePhoto', $student->id) }}" enctype="multipart/form-data" method="POST" id="edit-student-form-{{ $student->id }}">
+                <form action="{{ route('students.updatePhoto', $student->id) }}" enctype="multipart/form-data"
+                    method="POST" id="edit-student-form-{{ $student->id }}">
                     @csrf
                     <div class="card-body">
                         <div class="card">
@@ -29,13 +32,19 @@
                                     <div class="col-lg-8 offset-lg-2">
                                         <div class="form-group text-center">
                                             <label for="photo-{{ $student->id }}" class="form-label"></label>
-                                            <div class="image-preview-container" style="display: flex; justify-content: center; margin-bottom: 10px;">
-                                                <img id="photo-preview-edit-{{ $student->id }}" 
-                                                    src="{{ $student->getFirstMediaUrl('studentGallery') ? $student->getFirstMediaUrl('studentGallery') : asset('img/userDefault.png') }}" 
-                                                    alt="Foto Actual" 
+                                            <div class="image-preview-container"
+                                                style="display: flex; justify-content: center; margin-bottom: 10px;">
+                                                <img id="photo-preview-edit-{{ $student->id }}"
+                                                    src="{{ $student->getFirstMediaUrl('studentGallery') ? $student->getFirstMediaUrl('studentGallery') : asset('img/userDefault.png') }}"
+                                                    alt="Foto Actual"
                                                     style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 5px;">
                                             </div>
-                                            <input type="file" class="form-control" name="photo" id="photo-{{ $student->id }}" onchange="previewImageEdit(event, {{ $student->id }})">
+                                            <input type="file" class="form-control" name="photo"
+                                                id="photo-{{ $student->id }}"
+                                                onchange="previewImageEdit(event, {{ $student->id }})">
+                                            <small class="form-text text-muted" style="margin-top: 5px;">📷 Puede
+                                                actualizar su imagen en cualquier formato. Seleccione la fotografía que
+                                                desea modificar.</small>
                                         </div>
                                     </div>
                                 </div>

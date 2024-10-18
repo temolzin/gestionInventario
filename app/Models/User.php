@@ -51,4 +51,8 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->belongsTo(Department::class, 'department_id');
     }
+    public function loans()
+    {
+        return $this->hasMany(Loan::class, 'created_by');
+    }
 }
