@@ -60,7 +60,7 @@
                                                         <td>{{ $loan->student->name }}</td>
                                                         <td>{{ $loan->status }}</td>
                                                         <td>
-                                                            {{ $loan->return_at ? \Carbon\Carbon::parse($loan->return_at)->format('d/m/Y H:i') : 'N/A' }}
+                                                            {{ $loan->return_at ? \Carbon\Carbon::parse($loan->return_at)->format('d/m/Y g:i A') : 'N/A' }}
                                                         </td>
                                                         <td>
                                                             <div class="btn-group" role="group" aria-label="Opciones">

@@ -63,7 +63,7 @@
                                         <div class="form-group">
                                             <label for="return_at">Fecha de Devolución(*)</label>
                                             <input type="datetime-local" class="form-control" id="return_at" name="return_at"
-                                                value="{{ $loan->return_at ? \Carbon\Carbon::parse($loan->return_at)->format('Y-m-d') : '' }}"
+                                                value="{{ $loan->return_at ? \Carbon\Carbon::parse($loan->return_at)->format('Y-m-d\TH:i') : '' }}"
                                                 required />
                                         </div>
                                     </div>
@@ -154,7 +154,7 @@
                     <input type="number" class="form-control" name="materials[${materialSelect.value}][quantity]" value="${materialQuantity}" min="1" onchange="updateMaterialQuantity('{{ $loan->id }}', '${materialSelect.value}', this.value)" />
                 </td>
                 <td>
-                    <button type="button" class="btn btn-danger btn-sm" onclick="removeMaterial(this, '{{ $loan->id }}', '${materialSelect.value}')">Eliminar</button>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="removeMaterial(this, '{{ $loan->id }}', '${materialSelect.value}')"><i class="fas fa-trash-alt"></i></button>
                 </td>
             `;
 

@@ -35,33 +35,37 @@
                                             </select>
                                         </div>
                                     </div>
+
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="status" class="form-label">Estado:</label>
                                             <input type="text" name="status" class="form-control"
-                                                placeholder="Estado" required>
+                                                placeholder="Estado de Prestamo" required>
                                         </div>
                                     </div>
+
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="detail" class="form-label">Detalles:</label>
-                                            <textarea name="detail" class="form-control" placeholder="Detalles" required></textarea>
+                                            <textarea name="detail" class="form-control" placeholder="Detalles de Prestamo" required></textarea>
                                         </div>
                                     </div>
+
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="return_at" class="form-label">Fecha de devolución:</label>
                                             <input type="datetime-local" name="return_at" class="form-control" required>
                                         </div>
                                     </div>
+
                                     <div class="col-md-12">
                                         <h5>Seleccionar Material</h5>
                                     </div>
+
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="materialSelect">Material:</label>
-                                            <select name="material_id" id="materialSelect" class="form-control"
-                                                required>
+                                            <select name="material_id" id="materialSelect" class="form-control">
                                                 <option value="">Seleccione un material</option>
                                                 @foreach ($materials as $material)
                                                     <option value="{{ $material->id }}"
@@ -73,17 +77,22 @@
                                             </select>
                                         </div>
                                     </div>
+
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="materialQuantity">Cantidad:</label>
                                             <input type="number" id="materialQuantity" class="form-control"
-                                                placeholder="Cantidad" min="1" required>
+                                                placeholder="Cantidad" min="1">
                                         </div>
                                     </div>
-                                    <div class="col-md-2 d-flex align-items-center">
-                                        <button type="button" id="addMaterialBtn"
-                                            class="btn btn-success w-100">Agregar</button>
+
+                                    <div class="col-md-2 d-flex align-items-end justify-content-center">
+                                        <div class="form-group">
+                                            <button type="button" id="addMaterialBtn"
+                                                class="btn btn-success w-100">Agregar</button>
+                                        </div>
                                     </div>
+
                                     <div class="col-md-12 mt-4">
                                         <div class="card-header bg-success text-white">
                                             <h5 class="card-title">Materiales Agregados</h5>
@@ -96,7 +105,8 @@
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
-                                            <tbody></tbody>
+                                            <tbody>
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
@@ -108,6 +118,7 @@
                         <button type="submit" class="btn btn-success">Crear Préstamo</button>
                     </div>
                 </form>
+
                 @if ($errors->any())
                     <div class="alert alert-danger mt-3">
                         <ul>
@@ -166,6 +177,15 @@
     document.querySelector('#materialsTable tbody').addEventListener('click', function(e) {
         if (e.target.classList.contains('removeMaterialBtn')) {
             const row = e.target.closest('tr');
+            const materialName = row.cells[0].innerText;
+
+            const materialSelect = document.getElementById('materialSelect');
+            for (let option of materialSelect.options) {
+                if (option.text === materialName) {
+                    option.disabled = false;
+                }
+            }
+
             row.remove();
         }
     });

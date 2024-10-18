@@ -64,7 +64,7 @@
                                     <div class="form-group">
                                         <label>Fecha de Devolución</label>
                                         <input type="text" disabled class="form-control"
-                                            value="{{ \Carbon\Carbon::parse($loan->return_at)->format('d/m/Y H:i') }}" />
+                                            value="{{ \Carbon\Carbon::parse($loan->return_at)->format('d/m/Y g:i A') }}" />
                                     </div>
                                 </div>
                             </div>
