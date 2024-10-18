@@ -51,7 +51,11 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->belongsTo(Department::class, 'department_id');
     }
-
+    public function loans()
+    {
+        return $this->hasMany(Loan::class, 'created_by');
+    }
+    
     public function adminlte_image()
     {
         if ($this->hasRole('admin')) 

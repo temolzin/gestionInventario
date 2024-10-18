@@ -12,14 +12,14 @@ class MaterialController extends Controller
     public function index(Request $request)
     {
         $query = Material::query();
-        $departmentId = auth()->user()->department_id; 
-        $query->where('department_id', $departmentId); 
+        $departmentId = auth()->user()->department_id;
+        $query->where('department_id', $departmentId);
 
         if ($request->has('search')) {
             $search = $request->input('search');
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('status', 'like', "%{$search}%");
+                    ->orWhere('status', 'like', "%{$search}%");
             });
         }
 
@@ -35,12 +35,21 @@ class MaterialController extends Controller
 
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'category_id' => 'required|exists:categories,id',
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string|max:1000',
+            'status' => 'required|string|max:100',
+            'amount' => 'required|integer|min:1',
+            'photo' => 'nullable|image|max:2048',
+        ]);
+
         $material = Material::create([
-            'category_id' => $request->category_id,
-            'name' => $request->name,
-            'description' => $request->description,
-            'status' => $request->status,
-            'amount' => $request->amount,
+            'category_id' => $validatedData['category_id'],
+            'name' => $validatedData['name'],
+            'description' => $validatedData['description'],
+            'status' => $validatedData['status'],
+            'amount' => $validatedData['amount'],
             'department_id' => auth()->user()->department_id,
             'created_by' => auth()->user()->id,
         ]);
@@ -84,6 +93,10 @@ class MaterialController extends Controller
 
     public function updatePhoto(Request $request, $id)
     {
+        $request->validate([
+            'photo' => 'nullable|image|max:2048', 
+        ]);
+
         $material = Material::find($id);
         if ($material) {
             if ($request->hasFile('photo')) {
