@@ -89,19 +89,32 @@
             const materialName = document.getElementById('material_id').selectedOptions[0].text;
             const materialDescription = document.getElementById('material_id').selectedOptions[0].getAttribute('data-description');
             const tableBody = document.querySelector('#materialTable tbody');
-            const newRow = document.createElement('tr');
-            newRow.innerHTML = `
-                <td>${materialName}<input type="hidden" name="materials[]" value="${materialId}"></td>
-                <td>${materialDescription}</td>
-                <td><input type="number" class="form-control" name="quantities[]" min="1" value="1"></td>
-                <td><button type="button" class="btn btn-danger btn-sm delete-row">Eliminar</button></td>
-            `;
-
-            tableBody.appendChild(newRow);
-
-            newRow.querySelector('.delete-row').addEventListener('click', function() {
-                newRow.remove();
+            let existingRow = null;
+            tableBody.querySelectorAll('tr').forEach(row => {
+                const existingMaterialId = row.querySelector('input[name="materials[]"]').value;
+                if (existingMaterialId === materialId) {
+                    existingRow = row;
+                }
             });
+
+            if (existingRow) {
+                const quantityInput = existingRow.querySelector('input[name="quantities[]"]');
+                quantityInput.value = parseInt(quantityInput.value) + 1;
+            } else {
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${materialName}<input type="hidden" name="materials[]" value="${materialId}"></td>
+                    <td>${materialDescription}</td>
+                    <td><input type="number" class="form-control" name="quantities[]" min="1" value="1"></td>
+                    <td><button type="button" class="btn btn-danger btn-sm delete-row"><i class="fas fa-trash-alt"></i></button></td>
+                `;
+
+                tableBody.appendChild(newRow);
+
+                newRow.querySelector('.delete-row').addEventListener('click', function() {
+                    newRow.remove();
+                });
+            }
 
             document.getElementById('material_id').value = '';
         } else {
