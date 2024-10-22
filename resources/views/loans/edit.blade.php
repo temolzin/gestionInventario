@@ -1,5 +1,4 @@
-<div class="modal fade" id="edit{{ $loan->id }}" tabindex="-1" role="dialog" aria-labelledby="editLoanLabel"
-    aria-hidden="true">
+<div class="modal fade" id="edit{{ $loan->id }}" role="dialog" aria-labelledby="editLoanLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="card-warning">
@@ -17,7 +16,8 @@
                     method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-                    <div class="card-body">
+
+                    <div class="modal-body">
                         <div class="card">
                             <div class="card-header py-2 bg-secondary">
                                 <h3 class="card-title">Detalles del Préstamo</h3>
@@ -27,16 +27,18 @@
                                     </button>
                                 </div>
                             </div>
+
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="student_id">Estudiante(*)</label>
-                                            <select class="form-control" id="student_id" name="student_id" required>
+                                            <select class="select2 form-control" id="student_id" name="student_id"
+                                                required>
                                                 @foreach ($students as $student)
                                                     <option value="{{ $student->id }}"
                                                         {{ $loan->student_id == $student->id ? 'selected' : '' }}>
-                                                        {{ $student->name }}
+                                                        {{ $student->name }} {{ $student->last_name }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -46,23 +48,27 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="status">Estado(*)</label>
-                                            <input type="text" class="form-control" id="status" name="status"
-                                                value="{{ $loan->status }}" placeholder="Ingrese el estado del préstamo"
-                                                required />
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="detail">Detalles(*)</label>
-                                            <textarea class="form-control" id="detail" name="detail" placeholder="Ingrese detalles del préstamo" required>{{ $loan->detail }}</textarea>
+                                            <select class="form-control" id="status" name="status" required>
+                                                <option value="pendiente"
+                                                    {{ $loan->status == 'pendiente' ? 'selected' : '' }}>Pendiente
+                                                </option>
+                                                <option value="activo"
+                                                    {{ $loan->status == 'activo' ? 'selected' : '' }}>Activo</option>
+                                                <option value="completado"
+                                                    {{ $loan->status == 'completado' ? 'selected' : '' }}>Completado
+                                                </option>
+                                                <option value="cancelado"
+                                                    {{ $loan->status == 'cancelado' ? 'selected' : '' }}>Cancelado
+                                                </option>
+                                            </select>
                                         </div>
                                     </div>
 
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="return_at">Fecha de Devolución(*)</label>
-                                            <input type="datetime-local" class="form-control" id="return_at" name="return_at"
+                                            <input type="datetime-local" class="form-control" id="return_at"
+                                                name="return_at"
                                                 value="{{ $loan->return_at ? \Carbon\Carbon::parse($loan->return_at)->format('Y-m-d\TH:i') : '' }}"
                                                 required />
                                         </div>
@@ -74,7 +80,8 @@
                                     <div id="materialsContainer{{ $loan->id }}">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                <select class="form-control" id="materialSelect{{ $loan->id }}">
+                                                <select class="form-control select2"
+                                                    id="materialSelect{{ $loan->id }}">
                                                     <option value="">Seleccione un material</option>
                                                     @foreach ($materials as $material)
                                                         <option value="{{ $material->id }}">{{ $material->name }}
@@ -82,13 +89,17 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <div class="col-md-5">
-                                                <input type="number" id="materialQuantity{{ $loan->id }}"
-                                                    min="1" placeholder="Cantidad" class="form-control">
+                                            <div class="col-md-4 mb-2 offset-md-1">
+                                                <div class="form-group mb-0">
+                                                    <input type="number" id="materialQuantity{{ $loan->id }}"
+                                                        min="1" placeholder="Cantidad" class="form-control">
+                                                </div>
                                             </div>
                                             <div class="col-md-2">
-                                                <button type="button" class="btn btn-warning"
-                                                    id="addMaterialButton{{ $loan->id }}">Agregar</button>
+                                                <div class="form-group mb-0">
+                                                    <button type="button" class="btn btn-warning"
+                                                        id="addMaterialButton{{ $loan->id }}">Agregar</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -119,12 +130,21 @@
                                                         </td>
                                                         <td>
                                                             <button type="button" class="btn btn-danger btn-sm"
-                                                                onclick="removeMaterial(this, '{{ $loan->id }}', '{{ $material['id'] }}')"><i class="fas fa-trash-alt"></i></button>
+                                                                onclick="removeMaterial(this, '{{ $loan->id }}', '{{ $material['id'] }}')">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </button>
                                                         </td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="detail">Detalles(*)</label>
+                                                <textarea class="form-control" id="detail" name="detail" placeholder="Ingrese detalles del préstamo" required>{{ $loan->detail }}</textarea>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -162,15 +182,49 @@
             document.getElementById('materialQuantity{{ $loan->id }}').value = '';
             materialSelect.value = '';
         } else {
-            alert('Seleccione un material y una cantidad válida.');
+            Swal.fire({
+                icon: 'warning',
+                title: 'Datos incompletos',
+                text: 'Seleccione un material y una cantidad válida.',
+                confirmButtonText: 'OK',
+            });
         }
     });
 
     function removeMaterial(button, loanId, materialId) {
         button.closest('tr').remove();
+
+        let materialsTableBody = document.getElementById('materialsTableBody' + loanId);
+        let materialsCount = materialsTableBody.getElementsByTagName('tr').length;
+
+        if (materialsCount === 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Materiales requeridos',
+                text: 'Debe agregar al menos un material para continuar con el préstamo.',
+                confirmButtonText: 'OK',
+            });
+        }
     }
+
+    document.getElementById('loanEditForm{{ $loan->id }}').addEventListener('submit', function(event) {
+        let materialsTableBody = document.getElementById('materialsTableBody{{ $loan->id }}');
+        let materialsCount = materialsTableBody.getElementsByTagName('tr').length;
+
+        if (materialsCount === 0) {
+            event.preventDefault();
+            Swal.fire({
+                icon: 'warning',
+                title: 'Materiales requeridos',
+                text: 'Debe agregar al menos un material para continuar con el préstamo.',
+                confirmButtonText: 'OK',
+            });
+        }
+    });
 
     function updateMaterialQuantity(loanId, materialId, quantity) {
         console.log(`Material ID: ${materialId}, Nueva cantidad: ${quantity}`);
     }
 </script>
+
+

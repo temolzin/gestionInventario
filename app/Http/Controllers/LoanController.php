@@ -8,7 +8,6 @@ use App\Models\Material;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class LoanController extends Controller
@@ -28,9 +27,9 @@ class LoanController extends Controller
             });
         }
 
-        $loans = $query->with(['student', 'createdBy'])->paginate(10);
-        $materials = Material::all();
-        $students = Student::all();
+        $loans = $query->with(['student', 'createdBy', 'materials'])->paginate(10);
+        $materials = Material::where('department_id', $departmentId)->get();
+        $students = Student::where('department_id', $departmentId)->get();
 
         return view('loans.index', compact('loans', 'materials', 'students'));
     }
@@ -55,7 +54,7 @@ class LoanController extends Controller
             $availableQuantity = $materialInDb->amount - $totalLoanedQuantity;
 
             if ($requestedQuantity > $availableQuantity) {
-                return back()->withErrors(['materials' => 'La cantidad solicitada para ' . $materialInDb->name . ' excede la cantidad disponible.']);
+                return redirect()->back()->with('error', 'La cantidad solicitada para ' . $materialInDb->name . ' excede la cantidad disponible.');
             }
         }
 
@@ -97,40 +96,69 @@ class LoanController extends Controller
             'return_at' => 'required|date',
             'materials' => 'required|array',
         ]);
-    
+
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-    
+
         $loan = Loan::findOrFail($id);
-    
         $loan->student_id = $request->input('student_id');
         $loan->status = $request->input('status');
         $loan->detail = $request->input('detail');
         $loan->return_at = $request->input('return_at');
         $loan->department_id = auth()->user()->department_id;
         $loan->created_by = auth()->user()->id;
-    
         $loan->save();
-    
+
         $currentMaterials = $loan->materials->pluck('id')->toArray();
-        $newMaterialIds = array_keys($request->materials);
-        $deletedMaterials = array_diff($currentMaterials, $newMaterialIds);
-    
-        if (!empty($deletedMaterials)) {
-            $loan->materials()->detach($deletedMaterials);
+
+        $materialsToRemove = array_diff($currentMaterials, array_keys($request->materials));
+        if (!empty($materialsToRemove)) {
+            foreach ($materialsToRemove as $materialId) {
+                $material = Material::find($materialId);
+                if ($material) {
+                    $loanMaterial = $loan->materials()->where('material_id', $materialId)->first();
+                    if ($loanMaterial) {
+                        $material->amount += $loanMaterial->pivot->quantity;
+                        $material->save();
+                    }
+                }
+            }
+            $loan->materials()->detach($materialsToRemove);
         }
-    
+
         foreach ($request->materials as $materialId => $materialData) {
-            if (isset($materialData['quantity'])) {
+            $material = Material::find($materialId);
+            if (!$material) {
+                return redirect()->back()->with('error', 'Material no encontrado.');
+            }
+
+            $currentMaterial = $loan->materials()->where('material_id', $materialId)->first();
+            $currentQuantity = $currentMaterial ? $currentMaterial->pivot->quantity : 0;
+
+            if (isset($materialData['quantity']) && $materialData['quantity'] != $currentQuantity) {
+                if ($materialData['quantity'] > $material->amount + $currentQuantity) {
+                    return redirect()->back()->with('error', "La cantidad solicitada para el material \"$material->name\" excede la cantidad disponible. Disponibles: {$material->amount}");
+                }
+
+                $difference = (int)$materialData['quantity'] - $currentQuantity;
+
+                if ($difference > 0) {
+                    $material->amount -= $difference;
+                } elseif ($difference < 0) {
+                    $material->amount += abs($difference);
+                }
+
                 $loan->materials()->syncWithoutDetaching([$materialId => [
                     'quantity' => $materialData['quantity'],
                     'department_id' => auth()->user()->department_id,
                     'created_by' => auth()->user()->id,
                 ]]);
+
+                $material->save();
             }
         }
-    
+
         return redirect()->route('loans.index')->with('success', 'Préstamo actualizado exitosamente.');
     }
 

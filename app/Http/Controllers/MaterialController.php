@@ -27,7 +27,7 @@ class MaterialController extends Controller
             $query->where('category_id', $request->input('category_id'));
         }
 
-        $categories = Category::all();
+        $categories = Category::where('department_id', $departmentId)->get();
         $users = User::all();
         $materials = $query->paginate(10);
         return view('materials.index', compact('materials', 'categories'));
@@ -94,7 +94,7 @@ class MaterialController extends Controller
     public function updatePhoto(Request $request, $id)
     {
         $request->validate([
-            'photo' => 'nullable|image|max:2048', 
+            'photo' => 'nullable|image|max:2048',
         ]);
 
         $material = Material::find($id);
