@@ -66,20 +66,4 @@ class ProfileController extends Controller
 
         return redirect()->route('profiles.index')->with('success', 'Contraseña actualizada correctamente.');
     }
-    
-    public function updatePicture(Request $request)
-    {
-        $userId = $request->input('user_id'); 
-        $request->validate([
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-
-        $user = User::with('media')->findOrFail($userId); 
-        $user->clearMediaCollection('departmentGallery');
-        $user->addMedia($request->file('photo'))->toMediaCollection('departmentGallery');
-
-        session(['user' => $user->refresh()]); 
-
-        return redirect()->route('profiles.index')->with('success', 'Imagen de departamento actualizada con éxito.')->with('image_updated', true);
-    }
 }

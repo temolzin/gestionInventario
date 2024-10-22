@@ -34,11 +34,9 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="photo">Foto del Departamento (opcional)</label>
+                                            <small class="form-text text-muted" style="margin-top: 5px;">Los formatos de imagen permitidos son JPEG, PNG, GIF, SVG y WEBP, con un tamaño máximo de 10 MB.</small>
                                             <input type="file" class="form-control" id="photo" name="photo"
                                                 onchange="previewImage(event)">
-                                            <small class="form-text text-muted" style="margin-top: 5px;">
-                                                📸 Puedes subir cualquier formato de imagen. ¡Elige la que más te guste!
-                                            </small>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">

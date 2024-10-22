@@ -39,12 +39,11 @@
                                                     alt="Foto Actual"
                                                     style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 5px;">
                                             </div>
+                                            <label for="profileImage">Seleccionar Imagen</label>
+                                            <small class="form-text text-muted" style="margin-top: 5px;">Los formatos de imagen permitidos son JPEG, PNG, GIF, SVG y WEBP, con un tamaño máximo de 10 MB.</small>
                                             <input type="file" class="form-control" name="photo"
                                                 id="photo-{{ $student->id }}"
                                                 onchange="previewImageEdit(event, {{ $student->id }})">
-                                            <small class="form-text text-muted" style="margin-top: 5px;">📷 Puede
-                                                actualizar su imagen en cualquier formato. Seleccione la fotografía que
-                                                desea modificar.</small>
                                         </div>
                                     </div>
                                 </div>

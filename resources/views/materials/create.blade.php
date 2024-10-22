@@ -34,6 +34,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="photo">Foto del Material (opcional)</label>
+                                            <small class="form-text text-muted" style="margin-top: 5px;">Los formatos de imagen permitidos son JPEG, PNG, GIF, SVG y WEBP, con un tamaño máximo de 10 MB.</small>
                                             <input type="file" class="form-control" id="photo" name="photo"
                                                 accept="image/*" onchange="previewMaterialImage(event)">
                                         </div>

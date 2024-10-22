@@ -135,8 +135,8 @@
                                 <div class="card-body box-profile">
                                     <div class="text-center">
                                         <div class="profile-pic-container" style="position: relative; display: inline-block;">
-                                            @if ($user->getFirstMediaUrl('departmentGallery'))
-                                                <img class="profile-user-img" style="width: 150px; height: 150px; border-radius: 50%;" src="{{$user->getFirstMediaUrl('departmentGallery')}}" alt="Foto del Departamento">
+                                            @if ($department->getFirstMediaUrl('departmentGallery'))
+                                                <img class="profile-user-img" style="width: 150px; height: 150px; border-radius: 50%;" src="{{$department->getFirstMediaUrl('departmentGallery')}}" alt="Foto del Departamento">
                                             @else
                                                 <img class="profile-user-img" style="width: 150px; height: 150px; border-radius: 50%;" src="{{ asset('img/logo.png') }}">
                                             @endif

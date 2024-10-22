@@ -66,7 +66,7 @@ class User extends Authenticatable implements HasMedia
 
         if ($this->hasRole('supervisor'))
         {
-            $departmentImage = $this->getFirstMediaUrl('departmentGallery');
+            $departmentImage = $this->department->getFirstMediaUrl('departmentGallery');
             return $departmentImage ?: url('img/logo.png');
         }
     }

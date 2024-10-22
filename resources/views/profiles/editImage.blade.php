@@ -19,6 +19,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="profileImage">Seleccionar Imagen</label>
+                        <small class="form-text text-muted" style="margin-top: 5px;">Los formatos de imagen permitidos son JPEG, PNG, GIF, SVG y WEBP, con un tamaño máximo de 10 MB.</small>
                         <input type="file" class="form-control" id="profileImage" name="profileImage" accept="image/*" required onchange="previewAndReplaceImage(event)">
                     </div>
                     </div>
