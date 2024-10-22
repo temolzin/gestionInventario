@@ -79,6 +79,9 @@
         .logo img {
             width: 100%;
             height: auto;
+            max-width: 150px;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>

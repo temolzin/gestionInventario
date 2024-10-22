@@ -1,4 +1,4 @@
-<div class="modal fade" id="createInventory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="createInventory" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="card-success">
@@ -29,7 +29,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="labelMaterial" class="form-label">Material(*)</label>
-                                            <select class="form-control" id="material_id">
+                                            <select class="form-control select2" id="material_id">
                                                 <option value="">Seleccione un material</option>
                                                 @foreach($materials as $material)
                                                     <option value="{{ $material->id }}" data-description="{{ $material->description }}">{{ $material->name }}</option>
@@ -40,7 +40,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="status" class="form-label">Estado(*)</label>
-                                            <select class="form-control" id="status" name="status" required>
+                                            <select class="form-control select2" id="status" name="status" required>
                                                 <option value="disponible">Disponible</option>
                                                 <option value="no disponible">No disponible</option>
                                             </select>
@@ -81,47 +81,63 @@
     </div>
 </div>
 
-<script>
-   document.getElementById('addMaterialBtn').addEventListener('click', function() {
-        const materialId = document.getElementById('material_id').value;
+@section('js')
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
 
-        if (materialId !== "") {
-            const materialName = document.getElementById('material_id').selectedOptions[0].text;
-            const materialDescription = document.getElementById('material_id').selectedOptions[0].getAttribute('data-description');
-            const tableBody = document.querySelector('#materialTable tbody');
-            let existingRow = null;
-            tableBody.querySelectorAll('tr').forEach(row => {
-                const existingMaterialId = row.querySelector('input[name="materials[]"]').value;
-                if (existingMaterialId === materialId) {
-                    existingRow = row;
-                }
+            $('#createInventory').on('shown.bs.modal', function () {
+                $('.select2').select2({
+                    tags: true
+                });
             });
 
-            if (existingRow) {
-                const quantityInput = existingRow.querySelector('input[name="quantities[]"]');
-                quantityInput.value = parseInt(quantityInput.value) + 1;
-            } else {
-                const newRow = document.createElement('tr');
-                newRow.innerHTML = `
-                    <td>${materialName}<input type="hidden" name="materials[]" value="${materialId}"></td>
-                    <td>${materialDescription}</td>
-                    <td><input type="number" class="form-control" name="quantities[]" min="1" value="1"></td>
-                    <td><button type="button" class="btn btn-danger btn-sm delete-row"><i class="fas fa-trash-alt"></i></button></td>
-                `;
+            document.getElementById('addMaterialBtn').addEventListener('click', function() {
+                const materialId = document.getElementById('material_id').value;
+                if (materialId !== "") {
+                    const materialName = document.getElementById('material_id').selectedOptions[0].text;
+                    const materialDescription = document.getElementById('material_id').selectedOptions[0].getAttribute('data-description');
+                    const tableBody = document.querySelector('#materialTable tbody');
+                    let existingRow = null;
 
-                tableBody.appendChild(newRow);
+                    tableBody.querySelectorAll('tr').forEach(row => {
+                        const existingMaterialId = row.querySelector('input[name="materials[]"]').value;
+                        if (existingMaterialId === materialId) {
+                            existingRow = row;
+                        }
+                    });
 
-                newRow.querySelector('.delete-row').addEventListener('click', function() {
-                    newRow.remove();
-                });
-            }
+                    if (existingRow) {
+                        const quantityInput = existingRow.querySelector('input[name="quantities[]"]');
+                        quantityInput.value = parseInt(quantityInput.value) + 1;
+                    } else {
+                        const newRow = document.createElement('tr');
+                        newRow.innerHTML = `
+                            <td>${materialName}<input type="hidden" name="materials[]" value="${materialId}"></td>
+                            <td>${materialDescription}</td>
+                            <td><input type="number" class="form-control" name="quantities[]" min="1" value="1"></td>
+                            <td><button type="button" class="btn btn-danger btn-sm delete-row"><i class="fas fa-trash-alt"></i></button></td>
+                        `;
+                        tableBody.appendChild(newRow);
 
-            document.getElementById('material_id').value = '';
-        } else {
-            alert('Por favor seleccione un material.');
-        }
-    });
-</script>
+                        newRow.querySelector('.delete-row').addEventListener('click', function() {
+                            newRow.remove();
+                        });
+                    }
+
+                    document.getElementById('material_id').value = '';
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Por favor seleccione un material.',
+                        icon: 'error',
+                        confirmButtonText: 'Aceptar'
+                    });
+                }
+            });
+        });
+    </script>
+@endsection
 
 <style>
     #materialTable tbody tr:nth-child(odd) {
@@ -129,5 +145,10 @@
     }
     #materialTable tbody tr:nth-child(even) {
         background-color: #ffffff;
+    }
+    .select2-container .select2-selection--single {
+        height: 40px;
+        display: flex;
+        align-items: center;
     }
 </style>

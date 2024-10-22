@@ -79,9 +79,9 @@ class DepartmentController extends Controller
                 $department->addMediaFromRequest('photo')->toMediaCollection('departmentGallery');
             }
 
-            return redirect()->route('departments.index')->with('success', 'Foto del departamento actualizada correctamente.');
+            return back()->with('success', 'Foto del departamento actualizada correctamente.');
         }
 
-        return redirect()->back()->with('error', 'Departamento no encontrado.');
+        return back()->with('error', 'Departamento no encontrado.');
     }
 }

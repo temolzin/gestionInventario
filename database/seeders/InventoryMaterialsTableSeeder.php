@@ -19,15 +19,31 @@ class InventoryMaterialsTableSeeder extends Seeder
 
         $inventoryIds = DB::table('inventories')->pluck('id')->toArray();
         $materialIds = DB::table('materials')->pluck('id')->toArray();
+        $totalRecords = 30;
+        $currentRecords = 0;
 
-        foreach (range(1, 50) as $index) {
-            DB::table('inventory_material')->insert([
-                'inventory_id' => $faker->randomElement($inventoryIds),
-                'material_id'  => $faker->randomElement($materialIds),
-                'quantity'     => $faker->numberBetween(1, 50),
-                'created_at'    => now(),
-                'updated_at'    => now(),
-            ]);
+        while ($currentRecords < $totalRecords) {
+            foreach ($inventoryIds as $inventoryId) {
+                if ($currentRecords >= $totalRecords) break;
+
+                $materialCount = $faker->numberBetween(2, 5);
+
+                $selectedMaterials = $faker->randomElements($materialIds, $materialCount);
+
+                foreach ($selectedMaterials as $materialId) {
+                    if ($currentRecords >= $totalRecords) break;
+
+                    DB::table('inventory_material')->insert([
+                        'inventory_id' => $inventoryId,
+                        'material_id'  => $materialId,
+                        'quantity'     => $faker->numberBetween(10, 30),
+                        'created_at'   => now(),
+                        'updated_at'   => now(),
+                    ]);
+
+                    $currentRecords++;
+                }
+            }
         }
     }
 }
