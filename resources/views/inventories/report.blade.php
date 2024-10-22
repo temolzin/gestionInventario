@@ -1,4 +1,4 @@
-<div class="modal fade" id="reportInventory" tabindex="-1" role="dialog" aria-labelledby="reportInventory" aria-hidden="true">
+<div class="modal fade" id="reportInventory" role="dialog" aria-labelledby="reportInventory" aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header modal-header-custom bg-maroon">
@@ -32,14 +32,6 @@
         </div>
     </div>
 </div>
-
-<style>
-    .select2-container .select2-selection--single {
-        height: 40px;
-        display: flex;
-        align-items: center;
-    }
-</style>
 
 <script>
     document.getElementById('inventoryReportForm').onsubmit = function(event) {
