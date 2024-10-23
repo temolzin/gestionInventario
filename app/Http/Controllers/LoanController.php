@@ -8,6 +8,7 @@ use App\Models\Material;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Validator;
 
 class LoanController extends Controller
@@ -217,5 +218,16 @@ class LoanController extends Controller
         DB::table('material_returns')->insert($returnRecords);
 
         return redirect()->route('loans.index')->with('success', 'Material devuelto exitosamente.');
+    }
+    public function generateLoanReport($id)
+    {
+        $loan = Loan::with(['student', 'materials', 'createdBy'])->findOrFail($id);
+
+        $authUser = auth()->user();
+
+        $pdf = PDF::loadView('reports.loanDetailReport', compact('loan', 'authUser'))
+            ->setPaper('A4', 'portrait');
+
+        return $pdf->stream('reporte_prestamo_' . $loan->id . '.pdf');
     }
 }

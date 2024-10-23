@@ -81,6 +81,10 @@
                                                                     data-target="#delete{{ $loan->id }}">
                                                                     <i class="fas fa-trash-alt"></i>
                                                                 </button>
+                                                                <a href="{{ route('loan.report.detail', $loan->id) }}"
+                                                                    class="btn btn-primary mr-2" title="Generar Reporte">
+                                                                    <i class="fas fa-file-pdf"></i>
+                                                                </a>
                                                             </div>
                                                             @include('loans.edit')
                                                             @include('loans.delete')
