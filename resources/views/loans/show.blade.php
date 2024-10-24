@@ -9,7 +9,6 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-
                 <div class="modal-body">
                     <div class="card mb-3">
                         <div class="card-header bg-secondary text-white">
@@ -33,7 +32,7 @@
                                     <div class="form-group">
                                         <label>Estudiante</label>
                                         <input type="text" disabled class="form-control"
-                                            value="{{ $loan->student->name }}" />
+                                            value="{{ $loan->student->name }} {{ $loan->student->last_name }}" />
                                     </div>
                                 </div>
                             </div>
@@ -56,19 +55,12 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Detalles</label>
-                                        <textarea disabled class="form-control" rows="4">{{ $loan->detail }}</textarea>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
                                         <label>Fecha de Devolución</label>
                                         <input type="text" disabled class="form-control"
                                             value="{{ \Carbon\Carbon::parse($loan->return_at)->format('d/m/Y g:i A') }}" />
                                     </div>
                                 </div>
                             </div>
-
                             <div class="card mt-3">
                                 <div class="card-header bg-primary text-white">
                                     <h3 class="card-title">Materiales Prestados</h3>
@@ -101,11 +93,17 @@
                                     </table>
                                 </div>
                             </div>
-
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Detalles</label>
+                                        <textarea disabled class="form-control" rows="4">{{ $loan->detail }}</textarea>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>

@@ -44,6 +44,7 @@
                                                 <th>ID</th>
                                                 <th>Estudiante</th>
                                                 <th>Estado</th>
+                                                <th>Fecha y Hora de creacion</th>
                                                 <th>Fecha y Hora de Devolución</th>
                                                 <th>Opciones</th>
                                             </tr>
@@ -57,8 +58,9 @@
                                                 @foreach ($loans as $loan)
                                                     <tr>
                                                         <td scope="row">{{ $loan->id }}</td>
-                                                        <td>{{ $loan->student->name }}</td>
+                                                        <td>{{ $loan->student->name }} {{ $loan->student->last_name }}</td>
                                                         <td>{{ $loan->status }}</td>
+                                                        <td>{{ $loan->created_at->format('d/m/Y g:i:A') }}</td>
                                                         <td>
                                                             {{ $loan->return_at ? \Carbon\Carbon::parse($loan->return_at)->format('d/m/Y g:i A') : 'N/A' }}
                                                         </td>
@@ -79,6 +81,10 @@
                                                                     data-target="#delete{{ $loan->id }}">
                                                                     <i class="fas fa-trash-alt"></i>
                                                                 </button>
+                                                                <a href="{{ route('loan.report.detail', $loan->id) }}"
+                                                                    class="btn btn-primary mr-2" title="Generar Reporte">
+                                                                    <i class="fas fa-file-pdf"></i>
+                                                                </a>
                                                             </div>
                                                             @include('loans.edit')
                                                             @include('loans.delete')
@@ -136,6 +142,37 @@
                     window.location.href = "{{ route('loans.index') }}";
                 });
             }
+        });
+    </script>
+@endsection
+
+
+@section('css')
+    <style>
+        .select2-container .select2-selection--single {
+            height: 40px;
+            width: 350px;
+            display: flex;
+            align-content: center;
+        }
+    </style>
+@endsection
+
+@section('js')
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+
+            $('#createLoan').on('shown.bs.modal', function() {
+                $('.select2').select2({
+                    tags: true
+                });
+            });
+            $('#edit{{ $loan->id }}').on('shown.bs.modal', function() {
+                $('.select2').select2({
+                    tags: true
+                });
+            });
         });
     </script>
 @endsection

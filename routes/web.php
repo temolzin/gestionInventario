@@ -52,4 +52,5 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/users/{user}/update-password', [UserController::class, 'updatePassword'])->name('users.updatePassword');
     Route::post('/departments/{departamento}/update-photo', [DepartmentController::class, 'updatePhoto'])->name('departments.updatePhoto');
     Route::get('/inventory/report', [InventoryController::class, 'inventoryReport'])->name('report.inventory');
+    Route::get('/loans/report/{id}', [LoanController::class, 'generateLoanReport'])->name('loan.report.detail');
 });

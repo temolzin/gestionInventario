@@ -1,4 +1,4 @@
-<div class="modal fade" id="createLoan" tabindex="-1" role="dialog" aria-labelledby="createLoanLabel" aria-hidden="true">
+<div class="modal fade" id="createLoan" role="dialog" aria-labelledby="createLoanLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="card-success">
@@ -10,7 +10,7 @@
                         </button>
                     </div>
                 </div>
-                <form action="{{ route('loans.store') }}" method="POST">
+                <form id="loanForm" action="{{ route('loans.store') }}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="card">
@@ -27,57 +27,49 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="student_id" class="form-label">Estudiante:</label>
-                                            <select name="student_id" id="student_id" class="form-control" required>
+                                            <select name="student_id" id="student_id" class="form-control select2"
+                                                required>
                                                 <option value="">Seleccione un estudiante</option>
                                                 @foreach ($students as $student)
-                                                    <option value="{{ $student->id }}">{{ $student->name }}</option>
+                                                    <option value="{{ $student->id }}">{{ $student->name }}
+                                                        {{ $student->last_name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
-
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="status" class="form-label">Estado:</label>
-                                            <input type="text" name="status" class="form-control"
-                                                placeholder="Estado de Prestamo" required>
+                                            <select name="status" class="form-control" id="status"
+                                                style="width: 100%;" required>
+                                                <option value="">Seleccione un estado</option>
+                                                <option value="en_proceso">En Proceso</option>
+                                                <option value="completado">Completado</option>
+                                                <option value="cancelado">Cancelado</option>
+                                            </select>
                                         </div>
                                     </div>
-
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="detail" class="form-label">Detalles:</label>
-                                            <textarea name="detail" class="form-control" placeholder="Detalles de Prestamo" required></textarea>
-                                        </div>
-                                    </div>
-
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="return_at" class="form-label">Fecha de devolución:</label>
                                             <input type="datetime-local" name="return_at" class="form-control" required>
                                         </div>
                                     </div>
-
-                                    <div class="col-md-12">
-                                        <h5>Seleccionar Material</h5>
-                                    </div>
-
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="materialSelect">Material:</label>
-                                            <select name="material_id" id="materialSelect" class="form-control">
+                                            <select name="material_id" id="materialSelect" class="select2 form-control">
                                                 <option value="">Seleccione un material</option>
                                                 @foreach ($materials as $material)
                                                     <option value="{{ $material->id }}"
                                                         data-available="{{ $material->available_quantity }}">
-                                                        {{ $material->name }} (Disponible:
+                                                        {{ $material->name }} (Disponible
                                                         {{ $material->available_quantity }})
                                                     </option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
-
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="materialQuantity">Cantidad:</label>
@@ -85,14 +77,12 @@
                                                 placeholder="Cantidad" min="1">
                                         </div>
                                     </div>
-
                                     <div class="col-md-2 d-flex align-items-end justify-content-center">
                                         <div class="form-group">
                                             <button type="button" id="addMaterialBtn"
                                                 class="btn btn-success w-100">Agregar</button>
                                         </div>
                                     </div>
-
                                     <div class="col-md-12 mt-4">
                                         <div class="card-header bg-success text-white">
                                             <h5 class="card-title">Materiales Agregados</h5>
@@ -109,16 +99,21 @@
                                             </tbody>
                                         </table>
                                     </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="detail" class="form-label">Detalles:</label>
+                                            <textarea name="detail" class="form-control" placeholder="Detalles de Préstamo" required></textarea>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-success">Crear Préstamo</button>
+                        <button type="submit" class="btn btn-success">Guardar</button>
                     </div>
                 </form>
-
                 @if ($errors->any())
                     <div class="alert alert-danger mt-3">
                         <ul>
@@ -146,7 +141,11 @@
 
         if (materialId && materialQuantity > 0) {
             if (parseInt(materialQuantity) > parseInt(availableQuantity)) {
-                alert("La cantidad solicitada excede la cantidad disponible en el inventario.");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Cantidad no válida',
+                    text: 'La cantidad solicitada excede la cantidad disponible en el inventario.',
+                });
                 return;
             }
 
@@ -169,8 +168,13 @@
 
             materialSelect.value = '';
             document.getElementById('materialQuantity').value = '';
+
         } else {
-            alert("Por favor seleccione un material y una cantidad válida.");
+            Swal.fire({
+                icon: 'warning',
+                title: 'Datos incompletos',
+                text: 'Por favor, seleccione un material y una cantidad válida.',
+            });
         }
     });
 
@@ -187,6 +191,23 @@
             }
 
             row.remove();
+        }
+    });
+
+    document.getElementById('loanForm').addEventListener('submit', function(event) {
+        const studentId = document.getElementById('student_id').value;
+        const status = document.getElementById('status').value;
+        const detail = document.querySelector('textarea[name="detail"]').value;
+        const returnAt = document.querySelector('input[name="return_at"]').value;
+        const materialsTableBody = document.querySelector('#materialsTable tbody');
+
+        if (materialsTableBody.children.length === 0) {
+            event.preventDefault();
+            Swal.fire({
+                icon: 'warning',
+                title: 'No se puede enviar el formulario',
+                text: 'Por favor, agregue al menos un material al préstamo.',
+            });
         }
     });
 </script>
