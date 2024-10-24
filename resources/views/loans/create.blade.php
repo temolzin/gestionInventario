@@ -37,7 +37,6 @@
                                             </select>
                                         </div>
                                     </div>
-
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="status" class="form-label">Estado:</label>
@@ -50,14 +49,12 @@
                                             </select>
                                         </div>
                                     </div>
-
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="return_at" class="form-label">Fecha de devolución:</label>
                                             <input type="datetime-local" name="return_at" class="form-control" required>
                                         </div>
                                     </div>
-
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="materialSelect">Material:</label>
@@ -73,7 +70,6 @@
                                             </select>
                                         </div>
                                     </div>
-
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="materialQuantity">Cantidad:</label>
@@ -81,14 +77,12 @@
                                                 placeholder="Cantidad" min="1">
                                         </div>
                                     </div>
-
                                     <div class="col-md-2 d-flex align-items-end justify-content-center">
                                         <div class="form-group">
                                             <button type="button" id="addMaterialBtn"
                                                 class="btn btn-success w-100">Agregar</button>
                                         </div>
                                     </div>
-
                                     <div class="col-md-12 mt-4">
                                         <div class="card-header bg-success text-white">
                                             <h5 class="card-title">Materiales Agregados</h5>
@@ -120,7 +114,6 @@
                         <button type="submit" class="btn btn-success">Guardar</button>
                     </div>
                 </form>
-
                 @if ($errors->any())
                     <div class="alert alert-danger mt-3">
                         <ul>

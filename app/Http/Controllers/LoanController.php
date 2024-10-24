@@ -219,6 +219,7 @@ class LoanController extends Controller
 
         return redirect()->route('loans.index')->with('success', 'Material devuelto exitosamente.');
     }
+
     public function generateLoanReport($id)
     {
         $loan = Loan::with(['student', 'materials', 'createdBy'])->findOrFail($id);

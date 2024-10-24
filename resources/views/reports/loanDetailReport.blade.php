@@ -109,7 +109,6 @@
                     <img src='img/logo.png' alt="Foto por defecto" class="img-fluid" style="max-width: 150px;">
                 @endif
             </div>
-
             <div class="header-info">
                 <h1>Reporte de Préstamo</h1>
                 <p><strong>ID de Préstamo:</strong> {{ $loan->id }}</p>
@@ -119,9 +118,7 @@
                 <p><strong>Laboratorio:</strong> {{ $authUser->department->name ?? 'No especificado' }}</p>
                 <p><strong>Fecha de Creación:</strong> {{ $loan->created_at->format('d/m/Y H:i') }}</p>
             </div>
-
         </div>
-
         <h3>Materiales Prestados:</h3>
         <table class="table">
             <thead>

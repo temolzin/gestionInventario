@@ -11,12 +11,10 @@
                         </button>
                     </div>
                 </div>
-
                 <form id="loanEditForm{{ $loan->id }}" action="{{ route('loans.update', $loan->id) }}"
                     method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-
                     <div class="modal-body">
                         <div class="card">
                             <div class="card-header py-2 bg-secondary">
@@ -27,7 +25,6 @@
                                     </button>
                                 </div>
                             </div>
-
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -44,7 +41,6 @@
                                             </select>
                                         </div>
                                     </div>
-
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="status">Estado(*)</label>
@@ -63,7 +59,6 @@
                                             </select>
                                         </div>
                                     </div>
-
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="return_at">Fecha de Devolución(*)</label>
@@ -74,7 +69,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="form-group">
                                     <label>Materiales(*)</label>
                                     <div id="materialsContainer{{ $loan->id }}">
@@ -105,7 +99,6 @@
                                     </div>
                                     <input type="hidden" name="materials" id="materials{{ $loan->id }}"
                                         value='{{ json_encode($loan->materials) }}'>
-
                                     <div class="col-md-12 mt-4">
                                         <div class="card-header bg-warning text-white">
                                             <h5 class="card-title">Materiales Agregados</h5>
@@ -138,7 +131,6 @@
                                                 @endforeach
                                             </tbody>
                                         </table>
-
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="detail">Detalles(*)</label>
@@ -150,7 +142,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-warning">Actualizar</button>
@@ -226,5 +217,3 @@
         console.log(`Material ID: ${materialId}, Nueva cantidad: ${quantity}`);
     }
 </script>
-
-

@@ -9,7 +9,6 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-
                 <div class="modal-body">
                     <div class="card mb-3">
                         <div class="card-header bg-secondary text-white">
@@ -53,7 +52,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
@@ -63,7 +61,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="card mt-3">
                                 <div class="card-header bg-primary text-white">
                                     <h3 class="card-title">Materiales Prestados</h3>
@@ -107,7 +104,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
