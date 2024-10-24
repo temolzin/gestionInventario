@@ -94,46 +94,61 @@
 @endsection
 
 @section('js')
-<script>
-    $(document).ready(function() {
-        $('#inventories','#tableShow').DataTable({
-            responsive: true,
-            paging: false,
-            info: false,
-            searching: false
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+
+            $('#createInventory').on('shown.bs.modal', function () {
+                $('.select2').select2({
+                    tags: true
+                });
+            });
+            $('#edit{{ $inventory->id }}').on('shown.bs.modal', function () {
+                $('.select2').select2({
+                    tags: true
+                });
+            });
+
+            $(document).ready(function() {
+                $('#inventories','#tableShow').DataTable({
+                    responsive: true,
+                    paging: false,
+                    info: false,
+                    searching: false
+                });
+                var successMessage = "{{ session('success') }}";
+                var errorMessage = "{{ session('error') }}";
+                if (successMessage) {
+                    Swal.fire({
+                        title: 'Éxito',
+                        text: successMessage,
+                        icon: 'success',
+                        confirmButtonText: 'Aceptar'
+                    }).then((result) => {
+                        window.location.href = "{{ route('inventories.index') }}";
+                    });
+                }
+                if (errorMessage) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: errorMessage,
+                        icon: 'error',
+                        confirmButtonText: 'Aceptar'
+                    }).then((result) => {
+                        window.location.href = "{{ route('inventories.index') }}";
+                    });
+                }
+            });
         });
-        var successMessage = "{{ session('success') }}";
-        var errorMessage = "{{ session('error') }}";
-        if (successMessage) {
-            Swal.fire({
-                title: 'Éxito',
-                text: successMessage,
-                icon: 'success',
-                confirmButtonText: 'Aceptar'
-            }).then((result) => {
-                window.location.href = "{{ route('inventories.index') }}";
-            });
-        }
-        if (errorMessage) {
-            Swal.fire({
-                title: 'Error',
-                text: errorMessage,
-                icon: 'error',
-                confirmButtonText: 'Aceptar'
-            }).then((result) => {
-                window.location.href = "{{ route('inventories.index') }}";
-            });
-        }
-    });
-</script>
+    </script>
 @endsection
 
 @section('css')
-<style>
-    .select2-container .select2-selection--single {
-        height: 40px;
-        display: flex;
-        align-items: center;
-    }
-</style>
+    <style>
+        .select2-container .select2-selection--single {
+            height: 40px;
+            display: flex;
+            align-items: center;
+        }
+    </style>
 @endsection

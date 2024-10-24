@@ -85,54 +85,51 @@
     </div>
 </div>
 
-@section('js')
-    <script>
-        document.getElementById('addMaterialBtn').addEventListener('click', function() {
-            const materialId = document.getElementById('material_id').value;
-            if (materialId !== "") {
-                const materialName = document.getElementById('material_id').selectedOptions[0].text;
-                const materialDescription = document.getElementById('material_id').selectedOptions[0].getAttribute(
-                    'data-description');
-                const tableBody = document.querySelector('#materialTable tbody');
-                let existingRow = null;
+<script>
+    document.getElementById('addMaterialBtn').addEventListener('click', function() {
+        const materialId = document.getElementById('material_id').value;
+        if (materialId !== "") {
+            const materialName = document.getElementById('material_id').selectedOptions[0].text;
+            const materialDescription = document.getElementById('material_id').selectedOptions[0].getAttribute('data-description');
+            const tableBody = document.querySelector('#materialTable tbody');
+            let existingRow = null;
 
-                tableBody.querySelectorAll('tr').forEach(row => {
-                    const existingMaterialId = row.querySelector('input[name="materials[]"]').value;
-                    if (existingMaterialId === materialId) {
-                        existingRow = row;
-                    }
-                });
-
-                if (existingRow) {
-                    const quantityInput = existingRow.querySelector('input[name="quantities[]"]');
-                    quantityInput.value = parseInt(quantityInput.value) + 1;
-                } else {
-                    const newRow = document.createElement('tr');
-                    newRow.innerHTML = `
-                        <td>${materialName}<input type="hidden" name="materials[]" value="${materialId}"></td>
-                        <td>${materialDescription}</td>
-                        <td><input type="number" class="form-control" name="quantities[]" min="1" value="1"></td>
-                        <td><button type="button" class="btn btn-danger btn-sm delete-row"><i class="fas fa-trash-alt"></i></button></td>
-                    `;
-                    tableBody.appendChild(newRow);
-
-                    newRow.querySelector('.delete-row').addEventListener('click', function() {
-                        newRow.remove();
-                    });
+            tableBody.querySelectorAll('tr').forEach(row => {
+                const existingMaterialId = row.querySelector('input[name="materials[]"]').value;
+                if (existingMaterialId === materialId) {
+                    existingRow = row;
                 }
+            });
 
-                document.getElementById('material_id').value = '';
+            if (existingRow) {
+                const quantityInput = existingRow.querySelector('input[name="quantities[]"]');
+                quantityInput.value = parseInt(quantityInput.value) + 1;
             } else {
-                Swal.fire({
-                    title: 'Error',
-                    text: 'Por favor seleccione un material.',
-                    icon: 'error',
-                    confirmButtonText: 'Aceptar'
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${materialName}<input type="hidden" name="materials[]" value="${materialId}"></td>
+                    <td>${materialDescription}</td>
+                    <td><input type="number" class="form-control" name="quantities[]" min="1" value="1"></td>
+                    <td><button type="button" class="btn btn-danger btn-sm delete-row"><i class="fas fa-trash-alt"></i></button></td>
+                `;
+                tableBody.appendChild(newRow);
+
+                newRow.querySelector('.delete-row').addEventListener('click', function() {
+                    newRow.remove();
                 });
             }
-        });
-    </script>
-@endsection
+
+            $('#material_id').val(null).trigger('change');
+        } else {
+            Swal.fire({
+                title: 'Error',
+                text: 'Por favor seleccione un material.',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
+        }
+    });
+</script>
 
 <style>
     #materialTable tbody tr:nth-child(odd) {

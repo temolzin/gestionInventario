@@ -70,7 +70,7 @@
                                                         <td>{{ $material->name }}<input type="hidden" name="materials[]" value="{{ $material->id }}"></td>
                                                         <td>{{ $material->description }}</td>
                                                         <td><input type="number" class="form-control" name="quantities[]" min="1" value="{{ $material->pivot->quantity }}"></td>
-                                                        <td><button type="button" class="btn btn-danger btn-sm delete-row">Eliminar</button></td>
+                                                        <td><button type="button" class="btn btn-danger btn-sm delete-row"><i class="fas fa-trash-alt"></i></button></td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
@@ -90,75 +90,58 @@
     </div>
 </div>
 
-@section('js')
-    <script>
-        $(document).ready(function() {
-            $('.select2').select2();
+<script>
+    document.querySelector('#materialTable_{{ $inventory->id }}').addEventListener('click', function(e) {
+            if (e.target.classList.contains('delete-row')) {
+                e.target.closest('tr').remove();
+            }
+    });
 
-            $('#createInventory').on('shown.bs.modal', function () {
-                $('.select2').select2({
-                    tags: true
-                });
-            });
-            $('#edit{{ $inventory->id }}').on('shown.bs.modal', function () {
-                $('.select2').select2({
-                    tags: true
-                });
-            });
+    document.getElementById('addMaterialBtn_{{ $inventory->id }}').addEventListener('click', function() {
+        const materialId = document.getElementById('material_id_{{ $inventory->id }}').value;
 
-            document.querySelector('#materialTable_{{ $inventory->id }}').addEventListener('click', function(e) {
-                    if (e.target.classList.contains('delete-row')) {
-                        e.target.closest('tr').remove();
-                    }
-            });
+        if (materialId !== "") {
+            const materialName = document.getElementById('material_id_{{ $inventory->id }}').selectedOptions[0].text;
+            const materialDescription = document.getElementById('material_id_{{ $inventory->id }}').selectedOptions[0].getAttribute('data-description');
+            const tableBody = document.querySelector('#materialTable_{{ $inventory->id }} tbody');
+            let existingRow = null;
 
-            document.getElementById('addMaterialBtn_{{ $inventory->id }}').addEventListener('click', function() {
-                const materialId = document.getElementById('material_id_{{ $inventory->id }}').value;
-
-                if (materialId !== "") {
-                    const materialName = document.getElementById('material_id_{{ $inventory->id }}').selectedOptions[0].text;
-                    const materialDescription = document.getElementById('material_id_{{ $inventory->id }}').selectedOptions[0].getAttribute('data-description');
-                    const tableBody = document.querySelector('#materialTable_{{ $inventory->id }} tbody');
-                    let existingRow = null;
-
-                    tableBody.querySelectorAll('tr').forEach(row => {
-                        const existingMaterialId = row.querySelector('input[name="materials[]"]').value;
-                        if (existingMaterialId === materialId) {
-                            existingRow = row;
-                        }
-                    });
-
-                    if (existingRow) {
-                        const quantityInput = existingRow.querySelector('input[name="quantities[]"]');
-                        quantityInput.value = parseInt(quantityInput.value) + 1;
-                    } else {
-                        const newRow = document.createElement('tr');
-                        newRow.innerHTML = `
-                            <td>${materialName}<input type="hidden" name="materials[]" value="${materialId}"></td>
-                            <td>${materialDescription}</td>
-                            <td><input type="number" class="form-control" name="quantities[]" min="1" value="1"></td>
-                            <td><button type="button" class="btn btn-danger btn-sm delete-row"><i class="fas fa-trash-alt"></i></button></td>
-                        `;
-                        tableBody.appendChild(newRow);
-
-                        newRow.querySelector('.delete-row').addEventListener('click', function() {
-                            newRow.remove();
-                        });
-                    }
-
-                    document.getElementById('material_id_{{ $inventory->id }}').value = '';
-                } else {
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'Por favor seleccione un material.',
-                        icon: 'error',
-                        confirmButtonText: 'Aceptar'
-                    });
+            tableBody.querySelectorAll('tr').forEach(row => {
+                const existingMaterialId = row.querySelector('input[name="materials[]"]').value;
+                if (existingMaterialId === materialId) {
+                    existingRow = row;
                 }
             });
-        });
-    </script>
-@endsection
+
+            if (existingRow) {
+                const quantityInput = existingRow.querySelector('input[name="quantities[]"]');
+                quantityInput.value = parseInt(quantityInput.value) + 1;
+            } else {
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${materialName}<input type="hidden" name="materials[]" value="${materialId}"></td>
+                    <td>${materialDescription}</td>
+                    <td><input type="number" class="form-control" name="quantities[]" min="1" value="1"></td>
+                    <td><button type="button" class="btn btn-danger btn-sm delete-row"><i class="fas fa-trash-alt"></i></button></td>
+                `;
+                tableBody.appendChild(newRow);
+
+                newRow.querySelector('.delete-row').addEventListener('click', function() {
+                    newRow.remove();
+                });
+            }
+
+            $('#material_id_{{ $inventory->id }}').val(null).trigger('change');
+        } else {
+            Swal.fire({
+                title: 'Error',
+                text: 'Por favor seleccione un material.',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
+        }
+    });
+</script>
 
 <style>
     #materialTable_{{ $inventory->id }} tbody tr:nth-child(odd) {
