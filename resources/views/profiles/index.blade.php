@@ -204,9 +204,7 @@
                     title: 'Éxito',
                     text: successMessage,
                     confirmButtonText: 'Aceptar'
-                }).then((result) => {
-                    window.location.href = "{{ route('profiles.index') }}";
-                });
+                })
             }
             if (errorMessage) {
                 Swal.fire({
@@ -214,9 +212,7 @@
                     title: 'Error',
                     text: errorMessage,
                     confirmButtonText: 'Aceptar'
-                }).then((result) => {
-                    window.location.href = "{{ route('profiles.index') }}";
-                });
+                })
             }
         });
     </script>
