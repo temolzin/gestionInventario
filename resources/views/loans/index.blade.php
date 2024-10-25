@@ -108,7 +108,6 @@
         </div>
     </section>
 @endsection
-
 @section('js')
     <script>
         $(document).ready(function() {
@@ -119,6 +118,8 @@
                 searching: false
             });
 
+            $('.select2').select2();
+
             var successMessage = "{{ session('success') }}";
             var errorMessage = "{{ session('error') }}";
 
@@ -128,8 +129,6 @@
                     text: successMessage,
                     icon: 'success',
                     confirmButtonText: 'Aceptar'
-                }).then((result) => {
-                    window.location.href = "{{ route('loans.index') }}";
                 });
             }
             if (errorMessage) {
@@ -138,41 +137,39 @@
                     text: errorMessage,
                     icon: 'error',
                     confirmButtonText: 'Aceptar'
-                }).then((result) => {
-                    window.location.href = "{{ route('loans.index') }}";
                 });
             }
+
+            $('#createLoan').on('shown.bs.modal', function() {
+                $('.select2').select2({
+                    dropdownParent: $(
+                        '#createLoan') 
+                });
+            });
+
+            $('#edit{{ $loan->id }}').on('shown.bs.modal', function() {
+                $('.select2').select2({
+                    dropdownParent: $('#edit{{ $loan->id }}')
+                });
+            });
         });
     </script>
 @endsection
-
-
 @section('css')
     <style>
-        .select2-container .select2-selection--single {
-            height: 40px;
-            width: 350px;
-            display: flex;
-            align-content: center;
+        .select2-container {
+            width: 100% !important; 
+        }
+        .select2-selection--single {
+            height: 40px !important; 
+            display: flex; 
+            align-items: center; 
+            margin-top: 0 !important; 
+        }
+        label {
+            display: block; 
+            margin-bottom: 5px; 
         }
     </style>
 @endsection
 
-@section('js')
-    <script>
-        $(document).ready(function() {
-            $('.select2').select2();
-
-            $('#createLoan').on('shown.bs.modal', function() {
-                $('.select2').select2({
-                    tags: true
-                });
-            });
-            $('#edit{{ $loan->id }}').on('shown.bs.modal', function() {
-                $('.select2').select2({
-                    tags: true
-                });
-            });
-        });
-    </script>
-@endsection
