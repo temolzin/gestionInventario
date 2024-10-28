@@ -149,7 +149,6 @@
                 return;
             }
 
-
             let materialAlreadyAdded = false;
             document.querySelectorAll('#materialsTable tbody tr').forEach(row => {
                 const existingMaterialId = row.querySelector('input[name^="materials"][name$="[id]"]')
