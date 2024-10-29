@@ -72,6 +72,12 @@
                                         </table>
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="detail" class="form-label">Detalles:</label>
+                                        <textarea name="detail" class="form-control" placeholder="Detalles de Préstamo" required></textarea>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

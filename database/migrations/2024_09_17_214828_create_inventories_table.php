@@ -18,6 +18,7 @@ class CreateInventoriesTable extends Migration
             $table->unsignedBigInteger('department_id');
             $table->unsignedBigInteger('created_by');
             $table->string('status');
+            $table->text('detail');
             $table->timestamps();
 
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');

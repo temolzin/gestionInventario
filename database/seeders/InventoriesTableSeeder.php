@@ -25,6 +25,7 @@ class InventoriesTableSeeder extends Seeder
                 'department_id' => 1,
                 'created_by'    => $faker->randomElement($userIds),
                 'status'        => $faker->randomElement(['disponible', 'no disponible']),
+                'detail'        => $faker->sentence,
                 'created_at'    => now(),
                 'updated_at'    => now(),
             ]);

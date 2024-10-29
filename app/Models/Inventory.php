@@ -17,6 +17,7 @@ class Inventory extends Model implements HasMedia
         'department_id',
         'created_by',
         'status',
+        'detail',
     ];
 
     public function materials()

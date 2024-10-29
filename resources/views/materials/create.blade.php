@@ -70,7 +70,7 @@
                                         <div class="form-group">
                                             <label for="amount" class="form-label">Cantidad(*)</label>
                                             <input type="number" class="form-control" id="amount" name="amount"
-                                                placeholder="Ingresa la cantidad" required />
+                                                placeholder="Ingresa la cantidad" value="1" min="1" required oninput="this.value = Math.max(this.value, 1)" />
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
