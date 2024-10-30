@@ -81,6 +81,12 @@
                                                                     data-target="#delete{{ $loan->id }}">
                                                                     <i class="fas fa-trash-alt"></i>
                                                                 </button>
+                                                                <button type="button" class="btn btn-warning mr-2"
+                                                                    data-toggle="modal"
+                                                                    data-target="#return{{ $loan->id }}"
+                                                                    title="Devolución">
+                                                                    <i class="fas fa-undo"></i>
+                                                                </button>
                                                                 <a href="{{ route('loan.report.detail', $loan->id) }}"
                                                                     class="btn btn-primary mr-2" title="Generar Reporte">
                                                                     <i class="fas fa-file-pdf"></i>
@@ -89,6 +95,7 @@
                                                             @include('loans.edit')
                                                             @include('loans.delete')
                                                             @include('loans.show')
+                                                            @include('loans.return')
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -143,7 +150,7 @@
             $('#createLoan').on('shown.bs.modal', function() {
                 $('.select2').select2({
                     dropdownParent: $(
-                        '#createLoan') 
+                        '#createLoan')
                 });
             });
 
@@ -158,18 +165,19 @@
 @section('css')
     <style>
         .select2-container {
-            width: 100% !important; 
+            width: 100% !important;
         }
+
         .select2-selection--single {
-            height: 40px !important; 
-            display: flex; 
-            align-items: center; 
-            margin-top: 0 !important; 
+            height: 40px !important;
+            display: flex;
+            align-items: center;
+            margin-top: 0 !important;
         }
+
         label {
-            display: block; 
-            margin-bottom: 5px; 
+            display: block;
+            margin-bottom: 5px;
         }
     </style>
 @endsection
-

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Loan;
 use App\Models\LoanDetail;
 use App\Models\Material;
+use App\Models\MaterialReturn;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -47,6 +48,14 @@ class LoanController extends Controller
             'materials.*.quantity' => 'required|integer|min:1',
         ]);
 
+        $activeLoan = Loan::where('student_id', $request->student_id)
+            ->whereNotIn('status', ['devuelto', 'rechazado'])
+            ->exists();
+
+        if ($activeLoan) {
+            return redirect()->back()->with('error', 'Este estudiante ya tiene un préstamo activo.');
+        }
+
         foreach ($request->materials as $material) {
             $materialId = (int) $material['id'];
             $requestedQuantity = (int) $material['quantity'];
@@ -69,7 +78,11 @@ class LoanController extends Controller
         ]);
 
         foreach ($request->materials as $material) {
-            $loan->materials()->attach($material['id'], ['quantity' => $material['quantity'], 'department_id' => auth()->user()->department_id, 'created_by' => auth()->user()->id]);
+            $loan->materials()->attach($material['id'], [
+                'quantity' => $material['quantity'],
+                'department_id' => auth()->user()->department_id,
+                'created_by' => auth()->user()->id,
+            ]);
 
             $materialInDb = Material::find($material['id']);
             $materialInDb->amount -= $material['quantity'];
@@ -165,59 +178,18 @@ class LoanController extends Controller
 
     public function destroy($id)
     {
-        $loan = Loan::findOrFail($id);
-        $loan->delete();
-
-        return redirect()->route('loans.index')->with('success', 'Préstamo eliminado correctamente.');
-    }
-
-    public function returnMaterial(Request $request, $id)
-    {
-        $request->validate([
-            'materials' => 'required|array',
-            'materials.*.id' => 'required|exists:materials,id',
-            'materials.*.quantity' => 'required|integer|min:1',
-        ]);
-
         $loan = Loan::with('materials')->findOrFail($id);
-        $returnRecords = [];
 
-        foreach ($request->materials as $material) {
-            $materialId = (int) $material['id'];
-            $returnedQuantity = (int) $material['quantity'];
+        foreach ($loan->materials as $material) {
+            $materialInDb = Material::find($material->id);
 
-            $loanMaterial = $loan->materials()->where('id', $materialId)->first();
-
-            if (!$loanMaterial) {
-                return back()->withErrors(['materials' => 'Este material no está asociado a este préstamo.']);
-            }
-
-            if ($returnedQuantity > $loanMaterial->pivot->quantity) {
-                return back()->withErrors(['materials' => 'La cantidad a devolver excede la cantidad prestada.']);
-            }
-
-            $materialInDb = Material::find($materialId);
-            $materialInDb->amount += $returnedQuantity;
+            $materialInDb->amount += $material->pivot->quantity;
             $materialInDb->save();
-
-            $loan->materials()->updateExistingPivot($materialId, [
-                'quantity' => $loanMaterial->pivot->quantity - $returnedQuantity
-            ]);
-
-            $returnRecords[] = [
-                'student_id' => $loan->student_id,
-                'loan_id' => $loan->id,
-                'department_id' => auth()->user()->department_id,
-                'created_by' => auth()->user()->id,
-                'status' => 'devuelto',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ];
         }
 
-        DB::table('material_returns')->insert($returnRecords);
+        $loan->delete();
 
-        return redirect()->route('loans.index')->with('success', 'Material devuelto exitosamente.');
+        return redirect()->route('loans.index')->with('success', 'Préstamo eliminado correctamente y materiales actualizados en el inventario.');
     }
 
     public function generateLoanReport($id)
@@ -230,5 +202,43 @@ class LoanController extends Controller
             ->setPaper('A4', 'portrait');
 
         return $pdf->stream('reporte_prestamo_' . $loan->id . '.pdf');
+    }
+
+    public function returnMaterial(Request $request, $loanId)
+    {
+        $request->validate([
+            'detail' => 'required|string',
+            'status' => 'required|string|in:devuelto,rechazado',
+            'expected_return_date' => 'required|date',
+        ]);
+
+        $loan = Loan::with('materials')->findOrFail($loanId);
+
+        if ($loan->status == 'devuelto' || $loan->status == 'rechazado' || $loan->status == 'incompleto') {
+            return redirect()->back()->with('error', 'Este préstamo ya ha sido devuelto, rechazado o incompleto.');
+        }
+
+        $return = MaterialReturn::create([
+            'student_id' => $loan->student_id,
+            'loan_id' => $loan->id,
+            'department_id' => $loan->department_id,
+            'created_by' => auth()->user()->id,
+            'status' => $request->status,
+            'detail' => $request->detail,
+            'expected_return_date' => $request->expected_return_date,
+        ]);
+
+        $loan->status = $request->status;
+        $loan->save();
+
+        if ($request->status === 'devuelto') {
+            foreach ($loan->materials as $material) {
+                $materialInDb = Material::find($material->id);
+                $materialInDb->amount += $material->pivot->quantity;
+                $materialInDb->save();
+            }
+        }
+
+        return redirect()->route('loans.index')->with('success', 'Devolución registrada exitosamente.');
     }
 }

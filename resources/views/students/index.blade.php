@@ -86,6 +86,11 @@
                                                                     data-target="#editPhoto{{ $student->id }}">
                                                                     <i class="fas fa-image"></i>
                                                                 </button>
+                                                                <button type="button" class="btn btn-primary mr-2"
+                                                                    data-toggle="modal" title="Prestamos"
+                                                                    data-target="#loansModal{{ $student->id }}">
+                                                                    <i class="fas fa-list"></i>
+                                                                </button>
                                                                 <button type="button" class="btn btn-danger mr-2"
                                                                     data-toggle="modal" title="Eliminar Registro"
                                                                     data-target="#delete{{ $student->id }}">
@@ -97,6 +102,7 @@
                                                         @include('students.delete')
                                                         @include('students.show')
                                                         @include('students.editPhoto')
+                                                        @include('students.showLoans')
                                                     </tr>
                                                 @endforeach
                                             @endif

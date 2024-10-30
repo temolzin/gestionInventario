@@ -45,16 +45,16 @@
                                         <div class="form-group">
                                             <label for="status">Estado(*)</label>
                                             <select class="form-control" id="status" name="status" required>
-                                                <option value="pendiente"
-                                                    {{ $loan->status == 'pendiente' ? 'selected' : '' }}>Pendiente
-                                                </option>
                                                 <option value="activo"
-                                                    {{ $loan->status == 'activo' ? 'selected' : '' }}>Activo</option>
-                                                <option value="completado"
-                                                    {{ $loan->status == 'completado' ? 'selected' : '' }}>Completado
+                                                    {{ $loan->status == 'activo' ? 'selected' : '' }}>Activo
                                                 </option>
-                                                <option value="cancelado"
-                                                    {{ $loan->status == 'cancelado' ? 'selected' : '' }}>Cancelado
+                                                <option value="devuelto"
+                                                    {{ $loan->status == 'devuelto' ? 'selected' : '' }}>Devuelto</option>
+                                                <option value="rechazado"
+                                                    {{ $loan->status == 'rechazado' ? 'selected' : '' }}>Rechazado
+                                                </option>
+                                                <option value="incompleto"
+                                                    {{ $loan->status == 'incompleto' ? 'selected' : '' }}>Incompleto
                                                 </option>
                                             </select>
                                         </div>

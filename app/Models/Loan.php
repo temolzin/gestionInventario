@@ -39,4 +39,8 @@ class Loan extends Model
             ->withPivot('quantity')
             ->withTimestamps();
     }
+    public function materialReturn()
+    {
+        return $this->hasOne(MaterialReturn::class);
+    }
 }

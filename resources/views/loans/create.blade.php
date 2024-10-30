@@ -43,9 +43,9 @@
                                             <select name="status" class="form-control" id="status"
                                                 style="width: 100%;" required>
                                                 <option value="">Seleccione un estado</option>
-                                                <option value="en_proceso">En Proceso</option>
-                                                <option value="completado">Completado</option>
-                                                <option value="cancelado">Cancelado</option>
+                                                <option value="activo">Activo</option>
+                                                <option value="devuelto">Devuelto</option>
+                                                <option value="rechazado">Rechazado</option>
                                             </select>
                                         </div>
                                     </div>
