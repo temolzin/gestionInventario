@@ -117,8 +117,6 @@
                         text: successMessage,
                         icon: 'success',
                         confirmButtonText: 'Aceptar'
-                    }).then((result) => {
-                        window.location.href = "{{ route('inventories.index') }}";
                     });
                 }
                 if (errorMessage) {
@@ -127,8 +125,6 @@
                         text: errorMessage,
                         icon: 'error',
                         confirmButtonText: 'Aceptar'
-                    }).then((result) => {
-                        window.location.href = "{{ route('inventories.index') }}";
                     });
                 }
             });
