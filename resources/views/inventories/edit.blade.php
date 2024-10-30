@@ -27,18 +27,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="material_id" class="form-label">Material(*)</label>
-                                            <select class="form-control select2" id="material_id_{{ $inventory->id }}">
-                                                <option value="">Seleccione un material</option>
-                                                @foreach($materials as $material)
-                                                    <option value="{{ $material->id }}" data-description="{{ $material->description }}">{{ $material->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-12">
                                         <div class="form-group">
                                             <label for="status" class="form-label">Estado(*)</label>
                                             <select class="form-control select2" id="status" name="status" required>
@@ -46,11 +35,6 @@
                                                 <option value="no disponible" {{ $inventory->status == 'no disponible' ? 'selected' : '' }}>No disponible</option>
                                             </select>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <button type="button" id="addMaterialBtn_{{ $inventory->id }}" class="btn btn-primary">Agregar Material</button>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -69,12 +53,18 @@
                                                     <tr>
                                                         <td>{{ $material->name }}<input type="hidden" name="materials[]" value="{{ $material->id }}"></td>
                                                         <td>{{ $material->description }}</td>
-                                                        <td><input type="number" class="form-control" name="quantities[]" min="1" value="{{ $material->pivot->quantity }}"></td>
-                                                        <td><button type="button" class="btn btn-danger btn-sm delete-row"><i class="fas fa-trash-alt"></i></button></td>
+                                                        <td><input type="number" class="form-control" name="quantities[]" min="1" value="{{ $material->pivot->quantity }}" readonly></td>
+                                                        <td> <button type="button" class="btn btn-secondary btn-sm delete-row" disabled><i class="fas fa-trash-alt"></i></button></td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="detail">Detalles(*)</label>
+                                        <textarea class="form-control" id="detail" name="detail" placeholder="Ingrese detalles del préstamo" required>{{ $inventory->detail }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -90,58 +80,6 @@
     </div>
 </div>
 
-<script>
-    document.querySelector('#materialTable_{{ $inventory->id }}').addEventListener('click', function(e) {
-            if (e.target.classList.contains('delete-row')) {
-                e.target.closest('tr').remove();
-            }
-    });
-
-    document.getElementById('addMaterialBtn_{{ $inventory->id }}').addEventListener('click', function() {
-        const materialId = document.getElementById('material_id_{{ $inventory->id }}').value;
-
-        if (materialId !== "") {
-            const materialName = document.getElementById('material_id_{{ $inventory->id }}').selectedOptions[0].text;
-            const materialDescription = document.getElementById('material_id_{{ $inventory->id }}').selectedOptions[0].getAttribute('data-description');
-            const tableBody = document.querySelector('#materialTable_{{ $inventory->id }} tbody');
-            let existingRow = null;
-
-            tableBody.querySelectorAll('tr').forEach(row => {
-                const existingMaterialId = row.querySelector('input[name="materials[]"]').value;
-                if (existingMaterialId === materialId) {
-                    existingRow = row;
-                }
-            });
-
-            if (existingRow) {
-                const quantityInput = existingRow.querySelector('input[name="quantities[]"]');
-                quantityInput.value = parseInt(quantityInput.value) + 1;
-            } else {
-                const newRow = document.createElement('tr');
-                newRow.innerHTML = `
-                    <td>${materialName}<input type="hidden" name="materials[]" value="${materialId}"></td>
-                    <td>${materialDescription}</td>
-                    <td><input type="number" class="form-control" name="quantities[]" min="1" value="1"></td>
-                    <td><button type="button" class="btn btn-danger btn-sm delete-row"><i class="fas fa-trash-alt"></i></button></td>
-                `;
-                tableBody.appendChild(newRow);
-
-                newRow.querySelector('.delete-row').addEventListener('click', function() {
-                    newRow.remove();
-                });
-            }
-
-            $('#material_id_{{ $inventory->id }}').val(null).trigger('change');
-        } else {
-            Swal.fire({
-                title: 'Error',
-                text: 'Por favor seleccione un material.',
-                icon: 'error',
-                confirmButtonText: 'Aceptar'
-            });
-        }
-    });
-</script>
 
 <style>
     #materialTable_{{ $inventory->id }} tbody tr:nth-child(odd) {

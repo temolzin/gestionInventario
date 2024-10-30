@@ -33,14 +33,16 @@ class InventoryMaterialsTableSeeder extends Seeder
                 foreach ($selectedMaterials as $materialId) {
                     if ($currentRecords >= $totalRecords) break;
 
+                    $quantity = $faker->numberBetween(10, 30);
                     DB::table('inventory_material')->insert([
                         'inventory_id' => $inventoryId,
                         'material_id'  => $materialId,
-                        'quantity'     => $faker->numberBetween(10, 30),
+                        'quantity'     => $quantity,
                         'created_at'   => now(),
                         'updated_at'   => now(),
                     ]);
 
+                    DB::table('materials')->where('id', $materialId)->increment('amount', $quantity);
                     $currentRecords++;
                 }
             }

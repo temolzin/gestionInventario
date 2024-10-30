@@ -96,15 +96,8 @@
 @section('js')
     <script>
         $(document).ready(function() {
-            $('.select2').select2();
-
             $('#createInventory').on('shown.bs.modal', function () {
-                $('.select2').select2({
-                    tags: true
-                });
-            });
-            $('#edit{{ $inventory->id }}').on('shown.bs.modal', function () {
-                $('.select2').select2({
+                $(this).find('.select2').select2({
                     tags: true
                 });
             });

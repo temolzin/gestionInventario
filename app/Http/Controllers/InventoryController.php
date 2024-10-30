@@ -41,10 +41,16 @@ class InventoryController extends Controller
             'status' => $request->input('status'),
             'department_id' => auth()->user()->department_id,
             'created_by' => auth()->user()->id,
+            'detail' => $request->input('detail'),
         ]);
 
         foreach ($materials as $key => $material_id) {
-            $inventory->materials()->attach($material_id, ['quantity' => $quantities[$key]]);
+            $quantity = $quantities[$key];
+            $inventory->materials()->attach($material_id, ['quantity' => $quantity]);
+
+            $material = Material::find($material_id);
+            $material->amount += $quantity;
+            $material->save();
         }
 
         return redirect()->route('inventories.index')->with('success', 'Inventario registrado correctamente.');
@@ -68,6 +74,7 @@ class InventoryController extends Controller
         }
 
         $inventory->status = $request->input('status');
+        $inventory->detail = $request->input('detail');
         $inventory->save();
 
         $inventory->materials()->detach();
@@ -81,11 +88,18 @@ class InventoryController extends Controller
 
     public function destroy($id)
     {
-        $inventory = Inventory::findOrFail($id);
+        $inventory = Inventory::with('materials')->findOrFail($id);
+
+        foreach ($inventory->materials as $material) {
+            $material->amount -= $material->pivot->quantity;
+            $material->save();
+        }
+
         $inventory->delete();
 
         return redirect()->route('inventories.index')->with('success', 'Inventario eliminado correctamente.');
     }
+
     public function inventoryReport(Request $request)
     {
         $status = $request->input('inventoryStatus');
