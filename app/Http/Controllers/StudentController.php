@@ -91,4 +91,13 @@ class StudentController extends Controller
 
         return redirect()->back()->with('error', 'Estudiante no encontrado.');
     }
+
+    public function showLoans($id)
+    {
+        $departmentId = auth()->user()->department_id;
+        
+        $student = Student::with('loans.materials')->findOrFail($id);
+
+        return view('students.showLoans', compact('student'));
+    }
 }

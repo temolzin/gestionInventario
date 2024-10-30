@@ -91,7 +91,6 @@
         </div>
     </section>
 @endsection
-
 @section('js')
     <script>
         $(document).ready(function() {
@@ -111,8 +110,6 @@
                     text: successMessage,
                     icon: 'success',
                     confirmButtonText: 'Aceptar'
-                }).then((result) => {
-                    window.location.href = "{{ route('roles.index') }}";
                 });
             }
 
@@ -122,8 +119,6 @@
                     text: errorMessage,
                     icon: 'error',
                     confirmButtonText: 'Aceptar'
-                }).then((result) => {
-                    window.location.href = "{{ route('roles.index') }}";
                 });
             }
         });

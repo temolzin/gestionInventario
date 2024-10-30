@@ -20,6 +20,8 @@ class CreateMaterialReturnsTable extends Migration
             $table->unsignedBigInteger('department_id');
             $table->unsignedBigInteger('created_by');
             $table->string('status');
+            $table->string('detail');
+            $table->timestamp('expected_return_date');
             $table->timestamps();
 
             $table->foreign('loan_id')->references('id')->on('loans')->onDelete('cascade');

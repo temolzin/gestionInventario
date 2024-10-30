@@ -45,16 +45,16 @@
                                         <div class="form-group">
                                             <label for="status">Estado(*)</label>
                                             <select class="form-control" id="status" name="status" required>
-                                                <option value="pendiente"
-                                                    {{ $loan->status == 'pendiente' ? 'selected' : '' }}>Pendiente
-                                                </option>
                                                 <option value="activo"
-                                                    {{ $loan->status == 'activo' ? 'selected' : '' }}>Activo</option>
-                                                <option value="completado"
-                                                    {{ $loan->status == 'completado' ? 'selected' : '' }}>Completado
+                                                    {{ $loan->status == 'activo' ? 'selected' : '' }}>Activo
                                                 </option>
-                                                <option value="cancelado"
-                                                    {{ $loan->status == 'cancelado' ? 'selected' : '' }}>Cancelado
+                                                <option value="devuelto"
+                                                    {{ $loan->status == 'devuelto' ? 'selected' : '' }}>Devuelto</option>
+                                                <option value="rechazado"
+                                                    {{ $loan->status == 'rechazado' ? 'selected' : '' }}>Rechazado
+                                                </option>
+                                                <option value="incompleto"
+                                                    {{ $loan->status == 'incompleto' ? 'selected' : '' }}>Incompleto
                                                 </option>
                                             </select>
                                         </div>
@@ -158,16 +158,36 @@
         let materialQuantity = document.getElementById('materialQuantity{{ $loan->id }}').value;
 
         if (materialSelect.value && materialQuantity) {
+            let materialAlreadyAdded = false;
+            document.querySelectorAll('#materialsTableBody{{ $loan->id }} tr').forEach(row => {
+                const existingMaterialText = row.cells[0].innerText.trim();
+                const selectedMaterialText = materialSelect.options[materialSelect.selectedIndex].text
+                    .trim();
+                if (existingMaterialText === selectedMaterialText) {
+                    materialAlreadyAdded = true;
+                }
+            });
+
+            if (materialAlreadyAdded) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Material duplicado',
+                    text: 'Este material ya ha sido añadido previamente.',
+                    confirmButtonText: 'OK',
+                });
+                return; 
+            }
+
             let materialRow = document.createElement('tr');
             materialRow.innerHTML = `
-                <td>${materialSelect.options[materialSelect.selectedIndex].text}</td>
-                <td>
-                    <input type="number" class="form-control" name="materials[${materialSelect.value}][quantity]" value="${materialQuantity}" min="1" onchange="updateMaterialQuantity('{{ $loan->id }}', '${materialSelect.value}', this.value)" />
-                </td>
-                <td>
-                    <button type="button" class="btn btn-danger btn-sm" onclick="removeMaterial(this, '{{ $loan->id }}', '${materialSelect.value}')"><i class="fas fa-trash-alt"></i></button>
-                </td>
-            `;
+            <td>${materialSelect.options[materialSelect.selectedIndex].text}</td>
+            <td>
+                <input type="number" class="form-control" name="materials[${materialSelect.value}][quantity]" value="${materialQuantity}" min="1" onchange="updateMaterialQuantity('{{ $loan->id }}', '${materialSelect.value}', this.value)" />
+            </td>
+            <td>
+                <button type="button" class="btn btn-danger btn-sm" onclick="removeMaterial(this, '{{ $loan->id }}', '${materialSelect.value}')"><i class="fas fa-trash-alt"></i></button>
+            </td>
+        `;
 
             document.getElementById('materialsTableBody{{ $loan->id }}').appendChild(materialRow);
             document.getElementById('materialQuantity{{ $loan->id }}').value = '';

@@ -43,9 +43,9 @@
                                             <select name="status" class="form-control" id="status"
                                                 style="width: 100%;" required>
                                                 <option value="">Seleccione un estado</option>
-                                                <option value="en_proceso">En Proceso</option>
-                                                <option value="completado">Completado</option>
-                                                <option value="cancelado">Cancelado</option>
+                                                <option value="activo">Activo</option>
+                                                <option value="devuelto">Devuelto</option>
+                                                <option value="rechazado">Rechazado</option>
                                             </select>
                                         </div>
                                     </div>
@@ -149,19 +149,37 @@
                 return;
             }
 
+            let materialAlreadyAdded = false;
+            document.querySelectorAll('#materialsTable tbody tr').forEach(row => {
+                const existingMaterialId = row.querySelector('input[name^="materials"][name$="[id]"]')
+                    .value;
+                if (existingMaterialId === materialId) {
+                    materialAlreadyAdded = true;
+                }
+            });
+
+            if (materialAlreadyAdded) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Material duplicado',
+                    text: 'Este material ya ha sido añadido.',
+                });
+                return;
+            }
+
             const newRow = document.createElement('tr');
             newRow.innerHTML = `
-                <td>
-                    <input type="hidden" name="materials[${materialIndex}][id]" value="${materialId}">
-                    <input type="text" class="form-control" value="${selectedOption.text}" disabled>
-                </td>
-                <td>
-                    <input type="number" name="materials[${materialIndex}][quantity]" class="form-control" value="${materialQuantity}" min="1" required>
-                </td>
-                <td>
-                    <button type="button" class="btn btn-danger removeMaterialBtn"><i class="fas fa-trash-alt"></i></button>
-                </td>
-            `;
+            <td>
+                <input type="hidden" name="materials[${materialIndex}][id]" value="${materialId}">
+                <input type="text" class="form-control" value="${selectedOption.text}" disabled>
+            </td>
+            <td>
+                <input type="number" name="materials[${materialIndex}][quantity]" class="form-control" value="${materialQuantity}" min="1" required>
+            </td>
+            <td>
+                <button type="button" class="btn btn-danger removeMaterialBtn"><i class="fas fa-trash-alt"></i></button>
+            </td>
+        `;
 
             materialsTableBody.appendChild(newRow);
             materialIndex++;

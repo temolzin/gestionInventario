@@ -32,4 +32,9 @@ class Student extends Model implements HasMedia
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+    
+    public function loans()
+    {
+        return $this->hasMany(Loan::class);
+    }
 }

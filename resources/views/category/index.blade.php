@@ -98,7 +98,7 @@
 @endsection
 
 @section('js')
-    <script> 
+    <script>
         $(document).ready(function() {
             $('#categories').DataTable({
                 responsive: true,
@@ -106,26 +106,25 @@
                 info: false,
                 searching: false
             });
+
             var successMessage = "{{ session('success') }}";
             var errorMessage = "{{ session('error') }}";
+
             if (successMessage) {
                 Swal.fire({
                     title: 'Éxito',
                     text: successMessage,
                     icon: 'success',
                     confirmButtonText: 'Aceptar'
-                }).then((result) => {
-                    window.location.href = "{{ route('category.index') }}";
                 });
             }
+
             if (errorMessage) {
                 Swal.fire({
                     title: 'Error',
                     text: errorMessage,
                     icon: 'error',
                     confirmButtonText: 'Aceptar'
-                }).then((result) => {
-                    window.location.href = "{{ route('category.index') }}";
                 });
             }
         });
