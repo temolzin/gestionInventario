@@ -122,7 +122,8 @@
                 responsive: true,
                 paging: false,
                 info: false,
-                searching: false
+                searching: false,
+                order: [[1, 'desc']]
             });
 
             $('.select2').select2();

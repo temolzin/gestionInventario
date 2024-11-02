@@ -129,7 +129,8 @@
                 responsive: true,
                 paging: false,
                 info: false,
-                searching: false
+                searching: false,
+                order: [[1, 'desc']]
             });
 
             var successMessage = "{{ session('success') }}";
