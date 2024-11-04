@@ -12,7 +12,7 @@
                 @csrf
                 @method('DELETE')
                 <div class="modal-body text-center text-danger">
-                    <p>¿Estás seguro de eliminar el préstamo para el estudiante
+                    <p>¿Estás seguro de eliminar el préstamo para el solicitante
                         <strong>{{ $loan->student->name }}</strong>?
                     </p>
                     <p><em>{{ $loan->detail }}</em></p>

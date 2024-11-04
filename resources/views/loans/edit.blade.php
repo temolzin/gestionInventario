@@ -29,7 +29,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="student_id">Estudiante(*)</label>
+                                            <label for="student_id">Solicitante(*)</label>
                                             <select class="select2 form-control" id="student_id" name="student_id"
                                                 required>
                                                 @foreach ($students as $student)

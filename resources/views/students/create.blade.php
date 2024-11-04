@@ -5,7 +5,7 @@
             <div class="card-success">
                 <div class="card-header">
                     <div class="d-sm-flex align-items-center justify-content-between">
-                        <h4 class="card-title">Agregar Estudiante
+                        <h4 class="card-title">Agregar Solicitante
                             <small>&nbsp;(*) Campos requeridos</small>
                         </h4>
                         <button type="button" class="close d-sm-inline-block text-white" data-dismiss="modal"
@@ -19,7 +19,7 @@
                     <div class="modal-body">
                         <div class="card">
                             <div class="card-header py-2 bg-secondary">
-                                <h3 class="card-title">Ingrese los Datos del Estudiante</h3>
+                                <h3 class="card-title">Ingrese los Datos del Solicitante</h3>
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                         <i class="fa fa-minus"></i>

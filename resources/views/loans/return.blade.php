@@ -31,7 +31,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Estudiante</label>
+                                            <label>Solicitante</label>
                                             <input type="text" disabled class="form-control" value="{{ $loan->student->name }} {{ $loan->student->last_name }}" />
                                             <input type="hidden" name="student_id" value="{{ $loan->student_id }}">
                                         </div>

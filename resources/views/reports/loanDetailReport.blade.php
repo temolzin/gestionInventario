@@ -112,7 +112,7 @@
             <div class="header-info">
                 <h1>Reporte de Préstamo</h1>
                 <p><strong>ID de Préstamo:</strong> {{ $loan->id }}</p>
-                <p><strong>Estudiante:</strong> {{ $loan->student->name }} {{ $loan->student->last_name }}</p>
+                <p><strong>Solicitante:</strong> {{ $loan->student->name }} {{ $loan->student->last_name }}</p>
                 <p><strong>Detalles:</strong> {{ $loan->detail }}</p>
                 <p><strong>Estado:</strong> {{ $loan->status }}</p>
                 <p><strong>Laboratorio:</strong> {{ $authUser->department->name ?? 'No especificado' }}</p>

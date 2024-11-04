@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', ' | Estudiantes')
+@section('title', ' | Solicitantes ')
 
 @section('content')
     <section class="content">
@@ -8,12 +8,12 @@
             <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Estudiantes</h2>
+                        <h2>Solicitantes </h2>
                         <div class="row">
                             <div class="col-lg-12 text-right">
-                                <div class="btn-group" role="group" aria-label="Acciones de Estudiante">
+                                <div class="btn-group" role="group" aria-label="Acciones de Solicitante">
                                     <button class="btn btn-success mr-2" data-toggle='modal' data-target="#createStudent">
-                                        <i class="fa fa-plus"></i> Registrar estudiante
+                                        <i class="fa fa-plus"></i> Registrar solicitante
                                     </button>
                                 </div>
                             </div>

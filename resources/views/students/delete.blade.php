@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header bg-danger">
-                <h5 class="modal-title" id="exampleModalLabel">Eliminar Estudiante</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Eliminar Solicitante</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -11,7 +11,7 @@
                 @csrf
                 @method('DELETE')
                 <div class="modal-body text-center text-danger">
-                    ¿Estás seguro de eliminar al estudiante <strong>{{ $student->name }}</strong>? 
+                    ¿Estás seguro de eliminar al solicitante <strong>{{ $student->name }}</strong>? 
                     Esta acción no se puede deshacer.
                 </div>
                 <div class="modal-footer">

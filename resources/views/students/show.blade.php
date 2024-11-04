@@ -4,7 +4,7 @@
             <div class="card-info">
                 <div class="card-header">
                     <div class="d-sm-flex align-items-center justify-content-between">
-                        <h4 class="card-title">Información del Estudiante</h4>
+                        <h4 class="card-title">Información del Solicitante</h4>
                         <button type="button" class="close d-sm-inline-block text-white" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -13,7 +13,7 @@
                 <div class="modal-body">
                     <div class="card">
                         <div class="card-header py-2 bg-secondary">
-                            <h3 class="card-title">Datos del Estudiante</h3>
+                            <h3 class="card-title">Datos del Solicitante</h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                     <i class="fa fa-minus"></i>
@@ -24,10 +24,10 @@
                             <div class="row">
                                 <div class="col-lg-12 text-center">
                                     @if ($student->getFirstMediaUrl('studentGallery'))
-                                        <img src="{{ $student->getFirstMediaUrl('studentGallery') }}" alt="Foto del estudiante" class="img-fluid" 
+                                        <img src="{{ $student->getFirstMediaUrl('studentGallery') }}" alt="Foto del Solicitante" class="img-fluid" 
                                          style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 5px;">
                                     @else
-                                        <img src="{{ asset('img/userDefault.png') }}" alt="Foto del estudiante" class="img-fluid" 
+                                        <img src="{{ asset('img/userDefault.png') }}" alt="Foto del Solicitante" class="img-fluid" 
                                         style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 5px;">
                                     @endif
                                 </div>

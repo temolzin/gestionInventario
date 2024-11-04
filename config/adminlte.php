@@ -298,7 +298,7 @@ return [
         [
             'type' => 'navbar-search',
             'text' => 'Búsqueda',
-            'topnav_right' => true,
+            'topnav_right' => false,
         ],
         [
             'type' => 'fullscreen-widget',
@@ -322,7 +322,7 @@ return [
         ],
         ['header' => 'Módulos de Gestión'],
         [
-            'text' => 'Estudiantes',
+            'text' => 'Solicitantes ',
             'url' => '/students',
             'icon' => 'fa fa-users',
             'can' => 'students',
