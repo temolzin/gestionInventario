@@ -1,4 +1,5 @@
-<div class="modal fade" id="edit{{ $loan->id }}" role="dialog" aria-labelledby="editLoanLabel" aria-hidden="true">
+<div class="modal fade edit-modal" id="edit{{ $loan->id }}" role="dialog" aria-labelledby="editLoanLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="card-warning">
@@ -49,12 +50,14 @@
                                                     {{ $loan->status == 'activo' ? 'selected' : '' }}>Activo
                                                 </option>
                                                 <option value="devuelto"
-                                                    {{ $loan->status == 'devuelto' ? 'selected' : '' }}>Devuelto</option>
+                                                    {{ $loan->status == 'devuelto' ? 'selected' : '' }}>Devuelto
+                                                </option>
                                                 <option value="rechazado"
                                                     {{ $loan->status == 'rechazado' ? 'selected' : '' }}>Rechazado
                                                 </option>
-                                                <option value="incompleto"
-                                                    {{ $loan->status == 'incompleto' ? 'selected' : '' }}>Incompleto
+                                                <option value="devuelto parcialmente"
+                                                    {{ $loan->status == 'devuelto parcialmente' ? 'selected' : '' }}>
+                                                    Devuelto Parcialmente
                                                 </option>
                                             </select>
                                         </div>
@@ -78,7 +81,9 @@
                                                     id="materialSelect{{ $loan->id }}">
                                                     <option value="">Seleccione un material</option>
                                                     @foreach ($materials as $material)
-                                                        <option value="{{ $material->id }}">{{ $material->name }}
+                                                        <option value="{{ $material->id }}"
+                                                            data-available="{{ $material->amount }}">
+                                                            {{ $material->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -144,7 +149,9 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-warning">Actualizar</button>
+                        @if ($loan->status !== 'devuelto')
+                            <button type="submit" class="btn btn-warning">Actualizar</button>
+                        @endif
                     </div>
                 </form>
             </div>
@@ -155,31 +162,52 @@
 <script>
     document.getElementById('addMaterialButton{{ $loan->id }}').addEventListener('click', function() {
         let materialSelect = document.getElementById('materialSelect{{ $loan->id }}');
-        let materialQuantity = document.getElementById('materialQuantity{{ $loan->id }}').value;
+        let materialQuantity = parseInt(document.getElementById('materialQuantity{{ $loan->id }}').value);
+        let availableQuantity = parseInt(materialSelect.options[materialSelect.selectedIndex].getAttribute(
+            'data-available'));
 
-        if (materialSelect.value && materialQuantity) {
-            let materialAlreadyAdded = false;
-            document.querySelectorAll('#materialsTableBody{{ $loan->id }} tr').forEach(row => {
-                const existingMaterialText = row.cells[0].innerText.trim();
-                const selectedMaterialText = materialSelect.options[materialSelect.selectedIndex].text
-                    .trim();
-                if (existingMaterialText === selectedMaterialText) {
-                    materialAlreadyAdded = true;
-                }
+        if (!materialSelect.value || isNaN(materialQuantity) || materialQuantity <= 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Datos incompletos',
+                text: 'Seleccione un material y una cantidad válida.',
+                confirmButtonText: 'OK',
             });
+            return;
+        }
 
-            if (materialAlreadyAdded) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Material duplicado',
-                    text: 'Este material ya ha sido añadido previamente.',
-                    confirmButtonText: 'OK',
-                });
-                return; 
+        if (materialQuantity > availableQuantity) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Cantidad Excedida',
+                text: `La cantidad solicitada (${materialQuantity}) excede la disponible en el inventario (${availableQuantity}).`,
+                confirmButtonText: 'OK',
+            });
+            return;
+        }
+
+        let materialAlreadyAdded = false;
+        document.querySelectorAll('#materialsTableBody{{ $loan->id }} tr').forEach(row => {
+            const existingMaterialText = row.cells[0].innerText.trim();
+            const selectedMaterialText = materialSelect.options[materialSelect.selectedIndex].text
+                .trim();
+            if (existingMaterialText === selectedMaterialText) {
+                materialAlreadyAdded = true;
             }
+        });
 
-            let materialRow = document.createElement('tr');
-            materialRow.innerHTML = `
+        if (materialAlreadyAdded) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Material duplicado',
+                text: 'Este material ya ha sido añadido previamente.',
+                confirmButtonText: 'OK',
+            });
+            return;
+        }
+
+        let materialRow = document.createElement('tr');
+        materialRow.innerHTML = `
             <td>${materialSelect.options[materialSelect.selectedIndex].text}</td>
             <td>
                 <input type="number" class="form-control" name="materials[${materialSelect.value}][quantity]" value="${materialQuantity}" min="1" onchange="updateMaterialQuantity('{{ $loan->id }}', '${materialSelect.value}', this.value)" />
@@ -189,17 +217,9 @@
             </td>
         `;
 
-            document.getElementById('materialsTableBody{{ $loan->id }}').appendChild(materialRow);
-            document.getElementById('materialQuantity{{ $loan->id }}').value = '';
-            materialSelect.value = '';
-        } else {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Datos incompletos',
-                text: 'Seleccione un material y una cantidad válida.',
-                confirmButtonText: 'OK',
-            });
-        }
+        document.getElementById('materialsTableBody{{ $loan->id }}').appendChild(materialRow);
+        document.getElementById('materialQuantity{{ $loan->id }}').value = '';
+        materialSelect.value = '';
     });
 
     function removeMaterial(button, loanId, materialId) {

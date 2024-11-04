@@ -18,4 +18,24 @@ class MaterialReturn extends Model
         'detail',
         'expected_return_date',
     ];
+
+    public function getMaterialsAttribute()
+    {
+        return $this->loan ? $this->loan->materials : null;
+    }
+
+    public function loan()
+    {
+        return $this->belongsTo(Loan::class); 
+    }
+
+    public function student()
+    {
+        return $this->belongsTo(Student::class); 
+    }
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class); 
+    }
 }
