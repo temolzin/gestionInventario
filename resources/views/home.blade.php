@@ -26,6 +26,24 @@
             </div>
         </div>
 
+        @if ($user->hasRole('admin'))
+            <div class="col-lg-12">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="department_id" class="form-label select2">Seleccionar Departamento</label>
+                        <select id="departmentSelect" class="form-control select2" name="department_id" required>
+                            <option value="">Seleccione un Departamento</option>
+                            @foreach ($departments as $department)
+                                <option value="{{ $department->id }}"
+                                    {{ $department->id == $departmentId ? 'selected' : '' }}>{{ $department->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+        @endif
+
         <div class="col-lg-3 col-6">
             <div class="small-box bg-success">
                 <div class="inner">
@@ -35,9 +53,11 @@
                 <div class="icon">
                     <i class="fas fa-box"></i>
                 </div>
-                <a href="{{ route('materials.index') }}" class="small-box-footer">
-                    Más información <i class="fas fa-arrow-circle-right"></i>
-                </a>
+                @if ($user->hasRole('supervisor'))
+                    <a href="{{ route('materials.index') }}" class="small-box-footer">
+                        Más información <i class="fas fa-arrow-circle-right"></i>
+                    </a>
+                @endif
             </div>
         </div>
 
@@ -50,9 +70,11 @@
                 <div class="icon">
                     <i class="fas fa-hand-holding"></i>
                 </div>
-                <a href="{{ route('loans.index') }}" class="small-box-footer">
-                    Más información <i class="fas fa-arrow-circle-right"></i>
-                </a>
+                @if ($user->hasRole('supervisor'))
+                    <a href="{{ route('loans.index') }}" class="small-box-footer">
+                        Más información <i class="fas fa-arrow-circle-right"></i>
+                    </a>
+                @endif
             </div>
         </div>
 
@@ -65,9 +87,11 @@
                 <div class="icon">
                     <i class="fas fa-box"></i>
                 </div>
-                <a href="{{ route('inventories.index') }}" class="small-box-footer">
-                    Más información <i class="fas fa-arrow-circle-right"></i>
-                </a>
+                @if ($user->hasRole('supervisor'))
+                    <a href="{{ route('inventories.index') }}" class="small-box-footer">
+                        Más información <i class="fas fa-arrow-circle-right"></i>
+                    </a>
+                @endif
             </div>
         </div>
 
@@ -80,16 +104,19 @@
                 <div class="icon">
                     <i class="fas fa-users"></i>
                 </div>
-                <a href="{{ route('students.index') }}" class="small-box-footer">
-                    Más información <i class="fas fa-arrow-circle-right"></i>
-                </a>
+                @if ($user->hasRole('supervisor'))
+                    <a href="{{ route('students.index') }}" class="small-box-footer">
+                        Más información <i class="fas fa-arrow-circle-right"></i>
+                    </a>
+                @endif
             </div>
         </div>
 
         <div class="col-lg-6">
             <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Gráfico de Inventario por Categoría</h3>
+                <div class="card-header d-flex justify-content-between">
+                    <h3 class="card-title inventoryCategoryChart-title">Gráfico de Inventario por Categoría</h3>
+                    <button class="btn btn-primary btn-sm download-btn" onclick="downloadChart('inventoryCategoryChart', 'InventarioCategoria.png')">Descargar</button>
                 </div>
                 <div class="card-body">
                     <div class="chart">
@@ -102,8 +129,9 @@
 
         <div class="col-lg-6">
             <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Materiales Prestados Durante el Año</h3>
+                <div class="card-header d-flex justify-content-between">
+                    <h3 class="card-title loanedMaterialsChart-title">Materiales Prestados Durante el Año</h3>
+                    <button class="btn btn-primary btn-sm download-btn" onclick="downloadChart('loanedMaterialsChart', 'MaterialesPrestados.png')">Descargar</button>
                 </div>
                 <div class="card-body">
                     <div class="chart">
@@ -116,8 +144,9 @@
 
         <div class="col-lg-6">
             <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Materiales Ingresados Durante el Año</h3>
+                <div class="card-header d-flex justify-content-between">
+                    <h3 class="card-title inventoriesChart-title">Materiales Ingresados Durante el Año</h3>
+                    <button class="btn btn-primary btn-sm download-btn" onclick="downloadChart('inventoriesChart', 'MaterialesIngresados.png')">Descargar</button>
                 </div>
                 <div class="card-body">
                     <div class="chart">
@@ -130,13 +159,13 @@
 
         <div class="col-lg-6">
             <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Participación de Estudiantes en los Préstamos</h3>
+                <div class="card-header d-flex justify-content-between">
+                    <h3 class="card-title studentParticipationChart-title">Participación de Estudiantes</h3>
+                    <button class="btn btn-primary btn-sm download-btn" onclick="downloadChart('studentParticipationChart', 'ParticipacionEstudiantes.png')">Descargar</button>
                 </div>
                 <div class="card-body">
                     <div class="chart">
-                        <canvas id="studentParticipationChart"
-                            style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        <canvas id="studentParticipationChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                     </div>
                 </div>
             </div>
@@ -146,10 +175,92 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/profiles/profile.css') }}">
+    <style>
+        .select2-container .select2-selection--single {
+            height: 40px;
+            display: flex;
+            align-items: center;
+        }
+        .download-btn {
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            height: 30px;
+        }
+    </style>
 @stop
 
 @section('js')
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+        $('#departmentSelect').select2();
+
+        $('#departmentSelect').on('change', function() {
+            var departmentId = $(this).val();
+            updateChartsAndBoxes(departmentId);
+        });
+
+        function updateChartsAndBoxes(departmentId) {
+            if (departmentId) {
+                $.ajax({
+                    url: '{{ route('getDepartmentData') }}',
+                    method: 'GET',
+                    data: { department_id: departmentId },
+                    success: function(data) {
+                        setChartTitles(data.departmentName);
+                        setBoxValues(data.totalStock, data.totalLoaned, data.totalInventories, data.totalStudents);
+                        setChartData(data.materialsByCategory, data.loanedMaterialsByMonth, data.materialsByMonth, [data.activeStudents, data.inactiveStudents]);
+                    },
+                    error: function(xhr) {
+                        console.error('Error en la solicitud AJAX:', xhr.responseText);
+                        alert('Hubo un error al cargar los datos del departamento. Por favor, intente nuevamente.');
+                    }
+                });
+            } else {
+                setChartTitles();
+                setBoxValues(0, 0, 0, 0);
+                setChartData(Array(5).fill(0), Array(12).fill(0), Array(12).fill(0), [0, 0]);
+            }
+        }
+
+        function setChartTitles(departmentName = '') {
+            $('.inventoryCategoryChart-title').text(`Inventario por Categoría${departmentName ? ' - ' + departmentName : ''}`);
+            $('.loanedMaterialsChart-title').text(`Materiales Prestados${departmentName ? ' - ' + departmentName : ''}`);
+            $('.inventoriesChart-title').text(`Materiales Ingresados${departmentName ? ' - ' + departmentName : ''}`);
+            $('.studentParticipationChart-title').text(`Participación de Estudiantes${departmentName ? ' - ' + departmentName : ''}`);
+        }
+
+        function setBoxValues(stock, loaned, inventories, students) {
+            $('.small-box.bg-success .inner h3').text(stock);
+            $('.small-box.bg-warning .inner h3').text(loaned);
+            $('.small-box.bg-danger .inner h3').text(inventories);
+            $('.small-box.bg-primary .inner h3').text(students);
+        }
+
+        function setChartData(materialsByCategory, loanedMaterialsByMonth, materialsByMonth, studentParticipation) {
+            inventoryCategoryChart.data.datasets[0].data = materialsByCategory;
+            inventoryCategoryChart.update();
+
+            loanedMaterialsChart.data.datasets[0].data = loanedMaterialsByMonth;
+            loanedMaterialsChart.update();
+
+            inventoriesChart.data.datasets[0].data = materialsByMonth;
+            inventoriesChart.update();
+
+            studentParticipationChart.data.datasets[0].data = studentParticipation;
+            studentParticipationChart.update();
+        }
+
+        function downloadChart(chartId, fileName) {
+            var canvas = document.getElementById(chartId);
+            var link = document.createElement('a');
+            link.href = canvas.toDataURL('image/png');
+            link.download = fileName;
+            link.click();
+        }
+
         var ctx = document.getElementById('inventoryCategoryChart').getContext('2d');
         var inventoryCategoryChart = new Chart(ctx, {
             type: 'doughnut',
@@ -179,6 +290,7 @@
                 }
             }
         });
+
         var ctx = document.getElementById('loanedMaterialsChart').getContext('2d');
         var loanedMaterialsChart = new Chart(ctx, {
             type: 'line',
@@ -223,50 +335,73 @@
                 }
             }
         });
-        document.addEventListener('DOMContentLoaded', function() {
-            var ctx = document.getElementById('inventoriesChart').getContext('2d');
-            var inventoriesChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto',
-                        'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
-                    ],
-                    datasets: [{
-                        label: 'Cantidad de materiales',
-                        data: @json(array_values($materialsByMonth)),
-                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
+
+        var ctx = document.getElementById('inventoriesChart').getContext('2d');
+        var inventoriesChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto',
+                    'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+                ],
+                datasets: [{
+                    label: 'Cantidad de materiales',
+                    data: @json(array_values($materialsByMonth)),
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        var ctx = document.getElementById('studentParticipationChart').getContext('2d');
+        var totalStudents = {{ $totalStudents }};
+        var activeStudents = {{ $activeStudents }};
+        var inactiveStudents ={{$inactiveStudents}};
+        var studentParticipationChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: [
+                    `Estudiantes Activos en Préstamos`,
+                    `Estudiantes Sin Participación`
+                ],
+                datasets: [{
+                    data: [activeStudents, inactiveStudents],
+                    backgroundColor: ['#4CAF50', '#FF6384'],
+                    hoverBackgroundColor: ['#66BB6A', '#FF8397'],
+                    borderColor: '#fff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            font: {
+                                size: 14
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.label || '';
+                                let value = context.raw;
+                                return `${label}: ${value} estudiantes`;
+                            }
                         }
                     }
                 }
-            });
-        });
-        document.addEventListener("DOMContentLoaded", function() {
-            var ctx = document.getElementById('studentParticipationChart').getContext('2d');
-            var participationRate = {{ $participationRate }};
-            var totalStudents = {{ $totalStudents }};
-            var activeStudents = {{ $activeStudents }};
-            var chart = new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    labels: ['Estudiantes Activos en Préstamos', 'Estudiantes Sin Participación'],
-                    datasets: [{
-                        data: [activeStudents, totalStudents - activeStudents],
-                        backgroundColor: ['#4CAF50', '#FF6384']
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false
-                }
-            });
+            }
         });
     </script>
 @stop

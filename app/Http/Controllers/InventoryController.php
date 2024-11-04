@@ -22,7 +22,7 @@ class InventoryController extends Controller
             })->orWhere('status', 'like', "%{$search}%");
         }
 
-        $inventories = $query->with(['materials', 'creator'])->paginate(10);
+        $inventories = $query->with(['materials', 'creator'])->orderBy('created_at', 'desc')->paginate(10);
         $materials = Material::all();
 
         return view('inventories.index', compact('inventories', 'materials'));

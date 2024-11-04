@@ -83,6 +83,23 @@
             border-radius: 8px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
         }
+        .info_Eabajo {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            position: absolute;
+            bottom: 5px;
+            left: 20px;
+            right: 20px;
+        }
+        .text_infoE {
+            text-align: center;
+            font-size: 12pt;
+            font-family: 'Montserrat', sans-serif;
+            color: black;
+            text-decoration: none;
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
@@ -128,6 +145,10 @@
                 </tbody>
             </table>
         </div>
+    </div>
+    <div class="info_Eabajo">
+        <a class="text_infoE" href="https://inventio.rootheim.com/"><strong>Inventio</strong></a>
+        <a class="text_infoE" href="https://rootheim.com/">powered by<strong> Root Heim Company </strong></a><img src="img/rootheim.png" width="15px" height="15px">
     </div>
 </body>
 </html>
