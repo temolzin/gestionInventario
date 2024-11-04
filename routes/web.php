@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,7 @@ Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/getDepartmentData', [HomeController::class, 'getDepartmentData'])->name('getDepartmentData');
 
     Route::get('/profiles', [ProfileController::class, 'index'])->name('profiles.index');
     Route::put('/profiles/update', [ProfileController::class, 'profileUpdate'])->name('profiles.update');

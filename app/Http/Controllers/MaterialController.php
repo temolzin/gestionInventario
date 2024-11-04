@@ -29,7 +29,7 @@ class MaterialController extends Controller
 
         $categories = Category::where('department_id', $departmentId)->get();
         $users = User::all();
-        $materials = $query->paginate(10);
+        $materials = $query->orderBy('id', 'desc')->paginate(10);
         return view('materials.index', compact('materials', 'categories'));
     }
 

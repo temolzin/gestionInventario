@@ -107,7 +107,8 @@
                     responsive: true,
                     paging: false,
                     info: false,
-                    searching: false
+                    searching: false,
+                    order: [[1, 'desc']]
                 });
                 var successMessage = "{{ session('success') }}";
                 var errorMessage = "{{ session('error') }}";
@@ -117,8 +118,6 @@
                         text: successMessage,
                         icon: 'success',
                         confirmButtonText: 'Aceptar'
-                    }).then((result) => {
-                        window.location.href = "{{ route('inventories.index') }}";
                     });
                 }
                 if (errorMessage) {
@@ -127,8 +126,6 @@
                         text: errorMessage,
                         icon: 'error',
                         confirmButtonText: 'Aceptar'
-                    }).then((result) => {
-                        window.location.href = "{{ route('inventories.index') }}";
                     });
                 }
             });
