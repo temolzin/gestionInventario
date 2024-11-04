@@ -210,9 +210,27 @@ class LoanController extends Controller
 
         $loan = Loan::with(['materials'])->findOrFail($loanId);
 
-        $invalidStatuses = ['devuelto', 'rechazado', 'incompleto'];
+        $invalidStatuses = ['rechazado'];
         if (in_array($loan->status, $invalidStatuses)) {
-            return redirect()->back()->with('error', 'Este préstamo ya ha sido devuelto, rechazado o incompleto.');
+            return redirect()->back()->with('error', 'Este préstamo ya ha sido rechazado.');
+        }
+
+        $completelyReturned = true;
+        foreach ($loan->materials as $material) {
+            $cantidadPrestada = $loan->materials()->where('materials.id', $material->id)->value('quantity');
+            $cantidadDevueltaPrev = DB::table('loan_details')
+                ->where('loan_id', $loanId)
+                ->where('material_id', $material->id)
+                ->value('returned_quantity');
+
+            if ($cantidadDevueltaPrev < $cantidadPrestada) {
+                $completelyReturned = false;
+                break;
+            }
+        }
+
+        if ($completelyReturned) {
+            return redirect()->back()->with('error', 'Todos los materiales de este préstamo ya han sido devueltos.');
         }
 
         $cantidadDevueltaTotal = 0;
@@ -220,12 +238,11 @@ class LoanController extends Controller
 
         foreach ($loan->materials as $material) {
             $cantidadPrestada = $loan->materials()->where('materials.id', $material->id)->value('quantity');
-            $cantidadDevueltaPrev = DB::table('loan_details')->where('loan_id', $loanId)->where('material_id', $material->id)->value('returned_quantity');
+            $cantidadDevueltaPrev = DB::table('loan_details')
+                ->where('loan_id', $loanId)
+                ->where('material_id', $material->id)
+                ->value('returned_quantity');
             $cantidadRestante[$material->id] = $cantidadPrestada - $cantidadDevueltaPrev;
-
-            if ($cantidadDevueltaPrev >= $cantidadPrestada) {
-                return redirect()->back()->with('error', 'Este material ya ha sido devuelto completamente.');
-            }
         }
 
         foreach ($request->materials as $materialData) {
