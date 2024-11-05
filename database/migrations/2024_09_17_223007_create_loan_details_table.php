@@ -20,6 +20,7 @@ class CreateLoanDetailsTable extends Migration
             $table->unsignedBigInteger('department_id');
             $table->unsignedBigInteger('created_by');
             $table->integer('quantity');
+            $table->integer('returned_quantity')->default(0); 
             $table->timestamps();
 
             $table->foreign('loan_id')->references('id')->on('loans')->onDelete('cascade');

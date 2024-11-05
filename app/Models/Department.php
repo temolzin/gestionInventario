@@ -18,4 +18,9 @@ class Department extends Model implements HasMedia
         'description',
     ];
 
+    public function materialReturns()
+    {
+        return $this->hasMany(MaterialReturn::class);
+    }
+
 }

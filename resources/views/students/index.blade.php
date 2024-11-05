@@ -86,7 +86,7 @@
                                                                     data-target="#editPhoto{{ $student->id }}">
                                                                     <i class="fas fa-image"></i>
                                                                 </button>
-                                                                <button type="button" class="btn btn-primary mr-2"
+                                                                <button type="button" class="btn btn-info mr-2"
                                                                     data-toggle="modal" title="Prestamos"
                                                                     data-target="#loansModal{{ $student->id }}">
                                                                     <i class="fas fa-list"></i>

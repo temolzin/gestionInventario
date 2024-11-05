@@ -36,9 +36,18 @@ class Loan extends Model
     public function materials()
     {
         return $this->belongsToMany(Material::class, 'loan_details')
-            ->withPivot('quantity')
-            ->withTimestamps();
+            ->withPivot('quantity', 'returned_quantity');
     }
+    public function loan()
+    {
+        return $this->belongsTo(Loan::class, 'loan_id');
+    }
+
+    public function materialReturns()
+    {
+        return $this->hasMany(MaterialReturn::class);
+    }
+
     public function materialReturn()
     {
         return $this->hasOne(MaterialReturn::class);

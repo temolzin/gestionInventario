@@ -1,4 +1,5 @@
-<div class="modal fade" id="return{{ $loan->id }}" tabindex="-1" role="dialog" aria-labelledby="returnModalLabel{{ $loan->id }}" aria-hidden="true">
+<div class="modal fade" id="return{{ $loan->id }}" tabindex="-1" role="dialog"
+    aria-labelledby="returnModalLabel{{ $loan->id }}" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="card-warning">
@@ -25,13 +26,14 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>ID del Préstamo</label>
-                                            <input type="text" disabled class="form-control" value="{{ $loan->id }}" />
+                                            <input type="text" disabled class="form-control"
+                                                value="{{ $loan->id }}" />
                                             <input type="hidden" name="loan_id" value="{{ $loan->id }}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Solicitante</label>
+                                            <label>Estudiante</label>
                                             <input type="text" disabled class="form-control" value="{{ $loan->student->name }} {{ $loan->student->last_name }}" />
                                             <input type="hidden" name="student_id" value="{{ $loan->student_id }}">
                                         </div>
@@ -41,13 +43,15 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Fecha de Devolución Esperada</label>
-                                            <input type="text" disabled class="form-control" value="{{ \Carbon\Carbon::parse($loan->return_at)->format('d/m/Y g:i A') }}" />
+                                            <input type="text" disabled class="form-control"
+                                                value="{{ \Carbon\Carbon::parse($loan->return_at)->format('d/m/Y g:i A') }}" />
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Fecha de la Devolución</label>
-                                            <input type="datetime-local" name="expected_return_date" class="form-control" required>
+                                            <input type="datetime-local" name="expected_return_date"
+                                                class="form-control" required>
                                         </div>
                                     </div>
                                 </div>
@@ -56,10 +60,18 @@
                                         <div class="form-group">
                                             <label>Estado del Préstamo</label>
                                             <select name="status" class="form-control" required>
-                                                <option value="pendiente" {{ $loan->status == 'pendiente' ? 'selected' : '' }}>Pendiente</option>
-                                                <option value="devuelto" {{ $loan->status == 'devuelto' ? 'selected' : '' }}>Devuelto</option>
-                                                <option value="rechazado" {{ $loan->status == 'rechazado' ? 'selected' : '' }}>Rechazado</option>
-                                                <option value="incompleto" {{ $loan->status == 'incompleto' ? 'selected' : '' }}>Incompleto</option>
+                                                <option value="pendiente"
+                                                    {{ $loan->status == 'pendiente' ? 'selected' : '' }}>Pendiente
+                                                </option>
+                                                <option value="devuelto"
+                                                    {{ $loan->status == 'devuelto' ? 'selected' : '' }}>Devuelto
+                                                </option>
+                                                <option value="devuelto parcialmente"
+                                                    {{ $loan->status == 'devuelto parcialmente' ? 'selected' : '' }}>
+                                                    Devuelto Parcialmente</option>
+                                                <option value="rechazado"
+                                                    {{ $loan->status == 'rechazado' ? 'selected' : '' }}>Rechazado
+                                                </option>
                                             </select>
                                         </div>
                                     </div>
@@ -76,7 +88,7 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Nombre del Material</th>
-                                            <th>Prestado</th>
+                                            <th>Cantidad Devuelta</th>
                                             <th>Cantidad a Devolver</th>
                                         </tr>
                                     </thead>
@@ -85,11 +97,43 @@
                                             <tr>
                                                 <td>{{ $material->id }}</td>
                                                 <td>{{ $material->name }}</td>
-                                                <td>{{ $material->pivot->quantity }}</td>
                                                 <td>
-                                                    <input type="number" name="materials[{{ $material->id }}][quantity]" class="form-control" min="1" max="{{ $material->pivot->quantity }}" placeholder="Cantidad devuelta" required>
-                                                    <input type="hidden" name="materials[{{ $material->id }}][id]" value="{{ $material->id }}">
+                                                    {{ $material->pivot->returned_quantity ?? 0 }}
                                                 </td>
+                                                <td>
+                                                    <input type="number"
+                                                        name="materials[{{ $material->id }}][quantity]"
+                                                        class="form-control" min="0"
+                                                        max="{{ $material->pivot->quantity - ($material->pivot->returned_quantity ?? 0) }}"
+                                                        placeholder="Restante: {{ $material->pivot->quantity - ($material->pivot->returned_quantity ?? 0) }}">
+                                                    <input type="hidden" name="materials[{{ $material->id }}][id]"
+                                                        value="{{ $material->id }}">
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card mt-3">
+                            <div class="card-header bg-warning text-white">
+                                <h3 class="card-title">Datos del Prestamo</h3>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nombre del Material</th>
+                                            <th>Cantidad Prestada</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($loan->materials as $material)
+                                            <tr>
+                                                <td>{{ $material->id }}</td>
+                                                <td>{{ $material->name }}</td>
+                                                <td>{{ $material->pivot->quantity }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -106,7 +150,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <button type="submit" class="btn btn-primary">Registrar Devolución</button>
+                            <button type="submit" class="btn btn-warning">Registrar Devolución</button>
                         </div>
                     </form>
                 </div>

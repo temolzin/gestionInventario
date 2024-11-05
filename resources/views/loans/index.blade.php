@@ -123,10 +123,8 @@
                 paging: false,
                 info: false,
                 searching: false,
-                order: [[1, 'desc']]
+                order: [],
             });
-
-            $('.select2').select2();
 
             var successMessage = "{{ session('success') }}";
             var errorMessage = "{{ session('error') }}";
@@ -149,15 +147,15 @@
             }
 
             $('#createLoan').on('shown.bs.modal', function() {
-                $('.select2').select2({
-                    dropdownParent: $(
-                        '#createLoan')
+                console.log('Modal de creación mostrado');
+                $('.select2', this).select2({
+                    dropdownParent: $(this)
                 });
             });
 
-            $('#edit{{ $loan->id }}').on('shown.bs.modal', function() {
-                $('.select2').select2({
-                    dropdownParent: $('#edit{{ $loan->id }}')
+            $('.edit-modal').on('shown.bs.modal', function() {
+                $('.select2', this).select2({
+                    dropdownParent: $(this)
                 });
             });
         });
