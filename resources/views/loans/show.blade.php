@@ -84,7 +84,7 @@
                                                 @foreach ($loan->materials as $material)
                                                     <tr>
                                                         <td>{{ $material->id }}</td>
-                                                        <td>{{ $material->name }}</td>
+                                                        <td>{{ $material->name }} </td>
                                                         <td>{{ $material->pivot->quantity }}</td>
                                                     </tr>
                                                 @endforeach

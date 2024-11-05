@@ -62,9 +62,8 @@
                                                 <option value="">Seleccione un material</option>
                                                 @foreach ($materials as $material)
                                                     <option value="{{ $material->id }}"
-                                                        data-available="{{ $material->available_quantity }}">
-                                                        {{ $material->name }} (Disponible
-                                                        {{ $material->available_quantity }})
+                                                        data-available="{{ $material->amount }}">
+                                                        {{ $material->name }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -144,7 +143,7 @@
                 Swal.fire({
                     icon: 'error',
                     title: 'Cantidad no válida',
-                    text: 'La cantidad solicitada excede la cantidad disponible en el inventario.',
+                    text: `La cantidad solicitada (${materialQuantity}) excede la disponible en el inventario (${availableQuantity}).`,
                 });
                 return;
             }

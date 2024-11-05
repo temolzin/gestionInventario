@@ -29,7 +29,7 @@ class LoanController extends Controller
             });
         }
 
-        $loans = $query->with(['student', 'createdBy', 'materials'])->paginate(10);
+        $loans = $query->with(['student', 'createdBy', 'materials'])->orderBy('created_at', 'desc')->paginate(10);
         $materials = Material::where('department_id', $departmentId)->get();
         $students = Student::where('department_id', $departmentId)->get();
 
@@ -38,6 +38,7 @@ class LoanController extends Controller
 
     public function store(Request $request)
     {
+
         $request->validate([
             'student_id' => 'required|exists:students,id',
             'status' => 'required|string',
@@ -47,14 +48,6 @@ class LoanController extends Controller
             'materials.*.id' => 'required|exists:materials,id',
             'materials.*.quantity' => 'required|integer|min:1',
         ]);
-
-        $activeLoan = Loan::where('student_id', $request->student_id)
-            ->whereNotIn('status', ['devuelto', 'rechazado'])
-            ->exists();
-
-        if ($activeLoan) {
-            return redirect()->back()->with('error', 'Este estudiante ya tiene un préstamo activo.');
-        }
 
         foreach ($request->materials as $material) {
             $materialId = (int) $material['id'];
@@ -208,37 +201,87 @@ class LoanController extends Controller
     {
         $request->validate([
             'detail' => 'required|string',
-            'status' => 'required|string|in:devuelto,rechazado',
+            'status' => 'required|string|in:devuelto,rechazado,devuelto parcialmente',
             'expected_return_date' => 'required|date',
+            'materials' => 'required|array',
+            'materials.*.quantity' => 'nullable|integer|min:0',
+            'materials.*.id' => 'required|exists:materials,id',
         ]);
 
-        $loan = Loan::with('materials')->findOrFail($loanId);
+        $loan = Loan::with(['materials'])->findOrFail($loanId);
 
-        if ($loan->status == 'devuelto' || $loan->status == 'rechazado' || $loan->status == 'incompleto') {
-            return redirect()->back()->with('error', 'Este préstamo ya ha sido devuelto, rechazado o incompleto.');
+        $invalidStatuses = ['rechazado'];
+        if (in_array($loan->status, $invalidStatuses)) {
+            return redirect()->back()->with('error', 'Este préstamo ya ha sido rechazado.');
         }
 
-        $return = MaterialReturn::create([
-            'student_id' => $loan->student_id,
-            'loan_id' => $loan->id,
-            'department_id' => $loan->department_id,
-            'created_by' => auth()->user()->id,
-            'status' => $request->status,
-            'detail' => $request->detail,
-            'expected_return_date' => $request->expected_return_date,
-        ]);
+        $completelyReturned = true;
+        foreach ($loan->materials as $material) {
+            $cantidadPrestada = $loan->materials()->where('materials.id', $material->id)->value('quantity');
+            $cantidadDevueltaPrev = DB::table('loan_details')
+                ->where('loan_id', $loanId)
+                ->where('material_id', $material->id)
+                ->value('returned_quantity');
+
+            if ($cantidadDevueltaPrev < $cantidadPrestada) {
+                $completelyReturned = false;
+                break;
+            }
+        }
+
+        if ($completelyReturned) {
+            return redirect()->back()->with('error', 'Todos los materiales de este préstamo ya han sido devueltos.');
+        }
+
+        $cantidadDevueltaTotal = 0;
+        $cantidadRestante = [];
+
+        foreach ($loan->materials as $material) {
+            $cantidadPrestada = $loan->materials()->where('materials.id', $material->id)->value('quantity');
+            $cantidadDevueltaPrev = DB::table('loan_details')
+                ->where('loan_id', $loanId)
+                ->where('material_id', $material->id)
+                ->value('returned_quantity');
+            $cantidadRestante[$material->id] = $cantidadPrestada - $cantidadDevueltaPrev;
+        }
+
+        foreach ($request->materials as $materialData) {
+            $materialId = $materialData['id'];
+            $cantidadDevuelta = $materialData['quantity'] ?? 0;
+
+            if ($cantidadDevuelta > $cantidadRestante[$materialId]) {
+                return redirect()->back()->with('error', 'No puedes devolver más materiales de los que te fueron prestados.');
+            }
+
+            if ($cantidadDevuelta > 0) {
+                $materialInDb = Material::find($materialId);
+                $materialInDb->amount += $cantidadDevuelta;
+                $materialInDb->save();
+            }
+
+            $cantidadDevueltaTotal += $cantidadDevuelta;
+
+            DB::table('loan_details')
+                ->where('loan_id', $loan->id)
+                ->where('material_id', $materialId)
+                ->increment('returned_quantity', $cantidadDevuelta);
+        }
 
         $loan->status = $request->status;
         $loan->save();
 
-        if ($request->status === 'devuelto') {
-            foreach ($loan->materials as $material) {
-                $materialInDb = Material::find($material->id);
-                $materialInDb->amount += $material->pivot->quantity;
-                $materialInDb->save();
-            }
-        }
+        MaterialReturn::create([
+            'student_id' => $loan->student_id,
+            'loan_id' => $loan->id,
+            'department_id' => $loan->department_id,
+            'created_by' => auth()->user()->id,
+            'status' => $loan->status,
+            'detail' => $request->detail,
+            'expected_return_date' => $request->expected_return_date,
+        ]);
 
-        return redirect()->route('loans.index')->with('success', 'Devolución registrada exitosamente.');
+        return redirect()->route('loans.index')->with([
+            'success' => 'Devolución registrada exitosamente.',
+        ]);
     }
 }

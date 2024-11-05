@@ -72,7 +72,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <a href="{{ route('loans.index') }}" class="btn btn-primary">Ir al Módulo de Préstamos</a>
+                    <a href="{{ route('loans.index') }}" class="btn btn-info">Ir al Módulo de Préstamos</a>
                 </div>
             </div>
         </div>
