@@ -25,7 +25,7 @@
                         <form method="GET" action="{{ route('loans.index') }}" class="my-3">
                             <div class="input-group">
                                 <input type="text" name="search" class="form-control"
-                                    placeholder="Buscar por estudiante o estado" value="{{ request('search') }}">
+                                    placeholder="Buscar por solicitante o estado" value="{{ request('search') }}">
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-primary">Buscar</button>
                                 </div>
@@ -42,7 +42,7 @@
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Estudiante</th>
+                                                <th>Solicitante</th>
                                                 <th>Estado</th>
                                                 <th>Fecha y Hora de creacion</th>
                                                 <th>Fecha y Hora de Devolución</th>

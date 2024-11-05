@@ -26,10 +26,10 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="student_id" class="form-label">Estudiante:</label>
+                                            <label for="student_id" class="form-label">Solicitante:</label>
                                             <select name="student_id" id="student_id" class="form-control select2"
                                                 required>
-                                                <option value="">Seleccione un estudiante</option>
+                                                <option value="">Seleccione un solicitante</option>
                                                 @foreach ($students as $student)
                                                     <option value="{{ $student->id }}">{{ $student->name }}
                                                         {{ $student->last_name }}</option>

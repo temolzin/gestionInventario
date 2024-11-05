@@ -99,7 +99,7 @@
             <div class="small-box bg-primary">
                 <div class="inner">
                     <h3>{{ $totalStudents }}</h3>
-                    <p>Estudiantes Registrados</p>
+                    <p>Solicitantes  Registrados</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-users"></i>
@@ -160,8 +160,8 @@
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h3 class="card-title studentParticipationChart-title">Participación de Estudiantes</h3>
-                    <button class="btn btn-primary btn-sm download-btn" onclick="downloadChart('studentParticipationChart', 'ParticipacionEstudiantes.png')">Descargar</button>
+                    <h3 class="card-title studentParticipationChart-title">Participación de Solicitantes </h3>
+                    <button class="btn btn-primary btn-sm download-btn" onclick="downloadChart('studentParticipationChart', 'ParticipacionSolicitantes .png')">Descargar</button>
                 </div>
                 <div class="card-body">
                     <div class="chart">
@@ -229,7 +229,7 @@
             $('.inventoryCategoryChart-title').text(`Inventario por Categoría${departmentName ? ' - ' + departmentName : ''}`);
             $('.loanedMaterialsChart-title').text(`Materiales Prestados${departmentName ? ' - ' + departmentName : ''}`);
             $('.inventoriesChart-title').text(`Materiales Ingresados${departmentName ? ' - ' + departmentName : ''}`);
-            $('.studentParticipationChart-title').text(`Participación de Estudiantes${departmentName ? ' - ' + departmentName : ''}`);
+            $('.studentParticipationChart-title').text(`Participación de Solicitantes ${departmentName ? ' - ' + departmentName : ''}`);
         }
 
         function setBoxValues(stock, loaned, inventories, students) {
@@ -368,8 +368,8 @@
             type: 'pie',
             data: {
                 labels: [
-                    `Estudiantes Activos en Préstamos`,
-                    `Estudiantes Sin Participación`
+                    `Solicitantes  Activos en Préstamos`,
+                    `Solicitantes  Sin Participación`
                 ],
                 datasets: [{
                     data: [activeStudents, inactiveStudents],
@@ -396,7 +396,7 @@
                             label: function(context) {
                                 let label = context.label || '';
                                 let value = context.raw;
-                                return `${label}: ${value} estudiantes`;
+                                return `${label}: ${value} Solicitantes `;
                             }
                         }
                     }

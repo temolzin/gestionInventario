@@ -21,7 +21,7 @@
                         </div>
                         <div class="card-body">
                             @if ($student->loans->isEmpty())
-                                <p>No hay préstamos registrados para este estudiante.</p>
+                                <p>No hay préstamos registrados para este solicitante.</p>
                             @else
                                 @foreach ($student->loans as $loan)
                                     <div class="card mb-3">
