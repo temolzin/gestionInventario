@@ -44,7 +44,7 @@
                                                 <th>ID</th>
                                                 <th>Solicitante</th>
                                                 <th>Estado</th>
-                                                <th>Fecha y Hora de creacion</th>
+                                                <th>Fecha y Hora de Creacion</th>
                                                 <th>Fecha y Hora de Devolución</th>
                                                 <th>Opciones</th>
                                             </tr>
@@ -77,11 +77,14 @@
                                                                     <i class="fas fa-edit"></i>
                                                                 </button>
                                                                 <button type="button" class="btn btn-danger mr-2"
+                                                                    @if ($loan->status === 'activo' || $loan->status === 'rechazado' || $loan->status === 'devuelto parcialmente') disabled title="Este préstamo no puede ser eliminado porque está activo" @endif
                                                                     data-toggle="modal" title="Eliminar Préstamo"
                                                                     data-target="#delete{{ $loan->id }}">
                                                                     <i class="fas fa-trash-alt"></i>
                                                                 </button>
-                                                                <button type="button" class="btn btn-warning mr-2"
+
+                                                                <button type="button" class="btn mr-2"
+                                                                    style="background-color: #fd7e14; color: white;"
                                                                     data-toggle="modal"
                                                                     data-target="#return{{ $loan->id }}"
                                                                     title="Devolución">

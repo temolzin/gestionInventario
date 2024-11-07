@@ -49,14 +49,18 @@
                                                 <option value="activo"
                                                     {{ $loan->status == 'activo' ? 'selected' : '' }}>Activo
                                                 </option>
+
                                                 <option value="devuelto"
-                                                    {{ $loan->status == 'devuelto' ? 'selected' : '' }}>Devuelto
+                                                    {{ $loan->status == 'devuelto' ? 'selected' : '' }}
+                                                    {{ $loan->status !== 'devuelto' ? 'hidden' : '' }}>
+                                                    Devuelto
                                                 </option>
                                                 <option value="rechazado"
                                                     {{ $loan->status == 'rechazado' ? 'selected' : '' }}>Rechazado
                                                 </option>
                                                 <option value="devuelto parcialmente"
-                                                    {{ $loan->status == 'devuelto parcialmente' ? 'selected' : '' }}>
+                                                    {{ $loan->status == 'devuelto parcialmente' ? 'selected' : '' }}
+                                                    {{ $loan->status !== 'devuelto parcialmente' ? 'hidden' : '' }}>
                                                     Devuelto Parcialmente
                                                 </option>
                                             </select>

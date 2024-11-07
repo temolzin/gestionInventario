@@ -57,7 +57,10 @@ class LoanController extends Controller
             $availableQuantity = $materialInDb->amount - $totalLoanedQuantity;
 
             if ($requestedQuantity > $availableQuantity) {
-                return redirect()->back()->with('error', 'La cantidad solicitada para ' . $materialInDb->name . ' excede la cantidad disponible.');
+                return redirect()->back()->with(
+                    'error',
+                    'La cantidad solicitada para ' . $materialInDb->name . ' excede la cantidad disponible. Cantidad disponible: ' . $availableQuantity
+                );
             }
         }
 
@@ -173,17 +176,25 @@ class LoanController extends Controller
     {
         $loan = Loan::with('materials')->findOrFail($id);
 
+        // Verificar si todos los materiales han sido devueltos completamente
         foreach ($loan->materials as $material) {
-            $materialInDb = Material::find($material->id);
+            $cantidadPrestada = $material->pivot->quantity;
+            $cantidadDevuelta = $material->pivot->returned_quantity;
 
-            $materialInDb->amount += $material->pivot->quantity;
-            $materialInDb->save();
+            if ($cantidadDevuelta < $cantidadPrestada) {
+                return redirect()->route('loans.index')->with('error', 'Solo se pueden eliminar préstamos si todos los materiales han sido devueltos completamente.');
+            }
         }
 
+        // Todos los materiales han sido devueltos completamente, procede con la eliminación sin actualizar la cantidad en inventario
         $loan->delete();
 
-        return redirect()->route('loans.index')->with('success', 'Préstamo eliminado correctamente y materiales actualizados en el inventario.');
+        return redirect()->route('loans.index')->with('success', 'Préstamo eliminado correctamente.');
     }
+
+
+
+
 
     public function generateLoanReport($id)
     {
