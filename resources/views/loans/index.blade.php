@@ -82,7 +82,6 @@
                                                                     data-target="#delete{{ $loan->id }}">
                                                                     <i class="fas fa-trash-alt"></i>
                                                                 </button>
-
                                                                 <button type="button" class="btn mr-2"
                                                                     style="background-color: #fd7e14; color: white;"
                                                                     data-toggle="modal"

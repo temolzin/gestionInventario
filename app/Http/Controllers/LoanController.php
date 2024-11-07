@@ -176,7 +176,6 @@ class LoanController extends Controller
     {
         $loan = Loan::with('materials')->findOrFail($id);
 
-        // Verificar si todos los materiales han sido devueltos completamente
         foreach ($loan->materials as $material) {
             $cantidadPrestada = $material->pivot->quantity;
             $cantidadDevuelta = $material->pivot->returned_quantity;
@@ -186,15 +185,10 @@ class LoanController extends Controller
             }
         }
 
-        // Todos los materiales han sido devueltos completamente, procede con la eliminación sin actualizar la cantidad en inventario
         $loan->delete();
 
         return redirect()->route('loans.index')->with('success', 'Préstamo eliminado correctamente.');
     }
-
-
-
-
 
     public function generateLoanReport($id)
     {

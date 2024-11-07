@@ -34,7 +34,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Estudiante</label>
-                                            <input type="text" disabled class="form-control" value="{{ $loan->student->name }} {{ $loan->student->last_name }}" />
+                                            <input type="text" disabled class="form-control"
+                                                value="{{ $loan->student->name }} {{ $loan->student->last_name }}" />
                                             <input type="hidden" name="student_id" value="{{ $loan->student_id }}">
                                         </div>
                                     </div>
@@ -160,14 +161,14 @@
 </div>
 
 <style>
-.btn-orange {
-    background-color: #FFA500;
-    color: #ffffff;
-    border-color: #FFA500;
-}
+    .btn-orange {
+        background-color: #FFA500;
+        color: #ffffff;
+        border-color: #FFA500;
+    }
 
-.btn-orange:hover {
-    background-color: #FF8C00;
-    border-color: #FF8C00;
-}
+    .btn-orange:hover {
+        background-color: #FF8C00;
+        border-color: #FF8C00;
+    }
 </style>
