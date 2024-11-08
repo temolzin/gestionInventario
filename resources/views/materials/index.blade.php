@@ -51,7 +51,6 @@
                                                 <th>ID</th>
                                                 <th>Foto</th>
                                                 <th>Nombre</th>
-                                                <th>Categoría</th>
                                                 <th>Estado</th>
                                                 <th>Cantidad</th>
                                                 <th>Opciones</th>
@@ -77,7 +76,6 @@
                                                             @endif
                                                         </td>
                                                         <td>{{ $material->name }}</td>
-                                                        <td>{{ $material->category->name }}</td>
                                                         <td>{{ $material->status }}</td>
                                                         <td>{{ $material->amount }}</td>
                                                         <td>
@@ -135,7 +133,26 @@
                 paging: false,
                 info: false,
                 searching: false,
-                order: [[1, 'desc']]
+                order: [[1, 'desc']],
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        title: 'Reporte de Materiales'
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        title: 'Reporte de Materiales'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        title: 'Reporte de Materiales'
+                    },
+                    {
+                        extend: 'print',
+                        title: 'Reporte de Materiales'
+                    }
+                ]
             });
 
             var successMessage = "{{ session('success') }}";

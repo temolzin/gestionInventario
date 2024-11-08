@@ -105,7 +105,26 @@
                 paging: false,
                 info: false,
                 searching: false,
-                order: [[1, 'desc']]
+                order: [[1, 'desc']],
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        title: 'Reporte de Categorías'
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        title: 'Reporte de Categorías'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        title: 'Reporte de Categorías'
+                    },
+                    {
+                        extend: 'print',
+                        title: 'Reporte de Categorías'
+                    }
+                ]
             });
 
             var successMessage = "{{ session('success') }}";

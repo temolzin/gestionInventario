@@ -130,7 +130,26 @@
                 paging: false,
                 info: false,
                 searching: false,
-                order: [[1, 'desc']]
+                order: [[1, 'desc']],
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        title: 'Reporte de Solicitantes'
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        title: 'Reporte de Solicitantes'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        title: 'Reporte de Solicitantes'
+                    },
+                    {
+                        extend: 'print',
+                        title: 'Reporte de Solicitantes'
+                    }
+                ]
             });
 
             var successMessage = "{{ session('success') }}";

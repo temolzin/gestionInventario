@@ -80,7 +80,6 @@
     </div>
 </div>
 
-
 <style>
     #materialTable_{{ $inventory->id }} tbody tr:nth-child(odd) {
         background-color: #ffffff;
