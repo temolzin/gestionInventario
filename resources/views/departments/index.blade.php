@@ -121,7 +121,26 @@
                 paging: false,
                 info: false,
                 searching: false,
-                order: [[1, 'desc']]
+                order: [[1, 'desc']],
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        title: 'Reporte de Departamentos'
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        title: 'Reporte de Departamentos'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        title: 'Reporte de Departamentos'
+                    },
+                    {
+                        extend: 'print',
+                        title: 'Reporte de Departamentos'
+                    }
+                ]
             });
 
             var successMessage = "{{ session('success') }}";

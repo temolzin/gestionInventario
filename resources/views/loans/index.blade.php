@@ -88,20 +88,23 @@
                                                                     <i class="fas fa-undo"></i>
                                                                 </button>
                                                                 <a href="{{ route('loan.report.detail', $loan->id) }}"
-                                                                    class="btn btn-primary mr-2" title="Generar Reporte">
+                                                                    class="btn btn-primary mr-2" title="Generar Reporte"
+                                                                    target="_blank">
                                                                     <i class="fas fa-file-pdf"></i>
                                                                 </a>
                                                             </div>
-                                                            @include('loans.edit')
-                                                            @include('loans.delete')
-                                                            @include('loans.show')
-                                                            @include('loans.return')
                                                         </td>
                                                     </tr>
                                                 @endforeach
                                             @endif
                                         </tbody>
                                     </table>
+                                    @foreach ($loans as $loan)
+                                        @include('loans.edit')
+                                        @include('loans.delete')
+                                        @include('loans.show')
+                                        @include('loans.return')
+                                    @endforeach
                                     @include('loans.create')
                                     <div class="d-flex justify-content-center">
                                         {!! $loans->links('pagination::bootstrap-4') !!}
@@ -124,6 +127,24 @@
                 info: false,
                 searching: false,
                 order: [],
+                dom: 'Bfrtip',
+                buttons: [{
+                        extend: 'excelHtml5',
+                        title: 'Reporte de Prestamos'
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        title: 'Reporte de Prestamos'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        title: 'Reporte de Prestamos'
+                    },
+                    {
+                        extend: 'print',
+                        title: 'Reporte de Prestamos'
+                    }
+                ]
             });
 
             var successMessage = "{{ session('success') }}";

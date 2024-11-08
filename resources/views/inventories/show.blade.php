@@ -52,13 +52,11 @@
                                             @endforeach
                                         </tbody>
                                     </table>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label>Detalles</label>
-                                                <textarea disabled class="form-control" rows="4">{{ $inventory->detail }}</textarea>
-                                            </div>
-                                        </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Detalles</label>
+                                        <textarea disabled class="form-control" rows="4">{{ $inventory->detail }}</textarea>
                                     </div>
                                 </div>
                             </div>

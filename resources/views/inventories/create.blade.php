@@ -43,7 +43,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="status" class="form-label">Estado(*)</label>
-                                            <select class="form-control select2" id="status" name="status" required>
+                                            <select class="form-control" id="status" name="status" required>
                                                 <option value="disponible">Disponible</option>
                                                 <option value="no disponible">No disponible</option>
                                             </select>

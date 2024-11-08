@@ -132,7 +132,26 @@
                 paging: false,
                 info: false,
                 searching: false,
-                order: [[1, 'desc']]
+                order: [[1, 'desc']],
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        title: 'Reporte de Usuarios'
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        title: 'Reporte de Usuarios'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        title: 'Reporte de Usuarios'
+                    },
+                    {
+                        extend: 'print',
+                        title: 'Reporte de Usuarios'
+                    }
+                ]
             });
 
             var successMessage = "{{ session('success') }}";

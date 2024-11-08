@@ -99,7 +99,26 @@
                 paging: false,
                 info: false,
                 searching: false,
-                order: [[1, 'desc']]
+                order: [[1, 'desc']],
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        title: 'Reporte de Roles'
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        title: 'Reporte de Roles'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        title: 'Reporte de Roles'
+                    },
+                    {
+                        extend: 'print',
+                        title: 'Reporte de Roles'
+                    }
+                ]
             });
 
             var successMessage = "{{ session('success') }}";
