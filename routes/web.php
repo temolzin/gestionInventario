@@ -55,7 +55,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/departments/{departamento}/update-photo', [DepartmentController::class, 'updatePhoto'])->name('departments.updatePhoto');
     Route::get('/inventory/report', [InventoryController::class, 'inventoryReport'])->name('report.inventory');
     Route::get('/loans/report/{id}', [LoanController::class, 'generateLoanReport'])->name('loan.report.detail');
-    Route::get('/material/report', [MaterialController::class, 'materialReport'])->name('report.material');
+    Route::get('/materials/report/stock-level', [MaterialController::class, 'generateStockLevelReport'])->name('materials.report.stockLevel');
     Route::post('/loans/{loan}/return', [LoanController::class, 'returnMaterial'])->name('loans.return');
     Route::get('/students/{id}/loans', [StudentController::class, 'showLoans'])->name('students.loans');
 });
