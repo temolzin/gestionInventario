@@ -110,7 +110,7 @@ class MaterialController extends Controller
         return redirect()->back()->with('error', 'Material no encontrado.');
     }
 
-    public function generateStockLevelReport(Request $request)
+    public function materialReportByLimit(Request $request)
     {
         $reportType = $request->input('reportType');
         $stockLimit = $request->input('stockLimit');

@@ -7,7 +7,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="materialReportForm" method="GET" action="{{ route('materials.report.stockLevel') }}">
+            <form id="materialReportForm" method="GET" action="{{ route('materials.report.byLimit') }}">
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="reportType" class="form-label">Tipo de Reporte(*)</label>
