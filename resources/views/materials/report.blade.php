@@ -16,10 +16,10 @@
                             <option value="alta">Alta Existencia</option>
                             <option value="baja">Baja Existencia</option>
                         </select>
-                        <div id="reportDescription" class="text-muted mt-2"></div>
                         <label for="stockLimit" class="form-label">Límite de Existencia(*)</label>
                         <input type="number" id="stockLimit" name="stockLimit" class="form-control" required
                             placeholder="Ingrese límite de existencia" min="0" />
+                        <div id="reportDescription" class="text-danger small mt-2"></div>
                     </div>
                 </div>
                 <div class="modal-footer">
