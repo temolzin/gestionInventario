@@ -6,6 +6,7 @@ use App\Models\Material;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class MaterialController extends Controller
 {
@@ -107,5 +108,27 @@ class MaterialController extends Controller
         }
 
         return redirect()->back()->with('error', 'Material no encontrado.');
+    }
+
+    public function materialReport(Request $request)
+    {
+        $reportType = $request->input('reportType');
+        $stockLimit = $request->input('stockLimit');
+        $authUser = auth()->user();
+
+        $materials = Material::where('department_id', $authUser->department_id)
+            ->when($reportType === 'alta', function ($query) use ($stockLimit) {
+                return $query->where('amount', '>=', $stockLimit);
+            })
+            ->when($reportType === 'baja', function ($query) use ($stockLimit) {
+                return $query->where('amount', '<=', $stockLimit);
+            })
+            ->with(['category', 'creator'])
+            ->get();
+
+        $pdf = PDF::loadView('reports.materialReport', compact('materials', 'authUser', 'reportType', 'stockLimit'))
+            ->setPaper('A4', 'portrait');
+
+        return $pdf->stream('reporte_material.pdf');
     }
 }

@@ -15,6 +15,10 @@
                                     <button class="btn btn-success mr-2" data-toggle='modal' data-target="#createMaterial">
                                         <i class="fa fa-plus"></i> Registrar material
                                     </button>
+                                    <button type="button" class="btn bg-maroon" data-toggle="modal"
+                                        data-target="#reportMaterial">
+                                        <i class="fa fa-solid fa-clipboard"></i> Reporte Materiales
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -112,6 +116,7 @@
                                         </tbody>
                                     </table>
                                     @include('materials.create')
+                                    @include('materials.report')
                                     <div class="d-flex justify-content-center">
                                         {!! $materials->links('pagination::bootstrap-4') !!}
                                     </div>
