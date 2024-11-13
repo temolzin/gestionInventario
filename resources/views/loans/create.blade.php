@@ -44,7 +44,6 @@
                                                 style="width: 100%;" required>
                                                 <option value="">Seleccione un estado</option>
                                                 <option value="activo">Activo</option>
-                                                <option value="devuelto">Devuelto</option>
                                                 <option value="rechazado">Rechazado</option>
                                             </select>
                                         </div>

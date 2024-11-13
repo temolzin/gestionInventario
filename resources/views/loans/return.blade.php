@@ -2,7 +2,7 @@
     aria-labelledby="returnModalLabel{{ $loan->id }}" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <div class="card-warning">
+            <div class="card-orange">
                 <div class="card-header">
                     <h4 class="card-title">Devolución de Materiales</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -34,7 +34,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Estudiante</label>
-                                            <input type="text" disabled class="form-control" value="{{ $loan->student->name }} {{ $loan->student->last_name }}" />
+                                            <input type="text" disabled class="form-control"
+                                                value="{{ $loan->student->name }} {{ $loan->student->last_name }}" />
                                             <input type="hidden" name="student_id" value="{{ $loan->student_id }}">
                                         </div>
                                     </div>
@@ -79,7 +80,7 @@
                             </div>
                         </div>
                         <div class="card mt-3">
-                            <div class="card-header bg-warning text-white">
+                            <div class="card-header bg-orange text-white">
                                 <h3 class="card-title">Materiales a Devolver</h3>
                             </div>
                             <div class="card-body">
@@ -116,7 +117,7 @@
                             </div>
                         </div>
                         <div class="card mt-3">
-                            <div class="card-header bg-warning text-white">
+                            <div class="card-header bg-orange text-white">
                                 <h3 class="card-title">Datos del Prestamo</h3>
                             </div>
                             <div class="card-body">
@@ -150,7 +151,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <button type="submit" class="btn btn-warning">Registrar Devolución</button>
+                            <button type="submit" class="btn btn-orange">Registrar Devolución</button>
                         </div>
                     </form>
                 </div>
@@ -158,3 +159,16 @@
         </div>
     </div>
 </div>
+
+<style>
+    .btn-orange {
+        background-color: #FFA500;
+        color: #ffffff;
+        border-color: #FFA500;
+    }
+
+    .btn-orange:hover {
+        background-color: #FF8C00;
+        border-color: #FF8C00;
+    }
+</style>
