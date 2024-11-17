@@ -58,4 +58,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/materials/report/byLimit', [MaterialController::class, 'generateMateralReportByLimit'])->name('materials.report.byLimit');
     Route::post('/loans/{loan}/return', [LoanController::class, 'returnMaterial'])->name('loans.return');
     Route::get('/students/{id}/loans', [StudentController::class, 'showLoans'])->name('students.loans');
+    Route::get('/report/loan/student', [LoanController::class, 'generateLoanReportStudent'])->name('report.loan.student');
 });

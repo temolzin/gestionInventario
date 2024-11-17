@@ -124,21 +124,26 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>PRODUCTO</th>
-                        <th>CANT.</th>
                         <th>FECHA</th>
                         <th>ESTADO</th>
+                        <th>PRODUCTO</th>
+                        <th>CANT.</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($inventories as $inventory)
-                        @foreach($inventory->materials as $material)
+                        @php
+                            $materialCount = $inventory->materials->count();
+                        @endphp
+                        @foreach($inventory->materials as $index => $material)
                             <tr>
-                                <td>{{ $inventory->id }}</td>
+                                @if ($index === 0)
+                                    <td rowspan="{{ $materialCount }}">{{ $inventory->id }}</td>
+                                    <td rowspan="{{ $materialCount }}">{{ $inventory->created_at->format('d/m/Y') }}</td>
+                                    <td rowspan="{{ $materialCount }}">{{ $inventory->status }}</td>
+                                @endif
                                 <td>{{ $material->name }}</td>
                                 <td>{{ $material->pivot->quantity }}</td>
-                                <td>{{ $inventory->created_at->format('d/m/Y') }}</td>
-                                <td>{{ $inventory->status }}</td>
                             </tr>
                         @endforeach
                     @endforeach
