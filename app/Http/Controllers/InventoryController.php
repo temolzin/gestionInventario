@@ -106,7 +106,6 @@ class InventoryController extends Controller
         $startDate = $request->input('startDate');
         $endDate = $request->input('endDate');
         $ignoreStatus = $request->input('ignoreStatus');
-
         $authUser = auth()->user();
 
         $query = Inventory::where('department_id', $authUser->department_id)

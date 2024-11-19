@@ -18,17 +18,14 @@
                                 </option>
                             @endforeach
                         </select>
-
                         <label for="startDate" class="form-label mt-3">Fecha inicio(*)</label>
                         <input type="date" id="startDate" name="startDate" class="form-control" required
                             placeholder="Ingrese fecha inicio" />
-
                         <label for="endDate" class="form-label mt-3">Fecha fin(*)</label>
                         <input type="date" id="endDate" name="endDate" class="form-control" required
                             placeholder="Ingrese fecha fin" />
                         <span id="dateError" class="text-danger mt-2" style="display: none;">La fecha de inicio no puede
                             ser mayor o igual a la fecha fin.</span>
-
                         <div class="form-check mt-3">
                             <input type="checkbox" class="form-check-input" id="includeReturns" name="includeReturns">
                             <label for="includeReturns" class="form-check-label">Incluir devoluciones</label>
@@ -54,36 +51,29 @@
         const validateDates = () => {
             const startDate = new Date(startDateInput.value);
             const endDate = new Date(endDateInput.value);
+            const isInvalid = startDate && endDate && startDate >= endDate;
 
-            if (startDate && endDate && startDate >= endDate) {
-                dateError.style.display = 'block';
-                return false;
-            } else {
-                dateError.style.display = 'none';
-                return true;
-            }
+            dateError.style.display = isInvalid ? 'block' : 'none';
+            return !isInvalid;
         };
 
-        startDateInput.addEventListener('change', validateDates);
-        endDateInput.addEventListener('change', validateDates);
+        const generateReportUrl = () => {
+            const studentId = document.getElementById('studentId').value;
+            const startDate = startDateInput.value;
+            const endDate = endDateInput.value;
+
+            return `${form.action}?studentId=${encodeURIComponent(studentId)}&startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}`;
+        };
 
         form.addEventListener('submit', (event) => {
             event.preventDefault();
 
-            if (!validateDates()) return;
-
-            const studentId = document.getElementById('studentId').value;
-            if (!studentId) {
-                alert("Por favor, selecciona un solicitante.");
-                return;
+            if (validateDates()) {
+                window.open(generateReportUrl(), '_blank');
             }
-
-            const startDate = startDateInput.value;
-            const endDate = endDateInput.value;
-
-            const reportUrl =
-                `${form.action}?studentId=${encodeURIComponent(studentId)}&startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}`;
-            window.open(reportUrl, '_blank');
         });
+
+        startDateInput.addEventListener('change', validateDates);
+        endDateInput.addEventListener('change', validateDates);
     });
 </script>

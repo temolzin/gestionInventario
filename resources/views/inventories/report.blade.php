@@ -16,16 +16,13 @@
                             <option value="disponible">Disponible</option>
                             <option value="no disponible">No disponible</option>
                         </select>
-
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="ignoreStatus" name="ignoreStatus">
                             <label class="form-check-label" for="ignoreStatus">Ignorar estado (solo por fechas)</label>
                         </div>
-
                         <label for="startDate" class="form-label">Fecha inicio(*)</label>
                         <input type="date" id="startDate" name="startDate" class="form-control" required
                             placeholder="Ingrese fecha inicio" />
-
                         <label for="endDate" class="form-label">Fecha fin(*)</label>
                         <input type="date" id="endDate" name="endDate" class="form-control" required
                             placeholder="Ingrese fecha fin" />
@@ -52,39 +49,30 @@
         const validateDates = () => {
             const startDate = new Date(startDateInput.value);
             const endDate = new Date(endDateInput.value);
+            const isInvalid = startDate && endDate && startDate >= endDate;
 
-            if (startDate && endDate && startDate >= endDate) {
-                dateError.style.display = 'block';
-                return false;
-            } else {
-                dateError.style.display = 'none';
-                return true;
-            }
+            dateError.style.display = isInvalid ? 'block' : 'none';
+            return !isInvalid;
         };
 
-        startDateInput.addEventListener('change', validateDates);
-        endDateInput.addEventListener('change', validateDates);
+        const generateReportUrl = () => {
+            const inventoryStatus = document.getElementById('inventoryStatus').value;
+            const ignoreStatus = document.getElementById('ignoreStatus').checked ? 1 : 0;
+            const startDate = startDateInput.value;
+            const endDate = endDateInput.value;
+
+            return `${form.action}?inventoryStatus=${encodeURIComponent(inventoryStatus)}&startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}&ignoreStatus=${ignoreStatus}`;
+        };
 
         form.addEventListener('submit', (event) => {
             event.preventDefault();
 
-            if (!validateDates()) return;
-
-            const inventoryStatus = document.getElementById('inventoryStatus').value;
-            const ignoreStatus = document.getElementById('ignoreStatus').checked ? 1 :
-            0; // Enviar el valor del checkbox
-
-            if (!inventoryStatus && !ignoreStatus) {
-                alert("Por favor, selecciona un estado del inventario o marca 'Ignorar estado'.");
-                return;
+            if (validateDates()) {
+                window.open(generateReportUrl(), '_blank');
             }
-
-            const startDate = startDateInput.value;
-            const endDate = endDateInput.value;
-
-            const reportUrl =
-                `${form.action}?inventoryStatus=${encodeURIComponent(inventoryStatus)}&startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}&ignoreStatus=${ignoreStatus}`;
-            window.open(reportUrl, '_blank');
         });
+
+        startDateInput.addEventListener('change', validateDates);
+        endDateInput.addEventListener('change', validateDates);
     });
 </script>
