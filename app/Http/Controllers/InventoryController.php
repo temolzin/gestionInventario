@@ -105,14 +105,18 @@ class InventoryController extends Controller
         $status = $request->input('inventoryStatus');
         $startDate = $request->input('startDate');
         $endDate = $request->input('endDate');
+        $ignoreStatus = $request->input('ignoreStatus');
         $authUser = auth()->user();
 
-        $inventories = Inventory::where('department_id', $authUser->department_id)
-            ->where('status', $status)
+        $query = Inventory::where('department_id', $authUser->department_id)
             ->whereBetween('created_at', [$startDate, $endDate])
-            ->with(['materials', 'creator'])
-            ->get();
+            ->with(['materials', 'creator']);
 
+        if (!$ignoreStatus) {
+            $query->where('status', $status);
+        }
+
+        $inventories = $query->get();
         $totalInventories = $inventories->count();
 
         $pdf = PDF::loadView('reports.inventoryReport', compact('inventories', 'startDate', 'endDate', 'authUser', 'totalInventories'))

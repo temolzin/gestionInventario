@@ -289,4 +289,30 @@ class LoanController extends Controller
             'success' => 'Devolución registrada exitosamente.',
         ]);
     }
+
+    public function generateLoanReportStudent(Request $request)
+    {
+        $request->validate([
+            'studentId' => 'required|exists:students,id',
+            'startDate' => 'required|date',
+            'endDate' => 'required|date|after_or_equal:startDate',
+        ]);
+
+        $studentId = $request->studentId;
+        $startDate = $request->startDate;
+        $endDate = $request->endDate;
+        $authUser = auth()->user();
+
+        $loans = Loan::with(['materials', 'createdBy'])
+            ->where('student_id', $studentId)
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->get();
+
+        $student = Student::findOrFail($studentId);
+
+        $pdf = Pdf::loadView('reports.loanStudentReport', compact('loans', 'student', 'startDate', 'endDate', 'authUser'))
+            ->setPaper('A4', 'portrait');
+
+        return $pdf->stream('reporte_prestamos_' . $student->id . '.pdf');
+    }
 }
