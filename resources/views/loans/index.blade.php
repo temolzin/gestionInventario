@@ -15,6 +15,10 @@
                                     <button class="btn btn-success mr-2" data-toggle='modal' data-target="#createLoan">
                                         <i class="fa fa-plus"></i> Registrar Préstamo
                                     </button>
+                                    <button type="button" class="btn bg-maroon" data-toggle="modal"
+                                        data-target="#reportLoan">
+                                        <i class="fa fa-solid fa-clipboard"></i> Reporte Prestamos
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -124,6 +128,7 @@
                                         @include('loans.showReturn')
                                     @endforeach
                                     @include('loans.create')
+                                    @include('loans.reportStudents')
                                     <div class="d-flex justify-content-center">
                                         {!! $loans->links('pagination::bootstrap-4') !!}
                                     </div>
@@ -193,6 +198,12 @@
             });
 
             $('.edit-modal').on('shown.bs.modal', function() {
+                $('.select2', this).select2({
+                    dropdownParent: $(this)
+                });
+            });
+
+            $('#reportLoan').on('shown.bs.modal', function() {
                 $('.select2', this).select2({
                     dropdownParent: $(this)
                 });

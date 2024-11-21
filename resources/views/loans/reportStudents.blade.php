@@ -1,33 +1,35 @@
-<div class="modal fade" id="reportInventory" role="dialog" aria-labelledby="reportInventory" aria-hidden="true">
+<div class="modal fade" id="reportLoan" role="dialog" aria-labelledby="reportLoan" aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header modal-header-custom bg-maroon">
-                <h5 class="modal-title" id="reportInventory">Reporte de Inventarios</h5>
+                <h5 class="modal-title" id="reportLoan">Reporte de Préstamos</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="inventoryReportForm" method="GET" action="{{ route('report.inventory') }}">
+            <form id="loanReportForm" method="GET" action="{{ route('report.loan.student') }}">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="inventoryStatus" class="form-label">Estado del Inventario(*)</label>
-                        <select class="form-control select2" name="inventoryStatus" id="inventoryStatus" required>
-                            <option value="">Selecciona un estado</option>
-                            <option value="disponible">Disponible</option>
-                            <option value="no disponible">No disponible</option>
+                        <label for="studentId" class="form-label">Selecciona un Solicitante(*)</label>
+                        <select class="form-control select2" name="studentId" id="studentId" required>
+                            <option value="">Selecciona un solicitante</option>
+                            @foreach ($students as $student)
+                                <option value="{{ $student->id }}">{{ $student->name }} {{ $student->last_name }}
+                                </option>
+                            @endforeach
                         </select>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="ignoreStatus" name="ignoreStatus">
-                            <label class="form-check-label" for="ignoreStatus">Ignorar estado (solo por fechas)</label>
-                        </div>
-                        <label for="startDate" class="form-label">Fecha inicio(*)</label>
+                        <label for="startDate" class="form-label mt-3">Fecha inicio(*)</label>
                         <input type="date" id="startDate" name="startDate" class="form-control" required
                             placeholder="Ingrese fecha inicio" />
-                        <label for="endDate" class="form-label">Fecha fin(*)</label>
+                        <label for="endDate" class="form-label mt-3">Fecha fin(*)</label>
                         <input type="date" id="endDate" name="endDate" class="form-control" required
                             placeholder="Ingrese fecha fin" />
                         <span id="dateError" class="text-danger mt-2" style="display: none;">La fecha de inicio no puede
                             ser mayor o igual a la fecha fin.</span>
+                        <div class="form-check mt-3">
+                            <input type="checkbox" class="form-check-input" id="includeReturns" name="includeReturns">
+                            <label for="includeReturns" class="form-check-label">Incluir devoluciones</label>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -41,7 +43,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const form = document.getElementById('inventoryReportForm');
+        const form = document.getElementById('loanReportForm');
         const startDateInput = document.getElementById('startDate');
         const endDateInput = document.getElementById('endDate');
         const dateError = document.getElementById('dateError');
@@ -56,12 +58,11 @@
         };
 
         const generateReportUrl = () => {
-            const inventoryStatus = document.getElementById('inventoryStatus').value;
-            const ignoreStatus = document.getElementById('ignoreStatus').checked ? 1 : 0;
+            const studentId = document.getElementById('studentId').value;
             const startDate = startDateInput.value;
             const endDate = endDateInput.value;
 
-            return `${form.action}?inventoryStatus=${encodeURIComponent(inventoryStatus)}&startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}&ignoreStatus=${ignoreStatus}`;
+            return `${form.action}?studentId=${encodeURIComponent(studentId)}&startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}`;
         };
 
         form.addEventListener('submit', (event) => {
