@@ -62,7 +62,7 @@
                                 </div>
                             </div>
                             <div class="card mt-3">
-                                <div class="card-header bg-primary text-white">
+                                <div class="card-header bg-info text-white">
                                     <h3 class="card-title">Materiales Prestados</h3>
                                 </div>
                                 <div class="card-body">

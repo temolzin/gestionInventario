@@ -76,24 +76,39 @@
                                                                     data-target="#edit{{ $loan->id }}">
                                                                     <i class="fas fa-edit"></i>
                                                                 </button>
-                                                                <button type="button" class="btn btn-danger mr-2"
-                                                                    @if ($loan->status === 'activo' || $loan->status === 'rechazado' || $loan->status === 'devuelto parcialmente') disabled title="Este préstamo no puede ser eliminado porque está activo" @endif
-                                                                    data-toggle="modal" title="Eliminar Préstamo"
-                                                                    data-target="#delete{{ $loan->id }}">
-                                                                    <i class="fas fa-trash-alt"></i>
-                                                                </button>
                                                                 <button type="button" class="btn mr-2"
-                                                                    style="background-color: #fd7e14; color: white;"
+                                                                    style="background-color: #7E57C2; color: white;"
                                                                     data-toggle="modal"
                                                                     data-target="#return{{ $loan->id }}"
                                                                     title="Devolución">
                                                                     <i class="fas fa-undo"></i>
+                                                                </button>
+                                                                <button type="button" class="btn mr-2"
+                                                                    style="background-color: #00B0FF; color: white;"
+                                                                    data-toggle="modal"
+                                                                    data-target="#showReturn{{ $loan->id }}"
+                                                                    title="Ver Devoluciones">
+                                                                    <i class="fas fa-eye"></i>
                                                                 </button>
                                                                 <a href="{{ route('loan.report.detail', $loan->id) }}"
                                                                     class="btn btn-primary mr-2" title="Generar Reporte"
                                                                     target="_blank">
                                                                     <i class="fas fa-file-pdf"></i>
                                                                 </a>
+                                                                <a href="{{ route('return.report.detail', $loan->id) }}"
+                                                                    class="btn mr-2"
+                                                                    style="background-color: #880E4F; border-color: #880E4F; color: white;"
+                                                                    title="Generar Reporte de Devolución" target="_blank">
+                                                                    <i class="fas fa-file-pdf"></i>
+                                                                </a>
+                                                                <button type="button"
+                                                                    class="btn 
+                                                                 @if ($loan->status === 'devuelto') btn-danger @else btn-secondary @endif mr-2"
+                                                                    @if ($loan->status === 'activo' || $loan->status === 'rechazado' || $loan->status === 'devuelto parcialmente') disabled title="Este préstamo no puede ser eliminado porque está activo" @endif
+                                                                    data-toggle="modal" title="Eliminar Préstamo"
+                                                                    data-target="#delete{{ $loan->id }}">
+                                                                    <i class="fas fa-trash-alt"></i>
+                                                                </button>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -106,6 +121,7 @@
                                         @include('loans.delete')
                                         @include('loans.show')
                                         @include('loans.return')
+                                        @include('loans.showReturn')
                                     @endforeach
                                     @include('loans.create')
                                     <div class="d-flex justify-content-center">
