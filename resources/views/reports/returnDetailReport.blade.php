@@ -116,7 +116,6 @@
         }
     </style>
 </head>
-
 <body>
     <div class="content">
         <div class="d-flex justify-content-between align-items-center py-2 px-3">
@@ -136,7 +135,6 @@
                 <p><strong>Laboratorio:</strong> {{ $authUser->department->name ?? 'No especificado' }}</p>
             </div>
         </div>
-
         <h3>Devoluciones Registradas:</h3>
         <table class="table">
             <thead>
@@ -175,7 +173,6 @@
                 @endforeach
             </tbody>
         </table>
-
     </div>
     <div class="info_Eabajo">
         <a class="text_infoE" href="https://inventio.rootheim.com/"><strong>Inventio</strong></a>
@@ -183,5 +180,4 @@
             src="img/rootheim.png" width="15px" height="15px">
     </div>
 </body>
-
 </html>

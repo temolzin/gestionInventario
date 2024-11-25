@@ -39,9 +39,9 @@ class MaterialReturn extends Model
     {
         return $this->belongsTo(Department::class);
     }
-      public function material()
-      {
-          return $this->belongsTo(Material::class);
-      }
-  
+    
+    public function material()
+    {
+        return $this->belongsTo(Material::class);
+    }
 }

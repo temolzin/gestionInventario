@@ -50,6 +50,7 @@ class Material extends Model implements HasMedia
             ->withPivot('quantity', 'created_by')
             ->withTimestamps();
     }
+    
     public function material()
     {
         return $this->belongsTo(Material::class);
