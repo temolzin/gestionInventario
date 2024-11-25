@@ -309,6 +309,7 @@ class LoanController extends Controller
         $studentId = $request->studentId;
         $startDate = $request->startDate;
         $endDate = $request->endDate;
+        $includeReturns = $request->has('includeReturns') && $request->includeReturns === 'true';
         $authUser = auth()->user();
 
         $loans = Loan::with(['materials', 'createdBy'])
@@ -316,9 +317,13 @@ class LoanController extends Controller
             ->whereBetween('created_at', [$startDate, $endDate])
             ->get();
 
+        if ($includeReturns) {
+            $loans->load('materialReturns');
+        }
+
         $student = Student::findOrFail($studentId);
 
-        $pdf = Pdf::loadView('reports.loanStudentReport', compact('loans', 'student', 'startDate', 'endDate', 'authUser'))
+        $pdf = Pdf::loadView('reports.loanStudentReport', compact('loans', 'student', 'startDate', 'endDate', 'authUser', 'includeReturns'))
             ->setPaper('A4', 'portrait');
 
         return $pdf->stream('reporte_prestamos_' . $student->id . '.pdf');

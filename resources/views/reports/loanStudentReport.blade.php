@@ -125,15 +125,21 @@
                         <th>ID Préstamo</th>
                         <th>Fecha</th>
                         <th>Material</th>
-                        <th>Cantidad</th>
+                        <th>Cantidad Prestada</th>
+                        @if ($includeReturns)
+                            <th>Cantidad Devuelta</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($loans as $loan)
-                        @php
-                            $materialCount = $loan->materials->count();
-                        @endphp
                         @foreach ($loan->materials as $index => $material)
+                            @php
+                                $materialCount = $loan->materials->count();
+                                $totalReturned = $loan->materialReturns
+                                    ->where('material_id', $material->id)
+                                    ->sum('quantity_returned');
+                            @endphp
                             <tr>
                                 @if ($index === 0)
                                     <td rowspan="{{ $materialCount }}">{{ $loan->id }}</td>
@@ -141,11 +147,51 @@
                                 @endif
                                 <td>{{ $material->name }}</td>
                                 <td>{{ $material->pivot->quantity }}</td>
+                                @if ($includeReturns)
+                                    <td>{{ $totalReturned }}</td>
+                                @endif
                             </tr>
                         @endforeach
                     @endforeach
                 </tbody>
             </table>
+            @if ($includeReturns)
+                <h3>Devoluciones Asociadas:</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID Préstamo</th>
+                            <th>Material</th>
+                            <th>Fecha de Devolución</th>
+                            <th>Cantidad Devuelta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($loans as $loan)
+                            @php
+                                $groupedReturns = $loan->materialReturns->groupBy('material_id');
+                            @endphp
+                            @foreach ($groupedReturns as $materialId => $returns)
+                                @php
+                                    $rowCount = $returns->count();
+                                @endphp
+                                @foreach ($returns as $index => $return)
+                                    <tr>
+                                        @if ($loop->parent->first && $index === 0)
+                                            <td rowspan="{{ $groupedReturns->sum(fn($items) => $items->count()) }}">{{ $loan->id }}</td>
+                                        @endif
+                                        @if ($index === 0)
+                                            <td rowspan="{{ $rowCount }}">{{ $return->material->name }}</td>
+                                        @endif
+                                        <td>{{ \Carbon\Carbon::parse($return->return_at)->format('d/m/Y g:i A') }}</td>
+                                        <td>{{ $return->quantity_returned }}</td>
+                                    </tr>
+                                @endforeach
+                            @endforeach
+                        @endforeach
+                    </tbody>
+                </table>
+            @endif
         </div>
         <div class="info_Eabajo">
             <a class="text_infoE" href="https://inventio.rootheim.com/"><strong>Inventio</strong></a>
