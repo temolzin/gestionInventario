@@ -59,4 +59,5 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/loans/{loan}/return', [LoanController::class, 'returnMaterial'])->name('loans.return');
     Route::get('/students/{id}/loans', [StudentController::class, 'showLoans'])->name('students.loans');
     Route::get('/report/loan/student', [LoanController::class, 'generateLoanReportStudent'])->name('report.loan.student');
+    Route::get('devolucion/report/{id}', [LoanController::class, 'generateReturnReport'])->name('return.report.detail');
 });

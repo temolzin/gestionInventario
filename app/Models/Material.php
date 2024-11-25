@@ -40,7 +40,8 @@ class Material extends Model implements HasMedia
 
     public function loanDetails()
     {
-        return $this->hasMany(LoanDetail::class);
+        return $this->belongsToMany(Loan::class, 'loan_details')
+            ->withPivot('quantity', 'returned_quantity');
     }
 
     public function loans()
@@ -48,5 +49,10 @@ class Material extends Model implements HasMedia
         return $this->belongsToMany(Loan::class, 'loan_details')
             ->withPivot('quantity', 'created_by')
             ->withTimestamps();
+    }
+    
+    public function material()
+    {
+        return $this->belongsTo(Material::class);
     }
 }

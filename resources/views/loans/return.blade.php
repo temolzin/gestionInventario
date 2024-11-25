@@ -2,7 +2,7 @@
     aria-labelledby="returnModalLabel{{ $loan->id }}" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <div class="card-orange">
+            <div class="card-purple">
                 <div class="card-header">
                     <h4 class="card-title">Devolución de Materiales</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -51,28 +51,19 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Fecha de la Devolución</label>
-                                            <input type="datetime-local" name="expected_return_date"
-                                                class="form-control" required>
+                                            <input type="datetime-local" name="return_at" class="form-control" required>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label>Estado del Préstamo</label>
-                                            <select name="status" class="form-control" required>
-                                                <option value="pendiente"
-                                                    {{ $loan->status == 'pendiente' ? 'selected' : '' }}>Pendiente
-                                                </option>
-                                                <option value="devuelto"
-                                                    {{ $loan->status == 'devuelto' ? 'selected' : '' }}>Devuelto
-                                                </option>
-                                                <option value="devuelto parcialmente"
-                                                    {{ $loan->status == 'devuelto parcialmente' ? 'selected' : '' }}>
-                                                    Devuelto Parcialmente</option>
-                                                <option value="rechazado"
-                                                    {{ $loan->status == 'rechazado' ? 'selected' : '' }}>Rechazado
-                                                </option>
+                                            <label>Estado de Devolución</label>
+                                            <select name="status" class="form-control">
+                                                <option value="pendiente">Pendiente</option>
+                                                <option value="devuelto">Devuelto</option>
+                                                <option value="devuelto parcialmente">Devuelto Parcialmente</option>
+                                                <option value="rechazado">Rechazado</option>
                                             </select>
                                         </div>
                                     </div>
@@ -80,7 +71,7 @@
                             </div>
                         </div>
                         <div class="card mt-3">
-                            <div class="card-header bg-orange text-white">
+                            <div class="card-header bg-purple text-white">
                                 <h3 class="card-title">Materiales a Devolver</h3>
                             </div>
                             <div class="card-body">
@@ -117,8 +108,8 @@
                             </div>
                         </div>
                         <div class="card mt-3">
-                            <div class="card-header bg-orange text-white">
-                                <h3 class="card-title">Datos del Prestamo</h3>
+                            <div class="card-header bg-purple text-white">
+                                <h3 class="card-title">Datos del Préstamo</h3>
                             </div>
                             <div class="card-body">
                                 <table class="table table-bordered">
@@ -144,14 +135,14 @@
                         <div class="row mt-3">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label>Notas de Devolución</label>
-                                    <textarea name="detail" class="form-control" rows="4" placeholder="Añadir notas sobre la devolución" required></textarea>
+                                    <label>Detalles de Devolución</label>
+                                    <textarea name="detail" class="form-control" rows="4" placeholder="Añadir notas sobre la devolución"></textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <button type="submit" class="btn btn-orange">Registrar Devolución</button>
+                            <button type="submit" class="btn btn-purple">Registrar Devolución</button>
                         </div>
                     </form>
                 </div>
@@ -161,14 +152,24 @@
 </div>
 
 <style>
-    .btn-orange {
-        background-color: #FFA500;
+    .btn-purple {
+        background-color: #6f42c1;
         color: #ffffff;
-        border-color: #FFA500;
+        border-color: #6f42c1;
     }
 
-    .btn-orange:hover {
-        background-color: #FF8C00;
-        border-color: #FF8C00;
+    .btn-purple:hover {
+        background-color: #5a3393;
+        border-color: #5a3393;
+    }
+
+    .bg-purple {
+        background-color: #6f42c1;
+        color: white;
+    }
+
+    .card-purple .card-header {
+        background-color: #6f42c1;
+        color: #ffffff;
     }
 </style>

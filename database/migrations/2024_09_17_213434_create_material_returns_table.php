@@ -15,17 +15,18 @@ class CreateMaterialReturnsTable extends Migration
     {
         Schema::create('material_returns', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('student_id');
             $table->unsignedBigInteger('loan_id');
+            $table->unsignedBigInteger('material_id');
             $table->unsignedBigInteger('department_id');
             $table->unsignedBigInteger('created_by');
             $table->string('status');
-            $table->string('detail');
-            $table->timestamp('expected_return_date');
+            $table->text('detail')->nullable();;
+            $table->integer('quantity_returned');
+            $table->timestamp('return_at');
             $table->timestamps();
 
             $table->foreign('loan_id')->references('id')->on('loans')->onDelete('cascade');
-            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
+            $table->foreign('material_id')->references('id')->on('materials')->onDelete('cascade');
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
         });
