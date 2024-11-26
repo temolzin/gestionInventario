@@ -47,6 +47,7 @@
         const startDateInput = document.getElementById('startDate');
         const endDateInput = document.getElementById('endDate');
         const dateError = document.getElementById('dateError');
+        const includeReturnsCheckbox = document.getElementById('includeReturns');
 
         const validateDates = () => {
             const startDate = new Date(startDateInput.value);
@@ -61,8 +62,9 @@
             const studentId = document.getElementById('studentId').value;
             const startDate = startDateInput.value;
             const endDate = endDateInput.value;
+            const includeReturns = includeReturnsCheckbox.checked ? '&includeReturns=true' : '';
 
-            return `${form.action}?studentId=${encodeURIComponent(studentId)}&startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}`;
+            return `${form.action}?studentId=${encodeURIComponent(studentId)}&startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}${includeReturns}`;
         };
 
         form.addEventListener('submit', (event) => {
