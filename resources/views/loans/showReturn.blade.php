@@ -85,10 +85,8 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label class="font-weight-bold">Estado de Devolución</label>
-                                                            <span
-                                                                style="background-color: #28a745; color: white; font-weight: bold; padding: 5px 10px; border-radius: 5px;">
-                                                                {{ ucfirst($return->status) }}
-                                                            </span>
+                                                            <input type="text" class="form-control"
+                                                                value="{{ ucfirst($return->status) }}" disabled />
                                                         </div>
 
                                                     </div>
