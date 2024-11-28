@@ -129,7 +129,7 @@
             </div>
             <div class="header-info">
                 <h1>Reporte de Devolución</h1>
-                <p><strong>ID de Devolución:</strong> {{ $loan->id }}</p>
+                <p><strong>ID del Prestamo:</strong> {{ $loan->id }}</p>
                 <p><strong>Solicitante:</strong> {{ $loan->student->name }} {{ $loan->student->last_name }}</p>
                 <p><strong>Estado:</strong> {{ ucfirst($loan->status) }}</p>
                 <p><strong>Laboratorio:</strong> {{ $authUser->department->name ?? 'No especificado' }}</p>
