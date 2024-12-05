@@ -75,7 +75,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="detail" class="form-label">Detalles:</label>
-                                        <textarea name="detail" class="form-control" placeholder="Detalles de Préstamo" required></textarea>
+                                        <textarea name="detail" class="form-control" placeholder="Detalles de Inventario" required></textarea>
                                     </div>
                                 </div>
                             </div>

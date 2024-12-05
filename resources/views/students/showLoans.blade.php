@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="card-info">
-                <div class="card-header">
+                <div class="card-header" style="background-color: #6f42c1; color: white;">
                     <h4 class="card-title">Préstamos de {{ $student->name }} {{ $student->last_name }}</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -72,7 +72,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <a href="{{ route('loans.index') }}" class="btn btn-info">Ir al Módulo de Préstamos</a>
+                    <a href="{{ route('loans.index') }}" class="btn btn-purple mr-2">Ir al Módulo de Préstamos</a>
                 </div>
             </div>
         </div>
