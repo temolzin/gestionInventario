@@ -85,7 +85,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6" id="department-field" style="display:none;">
+                                    <div class="col-lg-12" id="department-field" style="display:none;">
                                         <div class="form-group">
                                             <label for="department_id">Departamento(*)</label>
                                             <select class="form-control" id="department_id" name="department_id">

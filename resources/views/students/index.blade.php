@@ -86,7 +86,7 @@
                                                                     data-target="#editPhoto{{ $student->id }}">
                                                                     <i class="fas fa-image"></i>
                                                                 </button>
-                                                                <button type="button" class="btn btn-info mr-2"
+                                                                <button type="button" class="btn btn-purple mr-2"
                                                                     data-toggle="modal" title="Prestamos"
                                                                     data-target="#loansModal{{ $student->id }}">
                                                                     <i class="fas fa-list"></i>
@@ -120,6 +120,19 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section('css')
+    <style>
+        .btn-purple {
+            background-color: #6f42c1;
+            color: white;
+        }
+        .btn-purple:hover {
+            background-color: #5a3699;
+            color: white;
+        }
+    </style>
 @endsection
 
 @section('js')

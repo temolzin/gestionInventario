@@ -64,7 +64,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="detail">Detalles(*)</label>
-                                        <textarea class="form-control" id="detail" name="detail" placeholder="Ingrese detalles del préstamo" required>{{ $inventory->detail }}</textarea>
+                                        <textarea class="form-control" id="detail" name="detail" placeholder="Ingrese detalles del Inventario" required>{{ $inventory->detail }}</textarea>
                                     </div>
                                 </div>
                             </div>
