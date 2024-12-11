@@ -136,40 +136,27 @@
             </div>
         </div>
         <h3>Devoluciones Registradas:</h3>
-        <table class="table">
+        <table class="table table-bordered">
             <thead>
                 <tr>
+                    <th>Devolución ID</th>
                     <th>Material</th>
                     <th>Cantidad Devuelta</th>
                     <th>Fecha de Devolución</th>
-                    <th>Estado de Devolución</th>
+                    <th>Estado</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($loan->materialReturns as $return)
-                    <tr>
-                        <td>{{ $return->material->name }}</td>
-                        <td>{{ $return->quantity_returned }}</td>
-                        <td>{{ \Carbon\Carbon::parse($return->return_at)->format('d/m/Y g:i A') }}</td>
-                        <td><span class="status">{{ ucfirst($return->status) }}</span></td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-        <h3>Detalles:</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Id Devolución</th>
-                    <th>Detalles</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($loan->materialReturns as $return)
-                    <tr>
-                        <td>{{ $return->id }}</td>
-                        <td>{{ $return->detail ?: 'No hay detalles' }}</td>
-                    </tr>
+                    @foreach ($return->materialReturnMaterials as $materialReturnMaterial)
+                        <tr>
+                            <td>{{ $return->id }}</td>
+                            <td>{{ $materialReturnMaterial->material->name ?? 'Sin nombre' }}</td>
+                            <td>{{ $materialReturnMaterial->quantity_returned ?? '0' }}</td>
+                            <td>{{ \Carbon\Carbon::parse($return->return_at)->format('d/m/Y g:i A') }}</td>
+                            <td>{{ ucfirst($return->status) }}</td>
+                        </tr>
+                    @endforeach
                 @endforeach
             </tbody>
         </table>

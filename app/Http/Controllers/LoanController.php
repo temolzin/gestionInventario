@@ -201,7 +201,7 @@ class LoanController extends Controller
 
         return $pdf->stream('reporte_prestamo_' . $loan->id . '.pdf');
     }
-    
+
     public function generateReturnReport($id)
     {
         $loan = Loan::with(['student', 'materialReturns', 'createdBy'])->findOrFail($id);
@@ -213,7 +213,6 @@ class LoanController extends Controller
 
         return $pdf->stream('reporte_devolucion_' . $loan->id . '.pdf');
     }
-
 
     public function returnMaterial(Request $request, $loanId)
     {
@@ -239,12 +238,20 @@ class LoanController extends Controller
 
         $cantidadDevueltaTotal = 0;
 
+        $materialReturnId = DB::table('material_returns')->insertGetId([
+            'loan_id' => $loanId,
+            'department_id' => $loan->department_id,
+            'created_by' => auth()->id(),
+            'return_at' => $request->return_at,
+            'status' => $request->status,
+            'detail' => $request->detail ?? null,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
         foreach ($request->materials as $materialData) {
             $materialId = $materialData['id'];
             $cantidadDevuelta = $materialData['quantity'];
-
-            $status = $request->status;
-            $detail = $request->detail ?? null;
 
             if (!isset($loanDetails[$materialId])) {
                 return redirect()->back()->with('error', "El material con ID {$materialId} no pertenece a este préstamo.");
@@ -265,15 +272,10 @@ class LoanController extends Controller
                     ->where('material_id', $materialId)
                     ->increment('returned_quantity', $cantidadDevuelta);
 
-                DB::table('material_returns')->insert([
-                    'loan_id' => $loanId,
+                DB::table('material_return_materials')->insert([
+                    'material_return_id' => $materialReturnId,
                     'material_id' => $materialId,
-                    'department_id' => $loan->department_id,
-                    'created_by' => auth()->id(),
                     'quantity_returned' => $cantidadDevuelta,
-                    'return_at' => $request->return_at,
-                    'status' => $status,
-                    'detail' => $detail,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
@@ -293,7 +295,7 @@ class LoanController extends Controller
 
     public function show($id)
     {
-        $loan = Loan::with(['materialReturns.material'])->findOrFail($id);
+        $loan = Loan::with(['materialReturns.materialReturnMaterials.material'])->findOrFail($id);
 
         return view('loans.showReturn', compact('loan'));
     }

@@ -21,10 +21,11 @@ class DatabaseSeeder extends Seeder
             CategoryTableSeeder::class,
             MaterialsTableSeeder::class,
             LoansTableSeeder::class,
+            LoanDetailsTableSeeder::class,
             MaterialReturnsTableSeeder::class,
             InventoriesTableSeeder::class,
             InventoryMaterialsTableSeeder::class,
-            LoanDetailsTableSeeder::class,
+            MaterialReturnMaterialSeeder::class,
         ]);
     }
 }

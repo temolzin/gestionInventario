@@ -51,5 +51,6 @@ class Loan extends Model
     public function materialReturn()
     {
         return $this->hasOne(MaterialReturn::class);
-    }
+    } 
+    
 }
