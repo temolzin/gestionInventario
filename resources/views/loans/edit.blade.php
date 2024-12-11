@@ -81,7 +81,7 @@
                                     <div id="materialsContainer{{ $loan->id }}">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                <select class="form-control select2"
+                                                <select class="form-control select2" disabled
                                                     id="materialSelect{{ $loan->id }}">
                                                     <option value="">Seleccione un material</option>
                                                     @foreach ($materials as $material)
@@ -95,13 +95,13 @@
                                             <div class="col-md-4 mb-2 offset-md-1">
                                                 <div class="form-group mb-0">
                                                     <input type="number" id="materialQuantity{{ $loan->id }}"
-                                                        min="1" placeholder="Cantidad" class="form-control">
+                                                        min="1" placeholder="Cantidad" class="form-control"readonly >
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="form-group mb-0">
                                                     <button type="button" class="btn btn-warning"
-                                                        id="addMaterialButton{{ $loan->id }}">Agregar</button>
+                                                        id="addMaterialButton{{ $loan->id }}" disabled>Agregar</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -125,13 +125,13 @@
                                                     <tr id="materialRow-{{ $material['id'] }}">
                                                         <td>{{ $material['name'] }}</td>
                                                         <td>
-                                                            <input type="number" class="form-control"
+                                                            <input readonly  type="number" class="form-control"
                                                                 name="materials[{{ $material['id'] }}][quantity]"
                                                                 value="{{ $material->pivot->quantity }}" min="1"
                                                                 onchange="updateMaterialQuantity('{{ $loan->id }}', '{{ $material['id'] }}', this.value)" />
                                                         </td>
                                                         <td>
-                                                            <button type="button" class="btn btn-danger btn-sm"
+                                                            <button readonly  type="button" class="btn btn-danger btn-sm"
                                                                 onclick="removeMaterial(this, '{{ $loan->id }}', '{{ $material['id'] }}')">
                                                                 <i class="fas fa-trash-alt"></i>
                                                             </button>

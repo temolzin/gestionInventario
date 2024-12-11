@@ -85,25 +85,38 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php
+                                            $hayMateriales = false;
+                                        @endphp                                    
                                         @foreach ($loan->materials as $material)
-                                            <tr>
-                                                <td>{{ $material->id }}</td>
-                                                <td>{{ $material->name }}</td>
-                                                <td>
-                                                    {{ $material->pivot->returned_quantity ?? 0 }}
-                                                </td>
-                                                <td>
-                                                    <input type="number"
-                                                        name="materials[{{ $material->id }}][quantity]"
-                                                        class="form-control" min="0"
-                                                        max="{{ $material->pivot->quantity - ($material->pivot->returned_quantity ?? 0) }}"
-                                                        placeholder="Restante: {{ $material->pivot->quantity - ($material->pivot->returned_quantity ?? 0) }}">
-                                                    <input type="hidden" name="materials[{{ $material->id }}][id]"
-                                                        value="{{ $material->id }}">
-                                                </td>
-                                            </tr>
+                                            @php
+                                                $cantidadRestante = $material->pivot->quantity - ($material->pivot->returned_quantity ?? 0);
+                                            @endphp
+                                            @if ($cantidadRestante > 0)
+                                                @php
+                                                    $hayMateriales = true;
+                                                @endphp
+                                                <tr>
+                                                    <td>{{ $material->id }}</td>
+                                                    <td>{{ $material->name }}</td>
+                                                    <td>{{ $material->pivot->returned_quantity ?? 0 }}</td>
+                                                    <td>
+                                                        <input type="number"
+                                                            name="materials[{{ $material->id }}][quantity]"
+                                                            class="form-control" min="0"
+                                                            max="{{ $cantidadRestante }}"
+                                                            placeholder="Restante: {{ $cantidadRestante }}">
+                                                        <input type="hidden" name="materials[{{ $material->id }}][id]" value="{{ $material->id }}">
+                                                    </td>
+                                                </tr>
+                                            @endif
                                         @endforeach
-                                    </tbody>
+                                        @if (!$hayMateriales)
+                                            <tr>
+                                                <td colspan="4" class="text-center text-muted">No hay materiales pendientes de devolución.</td>
+                                            </tr>
+                                        @endif
+                                    </tbody>                                    
                                 </table>
                             </div>
                         </div>

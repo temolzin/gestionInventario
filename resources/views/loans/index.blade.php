@@ -71,8 +71,9 @@
                                                         <td>
                                                             <div class="btn-group" role="group" aria-label="Opciones">
                                                                 <button type="button" class="btn btn-info mr-2"
-                                                                    data-toggle="modal" title="Ver Detalles"
-                                                                    data-target="#view{{ $loan->id }}">
+                                                                    data-toggle="modal"
+                                                                    data-target="#showReturn{{ $loan->id }}"
+                                                                    title="Ver Devoluciones">
                                                                     <i class="fas fa-eye"></i>
                                                                 </button>
                                                                 <button type="button" class="btn btn-warning mr-2"
@@ -87,16 +88,9 @@
                                                                     title="Devolución">
                                                                     <i class="fas fa-undo"></i>
                                                                 </button>
-                                                                <button type="button" class="btn mr-2"
-                                                                    style="background-color: #00B0FF; color: white;"
-                                                                    data-toggle="modal"
-                                                                    data-target="#showReturn{{ $loan->id }}"
-                                                                    title="Ver Devoluciones">
-                                                                    <i class="fas fa-eye"></i>
-                                                                </button>
                                                                 <a href="{{ route('loan.report.detail', $loan->id) }}"
-                                                                    class="btn btn-primary mr-2" title="Generar Reporte"
-                                                                    target="_blank">
+                                                                    class="btn btn-primary mr-2"
+                                                                    title="Generar Reporte de Prestamo" target="_blank">
                                                                     <i class="fas fa-file-pdf"></i>
                                                                 </a>
                                                                 <a href="{{ route('return.report.detail', $loan->id) }}"
@@ -123,7 +117,6 @@
                                     @foreach ($loans as $loan)
                                         @include('loans.edit')
                                         @include('loans.delete')
-                                        @include('loans.show')
                                         @include('loans.return')
                                         @include('loans.showReturn')
                                     @endforeach

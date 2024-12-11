@@ -17,10 +17,8 @@ class MaterialReturnsTableSeeder extends Seeder
         DB::table('material_returns')->insert([
             [
                 'loan_id' => 1, 
-                'material_id' => 1, 
                 'department_id' => 1, 
                 'created_by' => 2, 
-                'quantity_returned' => 2,
                 'return_at' => now()->addDays(1)->format('Y-m-d H:i:s'), 
                 'status' => 'Devuelto', 
                 'detail' => 'Material entregado completo', 
@@ -29,10 +27,8 @@ class MaterialReturnsTableSeeder extends Seeder
             ],
             [
                 'loan_id' => 2,
-                'material_id' => 2, 
                 'department_id' => 1,
                 'created_by' => 2, 
-                'quantity_returned' => 1, 
                 'return_at' => now()->addDays(1)->format('Y-m-d H:i:s'), 
                 'status' => 'Devuelto', 
                 'detail' => 'Material entregado completo', 
@@ -41,10 +37,8 @@ class MaterialReturnsTableSeeder extends Seeder
             ],
             [
                 'loan_id' => 3, 
-                'material_id' => 3, 
                 'department_id' => 1, 
                 'created_by' => 2, 
-                'quantity_returned' => 1,
                 'return_at' => now()->addDays(1)->format('Y-m-d H:i:s'),
                 'status' => 'Incompleto', 
                 'detail' => 'Faltaba un componente esencial', 

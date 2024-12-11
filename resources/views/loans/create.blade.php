@@ -172,7 +172,7 @@
                 <input type="text" class="form-control" value="${selectedOption.text}" disabled>
             </td>
             <td>
-                <input type="number" name="materials[${materialIndex}][quantity]" class="form-control" value="${materialQuantity}" min="1" required>
+                <input type="number" name="materials[${materialIndex}][quantity]" class="form-control" value="${materialQuantity}" min="1" required readonly>
             </td>
             <td>
                 <button type="button" class="btn btn-danger removeMaterialBtn"><i class="fas fa-trash-alt"></i></button>

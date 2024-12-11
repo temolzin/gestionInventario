@@ -11,12 +11,10 @@ class MaterialReturn extends Model
 
     protected $fillable = [
         'loan_id',
-        'material_id',
         'department_id',
         'created_by',
         'status',
         'detail',
-        'quantity_returned',
         'return_at',
     ];
 
@@ -39,9 +37,15 @@ class MaterialReturn extends Model
     {
         return $this->belongsTo(Department::class);
     }
-    
-    public function material()
+
+    public function materials()
     {
-        return $this->belongsTo(Material::class);
+        return $this->belongsToMany(Material::class, 'material_return_materials', 'material_return_id', 'material_id')
+                    ->withPivot('quantity_returned');
+    }
+
+    public function materialReturnMaterials()
+    {
+        return $this->hasMany(MaterialReturnMaterial::class);
     }
 }
